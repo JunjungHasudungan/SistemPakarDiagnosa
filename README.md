@@ -1,9 +1,9 @@
 
 
-## About Sistem Pakar Diagnosa
+## Tentang Sistem Pakar Diagnosa
 
 Sistem Pakar Diagnosa yang diedukasikan pada diri sendiri untuk pengembangan kemampuan dalam
-pembuatan web developer. Aplikasi ini berisikan:
+pembuatan web developer. Aplikasi ini berisikan
 Admin dapat melakukan:
 - Kelola Data Jenis Kecanduan
 - Kelola Data Gejala Kecanduan

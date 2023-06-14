@@ -38,15 +38,14 @@
                 @if ($show_modal)
                     @include('livewire.kecanduan.detail')
                 @endif
-            {{-- search --}}
-                {{-- @if (!$is_search)
-                    @include('livewire.users.search-user')
+
+                @if (!$cari_kecanduan)
+                    @include('livewire.kecanduan.cari-kecanduan')
                 @endif
 
-                @if ($is_edit)
+                @if ($edit_modal)
                     @include('livewire.users.edit')
-                @endif --}}
-            {{-- end search --}}
+                @endif
         </div>
     </div>
 
@@ -88,7 +87,7 @@
                         </td>
                         <td class="px-6 py-4">
                             {{-- add button for edit and delete data classroom --}}
-                            <button  wire:click="editUser( {{ $item->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button  wire:click="editKecanduan( {{ $item->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
                             </button>
 

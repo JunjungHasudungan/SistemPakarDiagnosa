@@ -38,15 +38,13 @@
                 @if ($show_modal)
                     @include('livewire.solutions.detail')
                 @endif
-            {{-- search --}}
-                {{-- @if (!$is_search)
-                    @include('livewire.users.search-user')
+                @if (!$cari_solusi)
+                    @include('livewire.solutions.cari-solusi')
                 @endif
 
-                @if ($is_edit)
-                    @include('livewire.users.edit')
-                @endif --}}
-            {{-- end search --}}
+                @if ($edit_modal)
+                    @include('livewire.solutions.edit')
+                @endif
         </div>
     </div>
 
@@ -58,13 +56,13 @@
                     No
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Jenis Kecanduan
+                    Kode JK
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Level | Deskripsi
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Solusi
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Keterangan
                 </th>
                 <th scope="col" class="px-6 py-3">
 
@@ -78,13 +76,13 @@
                             {{$loop->iteration}}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->kecanduan->deskripsi ?? '' }}
+                            {{ $item->kecanduan->kode_kecanduan ?? '' }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->level }}
+                            {{ $item->kecanduan->level ?? '' }} |  {{ $item->kecanduan->deskripsi ?? '' }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->deskripsi }}
+                            {{ $item->keterangan ?? '' }}
                         </td>
                         <td class="px-6 py-4">
                             {{-- add button for edit and delete data classroom --}}

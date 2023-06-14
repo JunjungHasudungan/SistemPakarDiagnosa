@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Solution extends Model
+class Gejala extends Model
 {
     use HasFactory;
 
-    protected $guraded = [];
+    protected $guarded = [];
 
     public function kecanduan()
     {

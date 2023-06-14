@@ -10,6 +10,7 @@ class Solusi extends Component
     public  $open_modal = false,
             $show_modal = false,
             $edit_modal = false,
+            $cari_solusi = false,
             $id_solution,
             $description,
             $solutions;
