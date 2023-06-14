@@ -21,7 +21,7 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('solusi.index')" :active="request()->routeIs('solusi.index')">
-                        {{ __('Kecanduan') }}
+                        {{ __('Solusi') }}
                     </x-nav-link>
                 </div>
             </div>

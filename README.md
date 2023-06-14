@@ -15,6 +15,7 @@ Tamu dapat melakukan:
 
 Adapun sistem ini dibuat menggunakan:
 - Laravel [documentation](https://laravel.com/docs)
+- Livewire [documentation](https://laravel-livewire.com/)
 
 ### Penulis Aplikasi
 
