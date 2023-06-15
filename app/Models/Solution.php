@@ -15,4 +15,9 @@ class Solution extends Model
     {
         return $this->belongsTo(Kecanduan::class, 'kecanduan_id');
     }
+
+    public function kecanduanSolusi()
+    {
+        return $this->belongsToMany(Kecanduan::class, 'kecanduan_solusi')->withPivot('role');
+    }
 }
