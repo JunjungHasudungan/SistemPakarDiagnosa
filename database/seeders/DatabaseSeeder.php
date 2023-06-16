@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SolutionSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
+            GejalaSeeder::class,
         ]);
     }
 }

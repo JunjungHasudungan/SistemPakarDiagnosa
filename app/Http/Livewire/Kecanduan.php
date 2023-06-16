@@ -115,16 +115,19 @@ class Kecanduan extends Component
         $this->deskripsi = '';
     }
 
+    public function createKecanduan()
+    {
+        $this->opencreateModal();
+
+        $this->resetField();
+    }
+
     public function storeKecanduan()
     {
-        // dd('store kecanduan');
-        // $this->resetField();
-
-        $this->opencreateModal();
 
         $this->validate([
             'kode_kecanduan'            => 'required',
-            'level_id'                     => 'required',
+            'level_id'                  => 'required',
             'deskripsi'                 => 'required'
         ],[
             'kode_kecanduan.unique'     => 'Kode Kecanduan Harus unik',

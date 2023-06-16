@@ -15,7 +15,7 @@
 
         <div class=" inline-flex col-span-7 p-3 w-full">
             {{-- button --}}
-            <button wire:click.prevent="storeKecanduan()"
+            <button wire:click.prevent="createKecanduan()"
                 class="bg-blue-500 hover:bg-blue-700 w-40
                 text-white font-bold rounded-md my-3 inline-flex py-2 px-5">
                 <svg class="w-5 h-6 -ml-1 inline-flex"
@@ -57,7 +57,7 @@
                     No
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Kode Jenis Kecanduan
+                    Kode Kecanduan
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Level

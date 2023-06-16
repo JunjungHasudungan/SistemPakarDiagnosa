@@ -13,6 +13,6 @@ class Gejala extends Model
 
     public function kecanduan()
     {
-        return $this->belongsTo(Kecanduan::class, 'kecanduan_id');
+        return $this->belongsTo(Kecanduan::class);
     }
 }
