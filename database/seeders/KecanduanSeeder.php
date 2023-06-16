@@ -15,14 +15,14 @@ class KecanduanSeeder extends Seeder
     {
         $kecanduans = [
             [
-                'kode_kecanduan'        => 'JK01',
-                'level'                 => 'rendah',
-                'deskripsi'             => 'butuh pengawasan'
+                'kode_kecanduan'           => 'JK01',
+                'level_id'                 => 1,
+                'deskripsi'                => 'butuh pengawasan'
             ],
             [
-                'kode_kecanduan'        => 'JK02',
-                'level'                 => 'Sedang',
-                'deskripsi'             => 'Perlu Tindakan Segera'
+                'kode_kecanduan'            => 'JK02',
+                'level_id'                  => 2,
+                'deskripsi'                 => 'Perlu Tindakan Segera'
             ],
         ];
 

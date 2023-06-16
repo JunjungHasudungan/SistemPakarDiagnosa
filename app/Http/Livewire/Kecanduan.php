@@ -15,9 +15,10 @@ class Kecanduan extends Component
             $cari_kecanduan = false,
             $kecanduans,
             $kecanduan,
+            // $level,
             $id_kecanduan,
             $kode_kecanduan,
-            $level,
+            $level_id,
             $deskripsi;
 
     protected $listeners = [
@@ -28,7 +29,7 @@ class Kecanduan extends Component
     {
 
         return view('livewire.kecanduan', [
-            $this->kecanduans = Kecanduans::all(),
+            $this->kecanduans = Kecanduans::with(['level'])->get(),
 
             // $this->level = LevelKecanduan::LevelKecandaun,
         ]);
@@ -64,21 +65,21 @@ class Kecanduan extends Component
 
         $this->kode_kecanduan = $kecanduan->kode_kecanduan;
 
-        $this->level = $kecanduan->level;
-        
+        $this->level_id = $kecanduan->level_id;
+
         $this->deskripsi = $kecanduan->deskripsi;
     }
 
     public function updateKecanduan($id_kecanduan)
     {
         $kecanduan = Kecanduans::find($id_kecanduan);
-       
+
         // dd($this->id_kecanduan);
         $kecanduan->update([
 
             'kode_kecanduan'    => $this->kode_kecanduan,
 
-            'level'             => $this->level,
+            'level_id'             => $this->level_id,
 
             'deskripsi'         => $this->deskripsi,
         ]);
@@ -107,46 +108,46 @@ class Kecanduan extends Component
         Kecanduans::where('id', $id);
     }
 
-    protected $rules = [
-        'kode_kecanduan'        => 'required|unique|string|max:4|min:3',
-        'level'                 => 'required|string',
-        'descripsi'             => 'required|string|max:50|min:3'
-    ];
-
     public function resetField()
     {
         $this->kode_kecanduan = '';
-        $this->level = '';
+        $this->level_id = '';
         $this->deskripsi = '';
     }
 
     public function storeKecanduan()
     {
         // dd('store kecanduan');
+        // $this->resetField();
+
         $this->opencreateModal();
 
         $this->validate([
             'kode_kecanduan'            => 'required',
-            'level'                     => 'required',
+            'level_id'                     => 'required',
             'deskripsi'                 => 'required'
         ],[
             'kode_kecanduan.unique'     => 'Kode Kecanduan Harus unik',
             'kode_kecanduan.required'   => 'Kode Kecanduan Wajib diisi..',
-            'level.required'            => 'level kecanduan harus karakter',
+            'level_id'                  => 'wajib dipilih..',
             'deskripsi.required'        => 'Keterangan Wajib diisi..'
         ]);
 
         $kecanduan = Kecanduans::create([
             'kode_kecanduan'            => $this->kode_kecanduan,
-            'level'                     => $this->level,
+            'level_id'                  => $this->level_id,
             'deskripsi'                 => $this->deskripsi,
         ]);
+
+        $kecanduan->save();
 
         $this->resetField();
 
         $this->closeCreateModal();
 
-        $kecanduan->save();
+        $this->dispatchBrowserEvent( 'toas:info', [
+            'message'   => 'Data Berhasil Ditambahkan..'
+        ]);
 
     }
 }

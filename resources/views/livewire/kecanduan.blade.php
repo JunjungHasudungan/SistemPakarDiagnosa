@@ -15,7 +15,7 @@
 
         <div class=" inline-flex col-span-7 p-3 w-full">
             {{-- button --}}
-            <button wire:click.prevent="storeKecandaun()"
+            <button wire:click.prevent="storeKecanduan()"
                 class="bg-blue-500 hover:bg-blue-700 w-40
                 text-white font-bold rounded-md my-3 inline-flex py-2 px-5">
                 <svg class="w-5 h-6 -ml-1 inline-flex"
@@ -80,7 +80,7 @@
                             {{ $item['kode_kecanduan'] }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->level }}
+                            {{ $item->level->keterangan ?? '' }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $item->deskripsi }}

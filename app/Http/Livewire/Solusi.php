@@ -2,7 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Solution;
+use App\Models\{
+    Kecanduan,
+    Solution,
+};
+
 use Livewire\Component;
 
 class Solusi extends Component
@@ -13,11 +17,34 @@ class Solusi extends Component
             $cari_solusi = false,
             $id_solution,
             $description,
+            $level_id,
+            $kecanduans,
+            $kecanduan_id,
+            $select_keterangan_kecanduan,
             $solutions;
+
+    protected $rules = [
+        ''
+    ];
+
+    public function mount()
+    {
+        $this->kecanduans = Kecanduan::all();
+    }
+
+    public function updatedSelectedKecanduan($query)
+    {
+        // Kecanduan::where('')
+    }
+
     public function render()
     {
+
         return view('livewire.solusi', [
-            $this->solutions  = Solution::with('kecanduan')->get()
+            $this->solutions  = Solution::with('kecanduan')->get(),
+
+            $this->kecanduans = Kecanduan::with(['level'])->get(),
+
         ]);
     }
 
@@ -33,7 +60,13 @@ class Solusi extends Component
 
     public function createSolution()
     {
-        dd('Halaman create solution');
+        $this->openModalCreate();
+
+        // $this->validate([
+
+        // ]);
+        $solusi = new Solution();
+
     }
 
     public function openModalEdit()

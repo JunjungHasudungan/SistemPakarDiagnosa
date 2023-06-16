@@ -5,9 +5,9 @@ namespace App\Helpers;
 class LevelKecanduan
 {
     const LevelKecanduan = [
-        'Rendah'    => 'rendah',
-        'Sedang'    => 'sedang',
-        'Tinggi'    => 'tinggi'
+        'Rendah'    => 1,
+        'Sedang'    => 2,
+        'Tinggi'    => 3
 
     ];
 }

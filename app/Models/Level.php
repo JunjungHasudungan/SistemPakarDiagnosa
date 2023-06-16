@@ -4,21 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Helper\LevelKecanduan;
 
-class Kecanduan extends Model
+class Level extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-
-
-    public function level()
-    {
-        return $this->belongsTo(Level::class);
-    }
-
-
-
-
 }

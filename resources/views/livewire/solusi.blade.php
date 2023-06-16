@@ -79,7 +79,7 @@
                             {{ $item->kecanduan->kode_kecanduan ?? '' }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->kecanduan->level ?? '' }} |  {{ $item->kecanduan->deskripsi ?? '' }}
+                            {{-- {{ $item->kecanduan->level ?? '' }} |  {{ $item->kecanduan->deskripsi ?? '' }} --}}
                         </td>
                         <td class="px-6 py-4">
                             {{ $item->keterangan ?? '' }}

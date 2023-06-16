@@ -28,15 +28,15 @@
 
                               {{-- select level_kecanduan --}}
                               <div class="mb-6">
-                                  <label for="level" class="block mb-2 text-sm font-bold text-gray-900">
+                                  <label for="level_id" class="block mb-2 text-sm font-bold text-gray-900">
                                      Level
                                   </label>
-                                  <select wire:model="level"
-                                          id="level"
+                                  <select wire:model="level_id"
+                                          id="level_id"
                                           class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                           <option value="">-- Pilih Level --</option>
                                               @forelse (\App\Helpers\LevelKecanduan::LevelKecanduan as $key => $item)
-                                                  <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize" value="{{$key}}"> {{ $item }} </option>
+                                                  <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize" value="{{$item}}"> {{ $key }} </option>
                                               @empty
                                                   <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Level Belum Tersedia..</option>
                                               @endforelse
