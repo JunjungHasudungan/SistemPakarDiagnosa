@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\{
     Kecanduan,
+    Level,
     Solution,
 };
 
@@ -18,23 +19,39 @@ class Solusi extends Component
             $id_solution,
             $description,
             $level_id,
+            $levels,
             $kecanduans,
             $kecanduan_id,
             $select_keterangan_kecanduan,
             $solutions;
 
+    public $selectedLevel = null;
+    public $selectedKecanduan = null;
+
     protected $rules = [
         ''
     ];
 
-    public function mount()
+    public function mount($selectKecanduan = null)
     {
-        $this->kecanduans = Kecanduan::all();
+        $this->levels = Level::all();
+        $this->kecanduans = collect();
+        $this->selectedKecanduan = $selectKecanduan;
+
+        if (!is_null($selectKecanduan)) {
+            $kecanduan = Kecanduan::with('level')->find($selectKecanduan);
+            if($kecanduan){
+                $this->kecanduans = Kecanduan::where('level_id', $kecanduan->level_id)->get();
+                $this->selectedKecanduan = $kecanduan->level->keterangan;
+            }
+        }
     }
 
-    public function updatedSelectedKecanduan($query)
+    public function updatedSelectedKecanduan($kecanduan)
     {
-        // Kecanduan::where('')
+        $this->kecanduans = Kecanduan::where('level_id', $kecanduan)->get();
+
+        $this->selectedKecanduan = null;
     }
 
     public function render()
