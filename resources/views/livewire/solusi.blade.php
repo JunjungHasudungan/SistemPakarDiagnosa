@@ -79,14 +79,14 @@
                             {{ $item->kecanduan->kode_kecanduan ?? '' }}
                         </td>
                         <td class="px-6 py-4">
-                            {{-- {{ $item->kecanduan->level ?? '' }} |  {{ $item->kecanduan->deskripsi ?? '' }} --}}
+                            {{ $item->kecanduan->level->keterangan ?? '' }} |  {{ $item->kecanduan->deskripsi ?? '' }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $item->keterangan ?? '' }}
                         </td>
                         <td class="px-6 py-4">
                             {{-- add button for edit and delete data classroom --}}
-                            <button  wire:click="editSolution( {{ $item->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button  wire:click="editSolusi( {{ $item->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
                             </button>
 

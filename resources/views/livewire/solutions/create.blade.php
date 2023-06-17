@@ -19,18 +19,18 @@
                 <div class="grid md:grid-cols-2 md:gap-6">
                     {{-- select level_kecanduan --}}
                     <div class="mb-6">
-                        <label for="level" class="block mb-2 text-sm font-bold text-gray-900">
-                            Level Kecanduan
+                        <label for="to_role" class="block mb-2 text-sm font-bold text-gray-900">
+                            Untuk Siapa
                         </label>
                             <select
-                                wire:model="selectedLevel"
-                                id="selectedLevel"
+                                wire:model="to_role"
+                                id="to_role"
                                 class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option value="">-- Pilih Level Kecanduan --</option>
-                                        @forelse ($kecanduans as $item)
+                                    <option value="">-- Pilih Untuk Siapa --</option>
+                                        @forelse ($roles as $key => $role)
                                             <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
-                                                    value="{{$item->id}}">
-                                                    {{ $item->level->keterangan }}
+                                                    value="{{ $key }}">
+                                                    {{ $role }}
                                             </option>
                                         @empty
                                             <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
@@ -39,34 +39,32 @@
                     </div>
                     {{-- end select level_kecanduan --}}
 
-                    @if (!is_null($selectedLevel))
                         <div class="mb-6">
                             {{-- input code kode_kecanduan --}}
                             <div class="mb-4">
                                 <label
-                                    for="deskripsi"
+                                    for="kecanduan_id"
                                     class="block text-gray-700 text-sm font-bold mb-2">
                                     Keterangan Kecanduan
                                 </label>
                                 <select
-                                    wire:model="selectedLevel"
-                                    id="selectedLevel"
+                                    wire:model="kecanduan_id"
+                                    id="kecanduan_id"
+                                    name="kecanduan_id"
                                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option value="">-- Pilih Keterangan Kecanduan --</option>
                                             @forelse ($kecanduans as $item)
                                                 <option
                                                     class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
-                                                    value="{{$item->id}}">
-                                                    {{ $item->deskripsi ?? '' }}
+                                                    value="{{ $item->id }}">  {{ $item->level->keterangan ?? '' }} | {{ $item->deskripsi }}
                                                 </option>
                                             @empty
-                                                <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
+                                                <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Role Belum Tersedia..</option>
                                             @endforelse
                                 </select>
                             </div>
                             {{-- end input kode_kecanduan --}}
                         </div>
-                    @endif
                 </div>
                 {{-- end grid #1 --}}
 
@@ -81,60 +79,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($allClassroom as $classroom)
-                                <input id="status_id_input" value="{{$classroom->id}}" type="hidden">
-                            @endforeach --}}
-
+                            @foreach ($solusi_kecanduan as $index => $item)
                                 <tr class="bg-white w-full">
-                                    <td class="px-1 py-4">
-                                        {{-- <input type="hidden" name="classroom_id" wire:model="classroom_id" value="{{ $index }}"> --}}
-                                        <select
-                                                {{-- name="subject_classrooms[{{$index}}][classroom_id]"
-                                                wire:model="subject_classrooms.{{$index}}.classroom_id"
-                                                id="classroomSubject"
-                                                name="classroom_id"
-                                                wire:model="classroom_id" --}}
-                                                class="border border-gray-300 text-gray-900 text-sm rounded-lg ring-blue-500 border-blue-500 block
-                                                w-full p-2.5 bg-white border-gray-600 placeholder-gray-400 font-semibold
-                                                ">
-                                                <option value="">-- Untuk Siapa --</option>
-                                                @forelse ($roles as $key => $role)
-                                                    <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize" value="{{$role}}"> {{ $role }} </option>
-                                                @empty
-                                                    <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Role Belum Tersedia..</option>
-                                                @endforelse
-                                        </select>
-                                        {{-- @error('classroom_id')
-                                            <span class="text-red-500">{{ $message }}</span>
-                                        @enderror --}}
-                                    </td>
+                                        {{-- input keterangan --}}
+                                        <td class="px-1 py-6">
+                                            <textarea
+                                                name="solusi_kecanduan[{{$index}}][kecanduan_id]"
+                                                wire:model="solusi_kecanduan.{{$index}}.{{$kecanduan_id}}"
 
-                                    {{-- input keterangan --}}
-                                    <td class="px-1 py-4">
-                                        <textarea
-                                        id="message"
-                                        rows="1"
-                                        class="block w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="Tulis Keterangan Solusi disini...">
-                                    </textarea>
-                                    </td>
-                                    {{-- end input keterangan--}}
+                                                name="keterangan"
+                                                wire:model="keterangan"
+                                                id="message"
+                                                rows="2"
+                                                class="block w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="Tulis Keterangan Solusi disini...">
+                                            </textarea>
+                                        </td>
+                                        {{-- end input keterangan--}}
 
-
-                                    <td class="item-right">
-                                        <button href="#" wire:click.prevent="removeSolution()"
-                                                    class=" w-full inline-flex items-center justify-items-end text-sm font-bold m-auto px-px
-                                                    text-center text-yellow-900">
-                                           <span class="text-center">
+                                        <td class="justify-items-center">
+                                            <button href="#" wire:click.prevent="removeSolution( {{ $index }} )"
+                                            class=" w-full inline-flex place-items-center text-sm font-bold m-auto px-px space-x-4
+                                            text-center text-yellow-900">
+                                            <span class="text-center">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                 </svg>
-                                           </span>
+                                            </span>
                                         </button>
                                     </td>
-
                                 </tr>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                     <div>

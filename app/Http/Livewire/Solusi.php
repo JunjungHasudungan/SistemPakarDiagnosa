@@ -25,36 +25,25 @@ class Solusi extends Component
             $kecanduan_id,
             $select_keterangan_kecanduan,
             $roles,
-            $for_role,
+            $to_role,
             $solutions;
 
-    public $selectedLevel = null;
-    public $selectedKecanduan = null;
+    // data penampung solusi kecanduan ketika  diisi waktu tombol penambahan solusi dilakukan
+    public $solusi_kecanduan = [];
 
     protected $rules = [
-        ''
+        'kecanduan_id'      => 'required',
+        'to_role'           => 'required',
+
     ];
 
-    public function mount($selectKecanduan = null)
+    public function mount()
     {
-        $this->levels = Level::all();
-        $this->kecanduans = collect();
-        $this->selectedKecanduan = $selectKecanduan;
-
-        if (!is_null($selectKecanduan)) {
-            $kecanduan = Kecanduan::with('level')->find($selectKecanduan);
-            if($kecanduan){
-                $this->kecanduans = Kecanduan::where('level_id', $kecanduan->level_id)->get();
-                $this->selectedKecanduan = $kecanduan->level->keterangan;
-            }
-        }
-    }
-
-    public function updatedSelectedKecanduan($id_kecanduan)
-    {
-        $this->kecanduans = Kecanduan::where('level_id', $id_kecanduan)->get();
-
-        $this->selectedKecanduan = null;
+        $this->solusi_kecanduan = [
+            [
+                'kecanduan_id'     => '',
+            ]
+        ];
     }
 
     public function render()
@@ -96,9 +85,11 @@ class Solusi extends Component
         $this->edit_modal = true;
     }
 
-    public function editSolution($id_solution)
+    public function editSolusi($id_solusi)
     {
-        $this->id_solution = $id_solution;
+        $this->id_solution = $id_solusi;
+
+        dd($this->id_solution);
 
     }
 
@@ -127,6 +118,8 @@ class Solusi extends Component
     public function resetField()
     {
         $this->description = '';
+        $this->kecanduan_id = '';
+        $this->solusi_kecanduan = [];
     }
 
     public function deleteConfirmation($id_solution)
@@ -134,13 +127,21 @@ class Solusi extends Component
         $this->id_solution = $id_solution;
     }
 
-    public function removeSolution()
+    public function removeSolution($index)
     {
-        dd('remove solution..');
+        // panggil ulang solusi_kecanduan untuk melepaskan data yang sudah diisi dalam array
+       unset($this->solusi_kecanduan[$index]);
+
+        // kembali kenilai awal array
+        $this->solusi_kecanduan = array_values($this->solusi_kecanduan);
     }
 
     public function addSolution()
     {
-        dd('Tambah solusi..');
+    //    panggil solusi_kecanduan
+        $this->solusi_kecanduan[] =
+        [
+            'kecanduan_id'      => '',
+        ];
     }
 }
