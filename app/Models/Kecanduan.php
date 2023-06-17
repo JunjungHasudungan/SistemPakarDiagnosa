@@ -18,6 +18,11 @@ class Kecanduan extends Model
         return $this->belongsTo(Level::class);
     }
 
+    public function solutions()
+    {
+        return $this->hasMany(Solution::class);
+    }
+
 
 
 

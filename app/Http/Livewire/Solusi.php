@@ -48,11 +48,16 @@ class Solusi extends Component
 
     public function render()
     {
+        $this->kecanduans = Kecanduan::with(['level', 'solutions'])->get();
+        // dd($this->kecanduans);
 
+        foreach ($this->kecanduans as $kecanduan) {
+                // dd($kecanduan->solutions);
+        }
         return view('livewire.solusi', [
             $this->solutions  = Solution::with('kecanduan')->get(),
 
-            $this->kecanduans = Kecanduan::with(['level'])->get(),
+            $this->kecanduans = Kecanduan::with(['level', 'solutions'])->get(),
 
             $this->roles = ForRole::ForRole,
 

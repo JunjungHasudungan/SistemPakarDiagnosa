@@ -64,39 +64,48 @@
                 <th scope="col" class="px-6 py-3">
                     Solusi
                 </th>
-                <th scope="col" class="px-6 py-3">
+                {{-- <th scope="col" class="px-6 py-3">
 
-                </th>
+                </th> --}}
             </tr>
         </thead>
         <tbody>
-            @forelse ($solutions as $item)
+            @forelse ($kecanduans as $kecanduan)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{$loop->iteration}}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->kecanduan->kode_kecanduan ?? '' }}
+                            {{ $kecanduan->kode_kecanduan ?? '' }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->kecanduan->level->keterangan ?? '' }} |  {{ $item->kecanduan->deskripsi ?? '' }}
+                            {{ $kecanduan->level->keterangan ?? '' }} |  {{ $kecanduan->deskripsi ?? '' }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->keterangan ?? '' }}
-                        </td>
-                        <td class="px-6 py-4">
-                            {{-- add button for edit and delete data classroom --}}
-                            <button  wire:click="editSolusi( {{ $item->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Edit
-                            </button>
+                            @forelse ($kecanduan->solutions as $solusi)
+                                <ul class="flex max-w-full px-4 py-4 dark:border-gray-700 hover:text-white list-none max-w-md tracking-tight text-gray-500 list-inside dark:text-gray-400">
+                                    <li class="w-full ">
+                                        {{ $solusi->keterangan ?? '' }}
+                                    </li>
+                                    <li class="w-full justify-items-stretch">
+                                        <button  wire:click="editSolusi( {{ $kecanduan->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                            Edit
+                                        </button>
 
-                            <button  wire:click="detailSolution( {{ $item->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                Detail
-                            </button>
+                                        <button  wire:click="detailSolution( {{ $kecanduan->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                            Detail
+                                        </button>
 
-                            <button wire:click.prevent="deleteConfirmation( {{ $item->id }} )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                Delete
-                            </button>
+                                        <button wire:click.prevent="deleteConfirmation( {{ $kecanduan->id }} )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            Delete
+                                        </button>
+                                    </li>
+                                </ul>
+                            @empty
+                                <p class="text-yellow-900 font-bold">
+                                    {{ __('Data Solusi Belum tersedia..') }}
+                                </p>
+                            @endforelse
                         </td>
                     </tr>
                     @empty
