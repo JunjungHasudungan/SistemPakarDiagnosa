@@ -8,6 +8,7 @@ use App\Models\{
     Solution,
 };
 
+use App\Helpers\ForRole;
 use Livewire\Component;
 
 class Solusi extends Component
@@ -23,6 +24,8 @@ class Solusi extends Component
             $kecanduans,
             $kecanduan_id,
             $select_keterangan_kecanduan,
+            $roles,
+            $for_role,
             $solutions;
 
     public $selectedLevel = null;
@@ -47,9 +50,9 @@ class Solusi extends Component
         }
     }
 
-    public function updatedSelectedKecanduan($kecanduan)
+    public function updatedSelectedKecanduan($id_kecanduan)
     {
-        $this->kecanduans = Kecanduan::where('level_id', $kecanduan)->get();
+        $this->kecanduans = Kecanduan::where('level_id', $id_kecanduan)->get();
 
         $this->selectedKecanduan = null;
     }
@@ -61,6 +64,8 @@ class Solusi extends Component
             $this->solutions  = Solution::with('kecanduan')->get(),
 
             $this->kecanduans = Kecanduan::with(['level'])->get(),
+
+            $this->roles = ForRole::ForRole,
 
         ]);
     }

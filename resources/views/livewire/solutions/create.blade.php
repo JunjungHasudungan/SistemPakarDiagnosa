@@ -8,59 +8,102 @@
           <!-- This element is to trick the browser into centering the modal contents. -->
           <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
 
-          <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+          <div
+                class="inline-block align-bottom bg-white
+                        rounded-lg text-left overflow-hidden shadow-xl transform
+                        transition-all sm:my-8 sm:align-middle w-8/12"
+                role="dialog" aria-modal="true" aria-labelledby="modal-headline">
             <form>
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                {{-- end grid #1--}}
+                <div class="grid md:grid-cols-2 md:gap-6">
                     {{-- select level_kecanduan --}}
-                <div class="mb-6">
-                    <label for="level" class="block mb-2 text-sm font-bold text-gray-900">
-                        Level Kecanduan
-                    </label>
-                        <select
-                            wire:model="selectedLevel"
-                            id="selectedLevel"
-                            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="">-- Pilih Level Kecanduan --</option>
-                                    @forelse ($kecanduans as $item)
-                                        <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
-                                                value="{{$item->id}}">
-                                                {{ $item->level->keterangan }}
-                                        </option>
-                                    @empty
-                                        <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
-                                    @endforelse
-                        </select>
-                </div>
-                    {{-- end select level_kecanduan --}}
-
-                @if (!is_null($selectedLevel))
-                    <div class="">
-                    {{-- input code kode_kecanduan --}}
-                        <div class="mb-4">
-                            <label
-                                for="deskripsi"
-                                class="block text-gray-700 text-sm font-bold mb-2">
-                                Keterangan Kecanduan
-                            </label>
+                    <div class="mb-6">
+                        <label for="level" class="block mb-2 text-sm font-bold text-gray-900">
+                            Level Kecanduan
+                        </label>
                             <select
                                 wire:model="selectedLevel"
                                 id="selectedLevel"
                                 class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option value="">-- Pilih Keterangan Kecanduan --</option>
+                                    <option value="">-- Pilih Level Kecanduan --</option>
                                         @forelse ($kecanduans as $item)
-                                            <option
-                                                class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
-                                                value="{{$item->id}}">
-                                                {{ $item->deskripsi ?? '' }}
+                                            <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
+                                                    value="{{$item->id}}">
+                                                    {{ $item->level->keterangan }}
                                             </option>
                                         @empty
                                             <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
                                         @endforelse
                             </select>
-                        </div>
-                        {{-- end input kode_kecanduan --}}
                     </div>
-                @endif
+                    {{-- end select level_kecanduan --}}
+
+                    @if (!is_null($selectedLevel))
+                        <div class="mb-6">
+                            {{-- input code kode_kecanduan --}}
+                            <div class="mb-4">
+                                <label
+                                    for="deskripsi"
+                                    class="block text-gray-700 text-sm font-bold mb-2">
+                                    Keterangan Kecanduan
+                                </label>
+                                <select
+                                    wire:model="selectedLevel"
+                                    id="selectedLevel"
+                                    class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="">-- Pilih Keterangan Kecanduan --</option>
+                                            @forelse ($kecanduans as $item)
+                                                <option
+                                                    class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
+                                                    value="{{$item->id}}">
+                                                    {{ $item->deskripsi ?? '' }}
+                                                </option>
+                                            @empty
+                                                <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
+                                            @endforelse
+                                </select>
+                            </div>
+                            {{-- end input kode_kecanduan --}}
+                        </div>
+                    @endif
+                </div>
+                {{-- end grid #1 --}}
+
+                {{-- grid #2 --}}
+                <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="mb-6">
+                        <label for="for_role" class="block mb-2 text-sm font-bold text-gray-900">
+                        Solusi Untuk
+                        </label>
+                        <select
+                            wire:model="for_role"
+                            id="for_role"
+                            class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="">-- Pilih untuk --</option>
+                                @forelse ($roles as $key => $role)
+                                    <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize" value="{{$role}}"> {{ $role }} </option>
+                                @empty
+                                    <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Role Belum Tersedia..</option>
+                                @endforelse
+                        </select>
+                            @error('for_role') <span class="text-red-500">{{ $message }}</span>@enderror
+                    </div>
+                    <div class="mb-6">
+                        <label
+                            for="message"
+                            class="block mb-2 text-sm font-semibold text-gray-900">
+                            Keterangan
+                        </label>
+                        <textarea
+                            id="message"
+                            rows="1"
+                            class="block w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Write your thoughts here...">
+                        </textarea>
+                    </div>
+                </div>
+                {{-- end grid #2 --}}
             </div>
 
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
