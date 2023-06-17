@@ -36,6 +36,7 @@
                                             <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
                                         @endforelse
                             </select>
+                            @error('to_role') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     {{-- end select level_kecanduan --}}
 
@@ -62,6 +63,7 @@
                                                 <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Role Belum Tersedia..</option>
                                             @endforelse
                                 </select>
+                                @error('kecanduan_id') <span class="text-red-500">{{ $message }}</span>@enderror
                             </div>
                             {{-- end input kode_kecanduan --}}
                         </div>
@@ -84,16 +86,16 @@
                                         {{-- input keterangan --}}
                                         <td class="px-1 py-6">
                                             <textarea
+                                                name="keterangan"
                                                 name="solusi_kecanduan[{{$index}}][kecanduan_id]"
                                                 wire:model="solusi_kecanduan.{{$index}}.{{$kecanduan_id}}"
-
-                                                name="keterangan"
                                                 wire:model="keterangan"
                                                 id="message"
                                                 rows="2"
                                                 class="block w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Tulis Keterangan Solusi disini...">
                                             </textarea>
+                                            @error('keterangan') <span class="text-red-500">{{ $message }}</span>@enderror
                                         </td>
                                         {{-- end input keterangan--}}
 
@@ -129,7 +131,7 @@
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
               <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                 <button
-                    wire:click.prevent="createSolution()"
+                    wire:click.prevent="storeSolution()"
                     type="button"
                     class="inline-flex justify-center w-full rounded-md border border-transparent
                     px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm

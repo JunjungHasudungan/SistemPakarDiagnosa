@@ -18,7 +18,7 @@ class Solusi extends Component
             $edit_modal = false,
             $cari_solusi = false,
             $id_solution,
-            $description,
+            $keterangan,
             $level_id,
             $levels,
             $kecanduans,
@@ -26,6 +26,7 @@ class Solusi extends Component
             $select_keterangan_kecanduan,
             $roles,
             $to_role,
+            $from_role,
             $solutions;
 
     // data penampung solusi kecanduan ketika  diisi waktu tombol penambahan solusi dilakukan
@@ -34,6 +35,8 @@ class Solusi extends Component
     protected $rules = [
         'kecanduan_id'      => 'required',
         'to_role'           => 'required',
+        'keterangan'        => 'required',
+        'from_role'         => 'nullable'
 
     ];
 
@@ -48,12 +51,6 @@ class Solusi extends Component
 
     public function render()
     {
-        $this->kecanduans = Kecanduan::with(['level', 'solutions'])->get();
-        // dd($this->kecanduans);
-
-        foreach ($this->kecanduans as $kecanduan) {
-                // dd($kecanduan->solutions);
-        }
         return view('livewire.solusi', [
             $this->solutions  = Solution::with('kecanduan')->get(),
 
@@ -78,11 +75,35 @@ class Solusi extends Component
     {
         $this->openModalCreate();
 
-        // $this->validate([
+        $this->resetField();
 
-        // ]);
+    }
+
+    public function storeSolution()
+    {
+        $this->validate([
+            'kecanduan_id'              => 'required',
+            'keterangan'                => 'required',
+            'to_role'                   => 'required'
+        ],[
+            'kecanduan_id.required'     => 'Keterangan Kecanduan Wajib dipilih..',
+            'to_role.required'          => 'Untuk siapa wajib diisi...',
+            'keterangan.required'       => 'Keterangan Solusi wajib diisi..'
+        ]);
+
+
         $solusi = new Solution();
 
+        $solusi = Solution::create([
+            'kecanduan_id'              => $this->kecanduan_id,
+            'keterangan'                => $this->keterangan,
+            'to_role'                   => $this->to_role,
+            'from_role'                 => $this->from_role,
+        ]);
+
+        $solusi->save();
+
+        dd('data berhasil ditambahkan..');
     }
 
     public function openModalEdit()
@@ -122,7 +143,7 @@ class Solusi extends Component
 
     public function resetField()
     {
-        $this->description = '';
+        $this->keterangan = '';
         $this->kecanduan_id = '';
         $this->solusi_kecanduan = [];
     }

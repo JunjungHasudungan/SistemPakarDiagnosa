@@ -84,7 +84,9 @@ class Kecanduan extends Component
             'deskripsi'         => $this->deskripsi,
         ]);
 
-        // dd('data kecanduan berhasil diupdate');
+        $this->resetField();
+
+        $this->closeEditModal();
     }
 
     public function closeEditModal()
@@ -144,9 +146,9 @@ class Kecanduan extends Component
 
         $kecanduan->save();
 
-        $this->resetField();
-
         $this->closeCreateModal();
+
+        $this->resetField();
 
         $this->dispatchBrowserEvent( 'toas:info', [
             'message'   => 'Data Berhasil Ditambahkan..'

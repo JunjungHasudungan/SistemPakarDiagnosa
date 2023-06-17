@@ -86,7 +86,7 @@
                             {{ $item->keterangan }}
                         </td>
                         <td class="px-6 py-4">
-                            <button  wire:click="editKecanduan( {{ $item->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <button  wire:click="editGejala( {{ $item->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
                             </button>
 

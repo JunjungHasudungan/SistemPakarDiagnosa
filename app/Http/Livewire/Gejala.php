@@ -66,4 +66,9 @@ class Gejala extends Component
     {
         // $this->create
     }
+
+    public function editGejala($id_gejala)
+    {
+        dd('halaman edit gejala');
+    }
 }
