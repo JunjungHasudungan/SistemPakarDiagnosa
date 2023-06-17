@@ -133,4 +133,14 @@ class Solusi extends Component
     {
         $this->id_solution = $id_solution;
     }
+
+    public function removeSolution()
+    {
+        dd('remove solution..');
+    }
+
+    public function addSolution()
+    {
+        dd('Tambah solusi..');
+    }
 }
