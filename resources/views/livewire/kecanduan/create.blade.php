@@ -86,7 +86,7 @@
                                             <td class="px-1 py-6">
                                                 <select
                                                     wire:model="kecanduan_solusi.{{$index}}.role"
-                                                    name="kecanduan_solusi[ {{ $index }} ][role]"
+                                                    name="kecanduan_solusi[ {{ $index }} ]['role']"
                                                     class="border border-gray-300 text-gray-900 text-sm
                                                     rounded-lg focus:ring-blue-500 focus:border-blue-500
                                                     block w-full p-2.5 bg-white dark:border-gray-600
@@ -106,13 +106,13 @@
                                                 </select>
                                                     @error('role') <span class="text-red-500">{{ $message }}</span>@enderror
                                             </td>
-                                                    {{-- end select to_role --}}
+                                            {{-- end select to_role --}}
 
-                                                    {{-- input text area keterangan solusi --}}
+                                            {{-- input text area keterangan solusi --}}
                                             <td class="px-1 py-6">
                                                 <select
-                                                    wire:model="kecanduan_solusi.{{$index}}.solusi_id"
                                                     name="kecanduan_solusi[ {{ $index }} ][solusi_id]"
+                                                    wire:model="kecanduan_solusi.{{$index}}.solusi_id"
                                                     class="border border-gray-300 text-gray-900 text-sm
                                                     rounded-lg focus:ring-blue-500 focus:border-blue-500
                                                     block w-full p-2.5 bg-white dark:border-gray-600
@@ -130,7 +130,7 @@
                                                             <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Solusi Belum Tersedia..</option>
                                                         @endforelse
                                                 </select>
-                                                    @error('keterangan') <span class="text-red-500">{{ $message }}</span>@enderror
+                                                    @error('solusi_id') <span class="text-red-500">{{ $message }}</span>@enderror
                                             </td>
                                             {{-- end input text area keterangan solusi --}}
 

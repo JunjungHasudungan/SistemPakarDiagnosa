@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\{
     Kecanduan,
     Level,
-    Solution,
+    Solusi as Solusis,
 };
 
 use App\Helpers\ForRole;
@@ -32,7 +32,7 @@ class Solusi extends Component
     public function render()
     {
         return view('livewire.solusi', [
-            $this->solutions  = Solution::with('kecanduan')->get(),
+            $this->solutions  = Solusis::with('kecanduan')->get(),
         ]);
     }
 
@@ -62,7 +62,7 @@ class Solusi extends Component
             'keterangan.required'       => 'Keterangan Solusi wajib diisi..'
         ]);
 
-        $solusi = Solution::create([
+        $solusi = Solusis::create([
             'keterangan'                => $this->keterangan,
         ]);
 

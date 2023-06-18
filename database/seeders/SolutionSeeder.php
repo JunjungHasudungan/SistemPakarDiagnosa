@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Solution;
+use App\Models\Solusi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,13 +16,11 @@ class SolutionSeeder extends Seeder
         $solutions = [
             [
                 'keterangan'        => 'Batasi akses terhadap situs pornografi',
-                // 'kecanduan_id'      => 1,
             ],
             [
                 'keterangan'        => 'Test Solusi Kedua',
-                // 'kecanduan_id'      => 1,
             ]
         ];
-        Solution::insert($solutions);
+        Solusi::insert($solutions);
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Kecanduan as Kecanduans;
+use App\Models\{
+    Kecanduan as Kecanduans,
+    Solusi,
+};
 use App\Helpers\ForRole;
-use App\Models\Solution;
 
 class Kecanduan extends Component
 {
@@ -16,6 +18,7 @@ class Kecanduan extends Component
             $cari_kecanduan = false,
             $kecanduans,
             $solutions,
+            $solusi_id,
             $all_kecanduan,
             $kecanduan,
             $id_kecanduan,
@@ -34,12 +37,10 @@ class Kecanduan extends Component
     ];
 
     public $rules = [
-        'solusi_id'         => 'required',
         'kode_kecanduan'    => 'required',
-        'keterangan'        => 'required',      // field solutions
         'deskripsi'         => 'required',       // field kecanduans
-        'role'              => 'required',
     ];
+
     public function mount()
     {
         $this->kecanduan_solusi = [
@@ -56,7 +57,7 @@ class Kecanduan extends Component
         return view('livewire.kecanduan', [
             $this->kecanduans = Kecanduans::with(['level'])->get(),
 
-            $this->solutions = Solution::all(),
+            $this->solutions = Solusi::all(),
 
             $this->roles = ForRole::ForRole,
         ]);
@@ -154,20 +155,15 @@ class Kecanduan extends Component
 
     public function storeKecanduan()
     {
-
         $this->validate([
             'kode_kecanduan'            => 'required',
             'level_id'                  => 'required',
             'deskripsi'                 => 'required',
-            'role'                      => 'required',
-            'keterangan'                => 'required',
         ],[
             'kode_kecanduan.unique'     => 'Kode Kecanduan Harus unik',
             'kode_kecanduan.required'   => 'Kode Kecanduan Wajib diisi..',
             'level_id'                  => 'Level Kecanduan wajib dipilih..',
             'deskripsi.required'        => 'Keterangan Kecanduan Wajib diisi..',
-            'role.required'             => 'Untuk siapa wajib diisi..',
-            'keterangan.required'       => 'Keterangan Solusi Wajib diisi..'
         ]);
 
         $kecanduan = Kecanduans::create([
@@ -175,6 +171,14 @@ class Kecanduan extends Component
             'level_id'                  => $this->level_id,
             'deskripsi'                 => $this->deskripsi,
         ]);
+
+        // lakukan perulangan untuk kecanduan_solusi
+        foreach ($this->kecanduan_solusi as $solusi) {
+           $kecanduan->solusiKecanduan()->attach($solusi['solusi_id'],
+            [
+                'role'      => $solusi['role'],
+            ]);
+        }
 
         $kecanduan->save();
 
@@ -185,7 +189,6 @@ class Kecanduan extends Component
         $this->dispatchBrowserEvent( 'toas:info', [
             'message'   => 'Data Berhasil Ditambahkan..'
         ]);
-
     }
 
     public function removeSolution($index)

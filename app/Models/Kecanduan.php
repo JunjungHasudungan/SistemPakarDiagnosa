@@ -20,10 +20,13 @@ class Kecanduan extends Model
 
     public function solutions()
     {
-        return $this->hasMany(Solution::class);
+        return $this->hasMany(Solusi::class);
     }
 
-
+    public function solusiKecanduan()
+    {
+        return $this->belongsToMany(Solusi::class, 'kecanduan_solusi', 'kecanduan_id', 'solusi_id')->withPivot('role');
+    }
 
 
 }
