@@ -43,9 +43,9 @@
                     @include('livewire.gejala.cari-gejala')
                 @endif
 
-                {{-- @if ($edit_modal)
-                    @include('livewire.kecanduan.edit')
-                @endif --}}
+                @if ($edit_modal)
+                    @include('livewire.gejala.edit')
+                @endif
         </div>
     </div>
 
@@ -60,7 +60,7 @@
                     Kode Kecanduan
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Level
+                    Keterangan
                 </th>
                 <th scope="col" class="px-6 py-3">
 

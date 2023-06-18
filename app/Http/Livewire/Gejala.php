@@ -99,13 +99,37 @@ class Gejala extends Component
     {
         $this->openEditModal();
 
-        dd('Halaman edit gejala..');
+        $gejala = Gejalas::find($id_gejala);
+
+        $this->id_gejala = $gejala->id;
+
+        $this->kode_gejala = $gejala->kode_gejala;
+
+        $this->keterangan = $gejala->keterangan;
+
     }
 
     public function updateGejala($id_gejala)
     {
-        // $this->editGejala();
+        $this->validate([
+            'kode_gejala'               => 'required|unique:gejalas',
+            'keterangan'                => 'required'
+        ], [
+            'kode_gejala.unique'        => 'Kode Gejala Sudah digunakan',
+            'kode_gejala.required'       => 'Kode Gejala Wajib diisi...',
+            'keterangan.required'        =>  'Keterangan Gejala Wajib disi..'
+        ]);
 
+        $gejala = Gejalas::find($id_gejala);
+
+        $gejala->update([
+            'kode_gejala'           => $this->kode_gejala,
+            'keterangan'            => $this->keterangan,
+        ]);
+
+        $this->resetField();
+
+        $this->closeEditModal();
     }
 
     public function openDetailModal()
