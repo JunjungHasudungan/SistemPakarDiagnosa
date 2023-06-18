@@ -22,10 +22,7 @@ class Solusi extends Component
             $keterangan;
 
     protected $rules = [
-        'kecanduan_id'      => 'required',
-        'to_role'           => 'required',
         'keterangan'        => 'required',
-        'from_role'         => 'nullable'
 
     ];
 
@@ -46,7 +43,7 @@ class Solusi extends Component
         $this->open_modal = false;
     }
 
-    public function createSolution()
+    public function createSolusi()
     {
         $this->openModalCreate();
 
@@ -54,7 +51,7 @@ class Solusi extends Component
 
     }
 
-    public function storeSolution()
+    public function storeSolusi()
     {
         $this->validate([
             'keterangan'                => 'required',

@@ -8,6 +8,7 @@ Admin dapat melakukan:
 - Kelola Data Jenis Kecanduan
 - Kelola Data Gejala Kecanduan
 - Kelola Data Solusi
+- Keloka Data Pakar Diagnosa
 
 Tamu dapat melakukan:
 - Melakukan Diagnosa

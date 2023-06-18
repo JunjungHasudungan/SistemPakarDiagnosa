@@ -9,7 +9,11 @@ class Solusi extends Model
 {
     use HasFactory;
 
-    protected $gurded = [];
+    protected $table = 'solusis';
+
+    protected $fillable = [
+        'keterangan'
+    ];
 
     public function kecanduan()
     {
