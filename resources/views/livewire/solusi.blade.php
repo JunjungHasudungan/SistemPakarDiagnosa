@@ -56,61 +56,33 @@
                     No
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Kode JK
+                    Keterangan
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Level | Deskripsi
-                </th>
-                <th scope="col" class="px-6 py-6">
-                    Solusi
-                </th>
-                {{-- <th scope="col" class="px-6 py-3">
 
-                </th> --}}
+                </th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($kecanduans as $kecanduan)
+            @forelse ($solutions as $solution)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{$loop->iteration}}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $kecanduan->kode_kecanduan ?? '' }}
-                        </td>
+                            {{ $solution->keterangan ?? '' }}
                         <td class="px-6 py-4">
-                            {{ $kecanduan->level->keterangan ?? '' }} |  {{ $kecanduan->deskripsi ?? '' }}
-                        </td>
-                        <td class="px-6 py-6">
-                            @forelse ($kecanduan->solutions as $solusi)
-                                {{-- @if ($solusi->to_role == 'pecandu')
-                                    <p class="flex font-medium text-gray-900 dark:text-white">
-                                        {{ $solusi->to_role }}
-                                    </p> --}}
-                                    <ul class="flex px-4 py-4 dark:border-gray-700 hover:text-white list-none max-w-md tracking-tight text-gray-500 list-inside dark:text-gray-400">
-                                        <li class="w-full ">
-                                            {{ $solusi->keterangan ?? '' }}
-                                        </li>
-                                        <li class="w-full justify-items-stretch">
-                                            <button  wire:click="editSolusi( {{ $kecanduan->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                Edit
-                                            </button>
+                            <button  wire:click="editSolusi( {{ $solution->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Edit
+                            </button>
 
-                                            <button  wire:click="detailSolution( {{ $kecanduan->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                                Detail
-                                            </button>
+                            <button  wire:click="detailSolution( {{ $solution->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                Detail
+                            </button>
 
-                                            <button wire:click.prevent="deleteConfirmation( {{ $kecanduan->id }} )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                                Delete
-                                            </button>
-                                        </li>
-                                    </ul>
-                                    {{-- @endif --}}
-                                    @empty
-                                    <p class="text-yellow-900 font-bold">
-                                        {{ __('Data Solusi Belum tersedia..') }}
-                                    </p>
-                            @endforelse
+                            <button wire:click.prevent="deleteConfirmation( {{ $solution->id }} )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                Delete
+                            </button>
                         </td>
                     </tr>
                     @empty

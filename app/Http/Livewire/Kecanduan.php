@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Kecanduan as Kecanduans;
 use App\Helpers\ForRole;
+use App\Models\Solution;
 
 class Kecanduan extends Component
 {
@@ -14,6 +15,7 @@ class Kecanduan extends Component
             $show_modal = false,
             $cari_kecanduan = false,
             $kecanduans,
+            $solutions,
             $all_kecanduan,
             $kecanduan,
             $id_kecanduan,
@@ -53,6 +55,8 @@ class Kecanduan extends Component
 
         return view('livewire.kecanduan', [
             $this->kecanduans = Kecanduans::with(['level'])->get(),
+
+            $this->solutions = Solution::all(),
 
             $this->roles = ForRole::ForRole,
         ]);
@@ -138,7 +142,6 @@ class Kecanduan extends Component
         $this->kode_kecanduan = '';
         $this->level_id = '';
         $this->deskripsi = '';
-        $this->keterangan =  '';
         $this->kecanduan_solusi = [];
     }
 
@@ -189,6 +192,8 @@ class Kecanduan extends Component
     {
 
         unset($this->kecanduan_solusi[$index]);
+
+        $this->kecanduan_solusi = array_values($this->kecanduan_solusi);
     }
 
     public function addSolution()
@@ -196,7 +201,6 @@ class Kecanduan extends Component
         $this->kecanduan_solusi[] = [
             'solusi_id'     => '',
             'role'          => '',
-            'keterangan'    => ''
         ];
     }
 }

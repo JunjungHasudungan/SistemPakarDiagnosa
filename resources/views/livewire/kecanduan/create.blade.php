@@ -62,7 +62,7 @@
                      </div>
 
                     <form>
-                        <div class="bg-white px-4 pt-2 pb-4 sm:p-6 sm:pb-4">
+                        <div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-2">
                             {{-- solusi --}}
                             <div class="mb-2 w-full inline">
                                 <table class="w-full text-sm rounded text-left text-gray-400">
@@ -84,23 +84,25 @@
                                         <tr class="bg-white w-auto">
                                          {{-- select to_role --}}
                                             <td class="px-1 py-6">
-                                                <select wire:model="role"
+                                                <select
+                                                    wire:model="kecanduan_solusi.{{$index}}.role"
+                                                    name="kecanduan_solusi[ {{ $index }} ][role]"
                                                     class="border border-gray-300 text-gray-900 text-sm
                                                     rounded-lg focus:ring-blue-500 focus:border-blue-500
                                                     block w-full p-2.5 bg-white dark:border-gray-600
                                                     dark:placeholder-gray-400
                                                     font-semibold dark:focus:ring-blue-500
                                                     dark:focus:border-blue-500"
-                                                    name="role" id="">
+                                                    id="">
                                                     <option value="">-- Pilih Untuk Siapa --</option>
-                                                            @forelse ($roles as $key => $role)
-                                                                <option
-                                                                    class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
-                                                                    value="{{ $key }}">  {{$role }}
-                                                                </option>
-                                                            @empty
-                                                                <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
-                                                            @endforelse
+                                                        @forelse ($roles as $key => $role)
+                                                            <option
+                                                                class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
+                                                                value="{{ $key }}">  {{$role }}
+                                                            </option>
+                                                        @empty
+                                                            <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
+                                                        @endforelse
                                                 </select>
                                                     @error('role') <span class="text-red-500">{{ $message }}</span>@enderror
                                             </td>
@@ -108,14 +110,26 @@
 
                                                     {{-- input text area keterangan solusi --}}
                                             <td class="px-1 py-6">
-                                                <textarea
-                                                    name="keterangan"
-                                                    wire:model="keterangan"
-                                                    id="message"
-                                                    rows="1"
-                                                    class="block w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="Tulis Keterangan Solusi disini...">
-                                                </textarea>
+                                                <select
+                                                    wire:model="kecanduan_solusi.{{$index}}.solusi_id"
+                                                    name="kecanduan_solusi[ {{ $index }} ][solusi_id]"
+                                                    class="border border-gray-300 text-gray-900 text-sm
+                                                    rounded-lg focus:ring-blue-500 focus:border-blue-500
+                                                    block w-full p-2.5 bg-white dark:border-gray-600
+                                                    dark:placeholder-gray-400
+                                                    font-semibold dark:focus:ring-blue-500
+                                                    dark:focus:border-blue-500"
+                                                    name="role" id="">
+                                                    <option value="">-- Pilih Solusi --</option>
+                                                        @forelse ($solutions as $key => $solution)
+                                                            <option
+                                                                class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
+                                                                value="{{ $solution->id }}">  {{$solution->keterangan }}
+                                                            </option>
+                                                        @empty
+                                                            <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Solusi Belum Tersedia..</option>
+                                                        @endforelse
+                                                </select>
                                                     @error('keterangan') <span class="text-red-500">{{ $message }}</span>@enderror
                                             </td>
                                             {{-- end input text area keterangan solusi --}}
