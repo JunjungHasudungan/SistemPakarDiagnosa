@@ -156,11 +156,11 @@ class Kecanduan extends Component
     public function storeKecanduan()
     {
         $this->validate([
-            'kode_kecanduan'            => 'required',
+            'kode_kecanduan'            => 'required|unique:kecanduans|string|max:4|min:3',
             'level_id'                  => 'required',
             'deskripsi'                 => 'required',
         ],[
-            'kode_kecanduan.unique'     => 'Kode Kecanduan Harus unik',
+            'kode_kecanduan.unique'     => 'Kode Kecanduan sudah digunakan..',
             'kode_kecanduan.required'   => 'Kode Kecanduan Wajib diisi..',
             'level_id'                  => 'Level Kecanduan wajib dipilih..',
             'deskripsi.required'        => 'Keterangan Kecanduan Wajib diisi..',

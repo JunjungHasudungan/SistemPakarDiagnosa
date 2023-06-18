@@ -11,56 +11,37 @@
           <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
             <form>
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="grid md:grid-cols-2 md:gap-6">
-                  {{-- kode kecanduan --}}
-                        <div class="mb-6">
-                            <label for="completeness" class="block mb-2 text-sm font-bold text-gray-900">
-                              Kode Gejala
-                            </label>
-                                <input type="text"
-                                wire:model="kode_gejala"
-                                name="kode_gejala"
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="kode_gejala"
-                                placeholder="Kode Gejala..">
-                                  @error('kode_gejala') <span class="text-red-500">{{ $message }}</span>@enderror
-                        </div>
-                              {{-- end kode kecanduan --}}
+                {{-- kode kecanduan --}}
+                <div class="mb-6">
+                    <label for="completeness" class="block mb-2 text-sm font-bold text-gray-900">
+                        Kode Gejala
+                    </label>
+                        <input type="text"
+                            wire:model="kode_gejala"
+                            name="kode_gejala"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="kode_gejala"
+                            placeholder="Kode Gejala..">
+                            @error('kode_gejala') <span class="text-red-500">{{ $message }}</span>@enderror
+                </div>
+                {{-- end kode kecanduan --}}
 
-                              {{-- select level_kecanduan --}}
-                              <div class="mb-6">
-                                  <label for="level" class="block mb-2 text-sm font-bold text-gray-900">
-                                     Level
-                                  </label>
-                                  {{-- <select wire:model="level_id"
-                                          id="level_id"
-                                          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                          <option value="">-- Pilih Level --</option>
-                                              @forelse (\App\Helpers\LevelKecanduan::LevelKecanduan as $key => $item)
-                                                  <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize" value="{{$item}}"> {{ $key }} </option>
-                                              @empty
-                                                  <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Level Belum Tersedia..</option>
-                                              @endforelse
-                                  </select>
-                                  @error('level_id') <span class="text-red-500">{{ $message }}</span>@enderror --}}
-                              </div>
-                              {{-- end select level_kecanduan --}}
-                          </div>
 
-                          <div class="">
-                            {{-- input code kode_kecanduan --}}
-                            <div class="mb-4">
-                               <label for="keterangan" class="block text-gray-700 text-sm font-bold mb-2">Keterangan</label>
-                               <input type="text"
+                <div class="">
+                    {{-- input code kode_kecanduan --}}
+                    <div class="mb-4">
+                        <label for="keterangan" class="block text-gray-700 text-sm font-bold mb-2">
+                            Keterangan
+                        </label>
+                            <input type="text"
                                wire:model="keterangan"
                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                id="keterangan"
                                placeholder="Masukkan Keterangan Gejala..">
                                @error('keterangan') <span class="text-red-500">{{ $message }}</span>@enderror
-                           </div>
-                           {{-- end input kode_kecanduan --}}
-                     </div>
-
+                    </div>
+                        {{-- end input kode_kecanduan --}}
+                </div>
             </div>
 
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

@@ -63,9 +63,6 @@
                     Level
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Keterangan
-                </th>
-                <th scope="col" class="px-6 py-3">
 
                 </th>
             </tr>
@@ -80,9 +77,6 @@
                             {{ $item['kode_gejala'] }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $item->kecanduan->level->keterangan ?? '' }}
-                        </td>
-                        <td class="px-6 py-4">
                             {{ $item->keterangan }}
                         </td>
                         <td class="px-6 py-4">
@@ -90,7 +84,7 @@
                                 Edit
                             </button>
 
-                            <button  wire:click="detailKecanduan()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            <button  wire:click="detailGejala( {{ $item->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                                 Detail
                             </button>
 

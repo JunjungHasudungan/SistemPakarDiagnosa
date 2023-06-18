@@ -19,22 +19,17 @@ class Gejala extends Component
             $keterangan,
             $gejalas,
             $gejala,
-            $id_gejala,
-            $kecanduans;
+            $id_gejala;
+
+    public $rules = [
+        'kode_gejala'       => 'required',
+        'keterangan'        => 'required'
+    ];
+
     public function render()
     {
-        $gejalas = Gejalas::with('kecanduan')->get();
-        foreach ($gejalas as $item) {
-           $id_kecanduan = $item->kecanduan->id;
-        }
-
-        $kecanduans = Kecanduan::with(['level'], function($query) use ($id_kecanduan) {
-            $query->where('id', $id_kecanduan)->get();
-        })->get();
-
         return view('livewire.gejala', [
-            $this->gejalas = $gejalas,
-            $this->kecanduans = $kecanduans,
+            $this->gejalas = Gejalas::with('kecanduan')->get(),
         ]);
     }
 
@@ -64,11 +59,69 @@ class Gejala extends Component
 
     public function storeGejala()
     {
-        // $this->create
+       $this->validate([
+            'kode_gejala'       => 'required|unique:gejalas|string|max:4|min:3',
+            'keterangan'        => 'required'
+       ],[
+        'kode_gejala.unique'    => 'Kode Gejala Sudah digunakan..',
+        'kode_gejala.required'  => 'Kode Gejala wajib di isi...',
+        'kode_gejala.max'       => 'Karakter Kode gejala maksimal 4',
+        'kode_gejala.min'       => 'Karakter Kode Gejala Minimal 3',
+        'keterangan.required'   => 'Keterangan Wajib diisi..'
+       ]);
+
+    $gejala = Gejalas::create([
+        'kode_gejala'       => $this->kode_gejala,
+        'keterangan'        => $this->keterangan,
+    ]);
+
+    $gejala->save();
+
+    $this->resetField();
+
+    $this->closeCreateModal();
+
+
     }
+
+    public function openEditModal()
+    {
+        $this->edit_modal = true;
+    }
+
+    public function closeEditModal()
+    {
+        $this->edit_modal = false;
+    }
+
 
     public function editGejala($id_gejala)
     {
-        dd('halaman edit gejala');
+        $this->openEditModal();
+
+        dd('Halaman edit gejala..');
+    }
+
+    public function updateGejala($id_gejala)
+    {
+        // $this->editGejala();
+
+    }
+
+    public function openDetailModal()
+    {
+        $this->detail_modal = true;
+    }
+
+    public function closeDetailModal()
+    {
+        $this->detail_modal = false;
+    }
+
+    public function detailGejala($id_gejala)
+    {
+        $this->openDetailModal();
+
+        dd('Halaman detail Gejala..');
     }
 }

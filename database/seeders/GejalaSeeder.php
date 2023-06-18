@@ -17,12 +17,12 @@ class GejalaSeeder extends Seeder
             [
                 'kode_gejala'       => 'KG01',
                 'keterangan'        => 'Menonton Pornografi Merasa senang',
-                'kecanduan_id'      => 1,
+                // 'kecanduan_id'      => 1,
             ],
             [
                 'kode_gejala'       => 'KG02',
                 'keterangan'        => 'Menonton Pornografi Setiap Hari',
-                'kecanduan_id'      => 1,
+                // 'kecanduan_id'      => 1,
             ],
         ];
 
