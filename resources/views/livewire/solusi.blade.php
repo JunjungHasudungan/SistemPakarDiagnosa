@@ -43,7 +43,7 @@
                 @endif
 
                 @if ($edit_modal)
-                    @include('livewire.solutions.edit')
+                    @include('livewire.solusi.edit')
                 @endif
         </div>
     </div>

@@ -31,6 +31,7 @@ class Kecanduan extends Component
 
     // sebagai penampung nilai array
     public $kecanduan_solusi = [];
+    public $all_solusi = [];
 
     protected $listeners = [
         'deleteKecanduan'
@@ -43,6 +44,8 @@ class Kecanduan extends Component
 
     public function mount()
     {
+        $this->all_kecanduan = Solusi::all();
+
         $this->kecanduan_solusi = [
             [
                 'solusi_id'     => '',
@@ -57,7 +60,7 @@ class Kecanduan extends Component
         return view('livewire.kecanduan', [
             $this->kecanduans = Kecanduans::with(['level'])->get(),
 
-            $this->solutions = Solusi::all(),
+            // $this->solutions = Solusi::all(),
 
             $this->roles = ForRole::ForRole,
         ]);

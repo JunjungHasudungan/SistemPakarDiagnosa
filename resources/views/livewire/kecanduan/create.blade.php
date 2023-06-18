@@ -121,7 +121,7 @@
                                                     dark:focus:border-blue-500"
                                                     name="role" id="">
                                                     <option value="">-- Pilih Solusi --</option>
-                                                        @forelse ($solutions as $key => $solution)
+                                                        @forelse ($all_kecanduan as $key => $solution)
                                                             <option
                                                                 class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
                                                                 value="{{ $solution->id }}">  {{$solution->keterangan }}

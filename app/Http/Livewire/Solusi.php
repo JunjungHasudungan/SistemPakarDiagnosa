@@ -17,7 +17,7 @@ class Solusi extends Component
             $show_modal = false,
             $edit_modal = false,
             $cari_solusi = false,
-            $id_solution,
+            $id_solusi,
             $solutions,
             $keterangan;
 
@@ -77,10 +77,35 @@ class Solusi extends Component
 
     public function editSolusi($id_solusi)
     {
-        $this->id_solution = $id_solusi;
+        $this->openModalEdit();
 
-        dd($this->id_solution);
+        $solusi = Solusis::find($id_solusi);
 
+        $this->id_solusi = $solusi->id;
+
+        $this->keterangan = $solusi->keterangan;
+
+    }
+
+    public function updateSolusi($id_solusi)
+    {
+        $solusi = Solusis::find($id_solusi);
+
+        $this->id_solusi = $solusi->id_solusi;
+
+        $this->validate([
+            'keterangan'            => 'required'
+        ],[
+            'keterangan.required'   => 'Solusi Keterangan Wajib diisi..'
+        ]);
+        // $solusi->keterangan;
+        $solusi->update([
+            'keterangan'        => $this->keterangan
+        ]);
+
+        $this->resetField();
+
+        $this->closeModalEdit();
     }
 
     public function closeModalEdit()
@@ -93,11 +118,11 @@ class Solusi extends Component
         $this->show_modal = true;
     }
 
-    public function detailSolution($id_solution)
+    public function detailSolution($id_solusi)
     {
         dd('Halaman detail solusi');
 
-        $this->id_solution = $id_solution;
+        $this->id_solusi = $id_solusi;
     }
 
     public function closeModalDetail()
@@ -110,9 +135,9 @@ class Solusi extends Component
         $this->keterangan = '';
     }
 
-    public function deleteConfirmation($id_solution)
+    public function deleteConfirmation($id_solusi)
     {
-        $this->id_solution = $id_solution;
+        $this->id_solusi = $id_solusi;
     }
 
 }
