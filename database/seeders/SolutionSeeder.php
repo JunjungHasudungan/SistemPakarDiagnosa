@@ -16,11 +16,11 @@ class SolutionSeeder extends Seeder
         $solutions = [
             [
                 'keterangan'        => 'Batasi akses terhadap situs pornografi',
-                'kecanduan_id'      => 1,
+                // 'kecanduan_id'      => 1,
             ],
             [
                 'keterangan'        => 'Test Solusi Kedua',
-                'kecanduan_id'      => 1,
+                // 'kecanduan_id'      => 1,
             ]
         ];
         Solution::insert($solutions);

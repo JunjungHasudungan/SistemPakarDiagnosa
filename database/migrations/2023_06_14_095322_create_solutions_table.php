@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('solutions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kecanduan_id');
+            // $table->foreignId('kecanduan_id');
             $table->string('keterangan');
-            $table->string('to_role')->default('pecandu')->nullable();
-            $table->string('from_role')->default('pembimbing')->nullable();
+            // $table->string('to_role')->default('pecandu')->nullable();
+            // $table->string('from_role')->default('pembimbing')->nullable();
             $table->timestamps();
         });
     }

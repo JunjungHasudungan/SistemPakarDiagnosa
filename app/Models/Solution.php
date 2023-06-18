@@ -9,6 +9,9 @@ class Solution extends Model
 {
     use HasFactory;
 
+    // protected $fillable = [
+    //     'kecanduan_id', 'keterangan', 'to_role', 'from_role'
+    // ];
     protected $guraded = [];
 
     public function kecanduan()

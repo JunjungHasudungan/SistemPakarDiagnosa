@@ -18,19 +18,8 @@ class Solusi extends Component
             $edit_modal = false,
             $cari_solusi = false,
             $id_solution,
-            $keterangan,
-            $level_id,
-            $levels,
-            $kecanduans,
-            $kecanduan_id,
-            $select_keterangan_kecanduan,
-            $roles,
-            $to_role,
-            $from_role,
-            $solutions;
-
-    // data penampung solusi kecanduan ketika  diisi waktu tombol penambahan solusi dilakukan
-    public $solusi_kecanduan = [];
+            $solutions,
+            $keterangan;
 
     protected $rules = [
         'kecanduan_id'      => 'required',
@@ -40,24 +29,10 @@ class Solusi extends Component
 
     ];
 
-    public function mount()
-    {
-        $this->solusi_kecanduan = [
-            [
-                'kecanduan_id'     => '',
-            ]
-        ];
-    }
-
     public function render()
     {
         return view('livewire.solusi', [
             $this->solutions  = Solution::with('kecanduan')->get(),
-
-            $this->kecanduans = Kecanduan::with(['level', 'solutions'])->get(),
-
-            $this->roles = ForRole::ForRole,
-
         ]);
     }
 
@@ -82,28 +57,20 @@ class Solusi extends Component
     public function storeSolution()
     {
         $this->validate([
-            'kecanduan_id'              => 'required',
             'keterangan'                => 'required',
-            'to_role'                   => 'required'
         ],[
-            'kecanduan_id.required'     => 'Keterangan Kecanduan Wajib dipilih..',
-            'to_role.required'          => 'Untuk siapa wajib diisi...',
             'keterangan.required'       => 'Keterangan Solusi wajib diisi..'
         ]);
 
-
-        $solusi = new Solution();
-
         $solusi = Solution::create([
-            'kecanduan_id'              => $this->kecanduan_id,
             'keterangan'                => $this->keterangan,
-            'to_role'                   => $this->to_role,
-            'from_role'                 => $this->from_role,
         ]);
 
         $solusi->save();
 
-        dd('data berhasil ditambahkan..');
+        $this->resetField();
+
+        $this->closeModalCreate();
     }
 
     public function openModalEdit()
@@ -144,8 +111,6 @@ class Solusi extends Component
     public function resetField()
     {
         $this->keterangan = '';
-        $this->kecanduan_id = '';
-        $this->solusi_kecanduan = [];
     }
 
     public function deleteConfirmation($id_solution)
@@ -153,21 +118,4 @@ class Solusi extends Component
         $this->id_solution = $id_solution;
     }
 
-    public function removeSolution($index)
-    {
-        // panggil ulang solusi_kecanduan untuk melepaskan data yang sudah diisi dalam array
-       unset($this->solusi_kecanduan[$index]);
-
-        // kembali kenilai awal array
-        $this->solusi_kecanduan = array_values($this->solusi_kecanduan);
-    }
-
-    public function addSolution()
-    {
-    //    panggil solusi_kecanduan
-        $this->solusi_kecanduan[] =
-        [
-            'kecanduan_id'      => '',
-        ];
-    }
 }

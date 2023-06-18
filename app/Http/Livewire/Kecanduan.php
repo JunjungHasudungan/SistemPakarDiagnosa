@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Kecanduan as Kecanduans;
-use App\Helpers\LevelKecanduan;
+use App\Helpers\ForRole;
 
 class Kecanduan extends Component
 {
@@ -14,16 +14,39 @@ class Kecanduan extends Component
             $show_modal = false,
             $cari_kecanduan = false,
             $kecanduans,
+            $all_kecanduan,
             $kecanduan,
-            // $level,
             $id_kecanduan,
+            $roles,
+            $role,
             $kode_kecanduan,
             $level_id,
+            $keterangan,
             $deskripsi;
+
+    // sebagai penampung nilai array
+    public $kecanduan_solusi = [];
 
     protected $listeners = [
         'deleteKecanduan'
     ];
+
+    public $rules = [
+        'solusi_id'         => 'required',
+        'kode_kecanduan'    => 'required',
+        'keterangan'        => 'required',      // field solutions
+        'deskripsi'         => 'required',       // field kecanduans
+        'role'              => 'required',
+    ];
+    public function mount()
+    {
+        $this->kecanduan_solusi = [
+            [
+                'solusi_id'     => '',
+                'role'          => ''
+            ]
+        ];
+    }
 
     public function render()
     {
@@ -31,7 +54,7 @@ class Kecanduan extends Component
         return view('livewire.kecanduan', [
             $this->kecanduans = Kecanduans::with(['level'])->get(),
 
-            // $this->level = LevelKecanduan::LevelKecandaun,
+            $this->roles = ForRole::ForRole,
         ]);
     }
 
@@ -115,6 +138,8 @@ class Kecanduan extends Component
         $this->kode_kecanduan = '';
         $this->level_id = '';
         $this->deskripsi = '';
+        $this->keterangan =  '';
+        $this->kecanduan_solusi = [];
     }
 
     public function createKecanduan()
@@ -130,12 +155,16 @@ class Kecanduan extends Component
         $this->validate([
             'kode_kecanduan'            => 'required',
             'level_id'                  => 'required',
-            'deskripsi'                 => 'required'
+            'deskripsi'                 => 'required',
+            'role'                      => 'required',
+            'keterangan'                => 'required',
         ],[
             'kode_kecanduan.unique'     => 'Kode Kecanduan Harus unik',
             'kode_kecanduan.required'   => 'Kode Kecanduan Wajib diisi..',
-            'level_id'                  => 'wajib dipilih..',
-            'deskripsi.required'        => 'Keterangan Wajib diisi..'
+            'level_id'                  => 'Level Kecanduan wajib dipilih..',
+            'deskripsi.required'        => 'Keterangan Kecanduan Wajib diisi..',
+            'role.required'             => 'Untuk siapa wajib diisi..',
+            'keterangan.required'       => 'Keterangan Solusi Wajib diisi..'
         ]);
 
         $kecanduan = Kecanduans::create([
@@ -154,5 +183,20 @@ class Kecanduan extends Component
             'message'   => 'Data Berhasil Ditambahkan..'
         ]);
 
+    }
+
+    public function removeSolution($index)
+    {
+
+        unset($this->kecanduan_solusi[$index]);
+    }
+
+    public function addSolution()
+    {
+        $this->kecanduan_solusi[] = [
+            'solusi_id'     => '',
+            'role'          => '',
+            'keterangan'    => ''
+        ];
     }
 }
