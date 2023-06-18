@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DiagnosaController extends Controller
+class DataPakarController extends Controller
 {
     public function index()
     {
-        return view('admin.diagnosa.index');
+        return view('admin.data_pakar.index');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\{
+    DataPakarController,
     DiagnosaController,
     GejalaController,
     KecanduanController,
@@ -38,6 +39,7 @@ Route::middleware('auth')->group(function () {
         'solusi'            => SolutionController::class,
         'gejala'            => GejalaController::class,
         'diagnosa'          => DiagnosaController::class,
+        'data-pakar'        => DataPakarController::class,
     ]);
 });
 

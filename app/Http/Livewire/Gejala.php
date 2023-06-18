@@ -29,7 +29,7 @@ class Gejala extends Component
     public function render()
     {
         return view('livewire.gejala', [
-            $this->gejalas = Gejalas::with('kecanduan')->get(),
+            $this->gejalas = Gejalas::with('KecanduanGejala')->get(),
         ]);
     }
 

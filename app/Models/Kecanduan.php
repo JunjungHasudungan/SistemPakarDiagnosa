@@ -28,5 +28,10 @@ class Kecanduan extends Model
         return $this->belongsToMany(Solusi::class, 'kecanduan_solusi', 'kecanduan_id', 'solusi_id')->withPivot('role');
     }
 
+    public function gejalaKecanduan()
+    {
+        return $this->belongsToMany(Gejala::class, 'gejala_kecanduan', 'kecanduan_id', 'gejala_id');
+    }
+
 
 }
