@@ -11,8 +11,7 @@
           <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  w-10/12" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
             <form>
             <div class="bg-white px-4 pt-5 pb-2 sm:p-6 sm:pb-2">
-                <div class="grid md:grid-cols-2 md:gap-4">
-                  {{-- kode kecanduan --}}
+                    <div class="grid md:grid-cols-2 md:gap-4">
                         <div class="mb-6">
                             <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
                               Kode Kecanduan
@@ -28,11 +27,11 @@
                               {{-- end kode kecanduan --}}
 
                               {{-- select level_kecanduan --}}
-                              <div class="mb-6">
-                                <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
-                                    Level Kecanduan
-                                  </label>
-                                  <select wire:model="level_id"
+                        <div class="mb-6">
+                            <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
+                                Level Kecanduan
+                            </label>
+                            <select wire:model="level_id"
                                           id="level_id"
                                           class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                           <option value="">-- Pilih Level --</option>
@@ -41,11 +40,10 @@
                                               @empty
                                                   <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Level Belum Tersedia..</option>
                                               @endforelse
-                                  </select>
+                            </select>
                                   @error('level_id') <span class="text-red-500">{{ $message }}</span>@enderror
-                              </div>
-                              {{-- end select level_kecanduan --}}
-                          </div>
+                        </div>
+                    </div>
 
                           <div class="">
                             {{-- input keterangan kecanduan --}}
@@ -61,7 +59,6 @@
                            {{-- end input keterangan kecanduan --}}
                      </div>
 
-                    <form>
                         <div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-2">
                             {{-- solusi --}}
                             <div class="mb-2 w-full inline">
@@ -163,7 +160,6 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
                     {{-- end solusi --}}
             </div>
 

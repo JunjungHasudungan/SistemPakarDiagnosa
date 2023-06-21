@@ -12,6 +12,7 @@
             <form>
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="">
+
                     {{-- input keterangan Solusi --}}
                     <div class="mb-4">
                         <label for="keterangan" class="block text-gray-700 text-sm font-bold mb-2">

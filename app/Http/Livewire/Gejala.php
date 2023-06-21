@@ -12,13 +12,17 @@ class Gejala extends Component
 {
 
     public  $create_modal = false,
+            $create_modal_gejala,
             $edit_modal = false,
             $detail_modal = false,
             $cari_gejala = false,
             $kode_gejala,
             $keterangan,
             $gejalas,
+            $kecanduans,
+            $kecanduan_id,
             $gejala,
+            $gejala_id,
             $id_gejala;
 
     public $rules = [
@@ -28,8 +32,13 @@ class Gejala extends Component
 
     public function render()
     {
+
+        // $this->gejalas = Gejalas::with('KecanduanGejala')->get();
+
         return view('livewire.gejala', [
             $this->gejalas = Gejalas::with('KecanduanGejala')->get(),
+
+            $this->kecanduans = Kecanduan::all(),
         ]);
     }
 
@@ -79,7 +88,7 @@ class Gejala extends Component
 
     $this->resetField();
 
-    $this->closeCreateModal();
+    $this->closeAddGejala();
 
 
     }
@@ -147,5 +156,30 @@ class Gejala extends Component
         $this->openDetailModal();
 
         dd('Halaman detail Gejala..');
+    }
+
+    public function modalGejala()
+    {
+        $this->create_modal_gejala = true;
+    }
+
+    public function addDataGejala()
+    {
+        $this->modalGejala();
+    }
+
+    public function deleteDataGejala()
+    {
+        dd('Halama Delete data gejala..');
+    }
+
+    public function closeAddGejala()
+    {
+        $this->create_modal_gejala = false;
+    }
+
+    public function addRelasi()
+    {
+        dd('Halaman add relasi..');
     }
 }
