@@ -35,9 +35,9 @@
                     @include('livewire.gejala.create')
                 @endif
 
-                {{-- @if ($show_modal)
-                    @include('livewire.kecanduan.detail')
-                @endif --}}
+                @if ($edit_modal)
+                    @include('livewire.gejala.edit')
+                @endif
 
                 @if (!$cari_gejala)
                     @include('livewire.gejala.cari-gejala')

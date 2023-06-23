@@ -41,6 +41,8 @@ class Solusi extends Component
     public function closeModalCreate()
     {
         $this->open_modal = false;
+
+        $this->resetValidation('keterangan');
     }
 
     public function createSolusi()

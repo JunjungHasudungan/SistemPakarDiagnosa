@@ -16,6 +16,8 @@ class DataPakar extends Component
             $detail_modal = false,
             $cari_data_pakar = false,
             $id_data_pakar,
+            $kecanduan_id,
+            $kecanduans,
             $data_pakar;
 
     public $all_data_pakar = [];
@@ -35,8 +37,6 @@ class DataPakar extends Component
     public function createDataPakar()
     {
         $this->opendModalCreate();
-
-        dd('Halaman Create Data Pakar...');
     }
 
     public function resetField()
@@ -57,6 +57,11 @@ class DataPakar extends Component
     public function closeModalEdit()
     {
         $this->edit_modal = false;
+    }
+
+    public function storeDataPakar()
+    {
+        dd('Halaman Store data pakar...');
     }
 
     public function openModalDetail()
