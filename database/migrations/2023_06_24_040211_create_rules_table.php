@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('rules', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Kecanduan::class);
-            $table->integer('no_aturan');
+            $table->string('keterangan');
             $table->timestamps();
         });
     }

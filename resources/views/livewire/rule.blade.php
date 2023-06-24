@@ -73,18 +73,23 @@
             @forelse ($rules as $rule)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $rule->no_aturan }}
+                            {{ $loop->iteration }}
                         </th>
 
                         <td class="px-6 py-4">
-                            {{ $rule->kecanduan->kode_kecanduan ?? '' }}
+                            {{ $rule->kecanduans->kode_kecanduan ?? '' }}
                         </td>
 
                         <td class="px-6 py-4">
-                            {{ $rule->kecanduan->level->keterangan }}  | {{ $rule->kecanduan->deskripsi ?? '' }}
+                            {{ $rule->kecanduans->deskripsi ?? '' }}
                         </td>
 
                         <td class="px-6 py-4">
+                            @forelse ($rule->kecanduan as $item)
+                                {{ $item }}
+                            @empty
+
+                            @endforelse
                         </td>
                         <td class="px-6 py-4">
                             {{-- <button  wire:click="editDataPakar( {{ $kecanduan->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

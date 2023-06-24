@@ -33,32 +33,32 @@
                               {{-- select level_kecanduan --}}
                         <div class="mb-6">
                             <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
-                                Level Aturan Data Pakar
+                                Keterangan Kecanduan
                             </label>
-                            <select wire:model="no_aturan"
-                                          id="no_aturan"
+                            <select wire:model="keterangan"
+                                          id="keterangan"
                                           class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                          <option value="">-- Pilih Level --</option>
-                                              @forelse (\App\Helpers\NoAturan::NoAturan as $key => $item)
+                                          <option value="">-- Pilih Keterangan --</option>
+                                              @forelse ($rule_data_pakar as $key => $item)
                                                   <option class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize" value="{{$item}}"> {{ $key }} </option>
                                               @empty
                                                   <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Level Belum Tersedia..</option>
                                               @endforelse
                             </select>
-                                  @error('no_aturan') <span class="text-red-500">{{ $message }}</span>@enderror
+                                  @error('keterangan') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                     </div>
 
-                        {{-- <div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-2">
+                        <div class="bg-white px-4 pt-2 pb-2 sm:p-6 sm:pb-2">
                             <div class="mb-2 w-full inline">
                                 <table class="w-full text-sm rounded text-left text-gray-400">
                                     <thead class="text-xs text-gray-700 camelcase bg-gray-50 text-gray-400">
                                         <tr>
                                             <th scope="col" class=" text-sm font-bold text-gray-700">
-                                                Untuk siapa
+                                               Keterangan Aturan Relasi
                                              </th>
                                              <th scope="col" class="px-2 px-3 text-sm font-bold text-gray-700">
-                                               Solusi
+                                               Keterangan Gejala
                                              </th>
                                              <th scope="col" class="px-2 px-3 text-sm font-bold text-gray-700">
 
@@ -66,12 +66,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($kecanduan_solusi as $index => $item)
+                                        @foreach ($gejala_kecanduan as $index => $item)
                                         <tr class="bg-white w-auto">
                                             <td class="px-1 py-6">
                                                 <select
-                                                    wire:model="kecanduan_solusi.{{$index}}.role"
-                                                    name="kecanduan_solusi[ {{ $index }} ]['role']"
+                                                    wire:model="gejala_kecanduan.{{$index}}.keterangan_relasi"
+                                                    name="gejala_kecanduan[ {{ $index }} ]['keterangan_relasi']"
                                                     class="border border-gray-300 text-gray-900 text-sm
                                                     rounded-lg focus:ring-blue-500 focus:border-blue-500
                                                     block w-full p-2.5 bg-white dark:border-gray-600
@@ -79,22 +79,22 @@
                                                     font-semibold dark:focus:ring-blue-500
                                                     dark:focus:border-blue-500"
                                                     id="">
-                                                    <option value="">-- Pilih Untuk Siapa --</option>
-                                                        @forelse ($roles as $key => $role)
+                                                    <option value="">-- Pilih Keterangan --</option>
+                                                        @forelse ($rule_data_pakar as $key => $item)
                                                             <option
                                                                 class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
-                                                                value="{{ $key }}">  {{$role }}
+                                                                value="{{ $key }}">  {{$item }}
                                                             </option>
                                                         @empty
                                                             <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Kecanduan Belum Tersedia..</option>
                                                         @endforelse
                                                 </select>
-                                                    @error('role') <span class="text-red-500">{{ $message }}</span>@enderror
+                                                    @error('keterangan_relasi') <span class="text-red-500">{{ $message }}</span>@enderror
                                             </td>
                                             <td class="px-1 py-6">
                                                 <select
-                                                    name="kecanduan_solusi[ {{ $index }} ][solusi_id]"
-                                                    wire:model="kecanduan_solusi.{{$index}}.solusi_id"
+                                                    name="gejala_kecanduan[ {{ $index }} ][gejala_id]"
+                                                    wire:model="gejala_kecanduan.{{$index}}.gejala_id"
                                                     class="border border-gray-300 text-gray-900 text-sm
                                                     rounded-lg focus:ring-blue-500 focus:border-blue-500
                                                     block w-full p-2.5 bg-white dark:border-gray-600
@@ -102,20 +102,20 @@
                                                     font-semibold dark:focus:ring-blue-500
                                                     dark:focus:border-blue-500"
                                                     name="role" id="">
-                                                    <option value="">-- Pilih Solusi --</option>
-                                                        @forelse ($all_kecanduan as $key => $solution)
+                                                    <option value="">-- Pilih Keterangan Gejala --</option>
+                                                        @forelse ($allGejala as $key => $gejala)
                                                             <option
                                                                 class="font-normal hover:font-bold border-gray-300 rounded-lg capitalize"
-                                                                value="{{ $solution->id }}">  {{$solution->keterangan }}
+                                                                value="{{ $gejala->id }}">  {{$gejala->keterangan }}
                                                             </option>
                                                         @empty
                                                             <option class="font-normal bg-yellow-400 hover:font-bold capitalize">Data Solusi Belum Tersedia..</option>
                                                         @endforelse
                                                 </select>
-                                                    @error('solusi_id') <span class="text-red-500">{{ $message }}</span>@enderror
+                                                    @error('gejala_id') <span class="text-red-500">{{ $message }}</span>@enderror
                                             </td>
                                             <td class="px-1 py-6">
-                                                <button href="#" wire:click.prevent="removeSolution( {{ $index }} )"
+                                                <button href="#" wire:click.prevent="removeGejala( {{ $index }} )"
                                                     class=" w-full inline-flex place-items-center text-sm font-bold m-auto px-px space-x-4
                                                     text-center text-yellow-900">
                                                     <span class="text-center">
@@ -130,17 +130,17 @@
                                     </tbody>
                                 </table>
                                 <div>
-                                    <button wire:click.prevent="addSolution()"
+                                    <button wire:click.prevent="addGejala()"
                                             class="w-auto text-white bg-blue-700 hover:bg-blue-800
                                             m-4
                                             focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium
                                             rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600
                                             hover:bg-blue-700 focus:ring-blue-800">
-                                            + Solusi
+                                            + Gejala
                                     </button>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                     {{-- end solusi --}}
             </div>
 

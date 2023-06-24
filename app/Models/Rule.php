@@ -11,9 +11,15 @@ class Rule extends Model
 
     protected $guarded = [];
 
+
+    public function kecanduans()
+    {
+        return $this->belongsTo(Kecanduan::class, 'kecanduan_id');
+    }
+
     public function kecanduan()
     {
-        return $this->belongsTo(Kecanduan::class);
+        return $this->belongsToMany(Kecanduan::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id')->withPivot('keterangan_relasi');
     }
 
 }
