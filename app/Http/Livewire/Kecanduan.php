@@ -6,8 +6,12 @@ use Livewire\Component;
 use App\Models\{
     Kecanduan as Kecanduans,
     Solusi,
+    Gejala,
 };
-use App\Helpers\ForRole;
+use App\Helpers\{
+    ForRole,
+    RuleDataPakar,
+};
 
 class Kecanduan extends Component
 {
@@ -20,6 +24,8 @@ class Kecanduan extends Component
             $solutions,
             $solusi_id,
             $all_kecanduan,
+            $keterangan_rule,
+            $keterangan_relasi,
             $kecanduan,
             $id_kecanduan,
             $roles,
@@ -31,8 +37,10 @@ class Kecanduan extends Component
 
     // sebagai penampung nilai array
     public $kecanduan_solusi = [];
-    public $all_solusi = [];
+    public $kecanduan_gejala = []; // sebagai penampung nilai array kecanduan_gejala
 
+    public $all_solusi = [];
+    public $all_gejala = []; // sebagai penampung nilai gejala
     protected $listeners = [
         'deleteKecanduan'
     ];
@@ -40,16 +48,25 @@ class Kecanduan extends Component
     public $rules = [
         'kode_kecanduan'    => 'required',
         'deskripsi'         => 'required',       // field kecanduans
+        // 'keterangan_relasi' => 'required'
     ];
 
     public function mount()
     {
         $this->all_kecanduan = Solusi::all();
+        $this->all_gejala = Gejala::all();
 
         $this->kecanduan_solusi = [
             [
                 'solusi_id'     => '',
                 'role'          => ''
+            ]
+        ];
+
+        $this->kecanduan_gejala = [
+            [
+                'gejala_id'             => '',
+                'keterangan_relasi'     => ''
             ]
         ];
     }
@@ -60,7 +77,7 @@ class Kecanduan extends Component
         return view('livewire.kecanduan', [
             $this->kecanduans = Kecanduans::with(['level'])->get(),
 
-            // $this->solutions = Solusi::all(),
+            $this->keterangan_rule = RuleDataPakar::DescriptionRules,
 
             $this->roles = ForRole::ForRole,
         ]);
@@ -150,6 +167,9 @@ class Kecanduan extends Component
         $this->level_id = '';
         $this->deskripsi = '';
         $this->kecanduan_solusi = [];
+        $this->kecanduan_gejala = [];
+
+        $this->resetValidation(['kode_kecanduan', 'level_id', 'deskripsi']);
     }
 
     public function createKecanduan()
@@ -162,14 +182,17 @@ class Kecanduan extends Component
     public function storeKecanduan()
     {
         $this->validate([
-            'kode_kecanduan'            => 'required|unique:kecanduans|string|max:4|min:3',
-            'level_id'                  => 'required',
-            'deskripsi'                 => 'required',
+            'kode_kecanduan'                => 'required|unique:kecanduans|string|max:4|min:3',
+            'level_id'                      => 'required',
+            'deskripsi'                     => 'required',
+            // 'keterangan_relasi'             => 'required',
         ],[
-            'kode_kecanduan.unique'     => 'Kode Kecanduan sudah digunakan..',
-            'kode_kecanduan.required'   => 'Kode Kecanduan Wajib diisi..',
-            'level_id'                  => 'Level Kecanduan wajib dipilih..',
-            'deskripsi.required'        => 'Keterangan Kecanduan Wajib diisi..',
+            'kode_kecanduan.unique'         => 'Kode Kecanduan sudah digunakan..',
+            'kode_kecanduan.max'            => 'Kode Keecanduan maks 4 karakter',
+            'kode_kecanduan.required'       => 'Kode Kecanduan Wajib diisi..',
+            'level_id'                      => 'Level Kecanduan wajib dipilih..',
+            'deskripsi.required'            => 'Keterangan Kecanduan Wajib diisi..',
+            // 'keterangan_relasi.required'    => 'Keterangan Relasi Wajib dipilih..'
         ]);
 
         $kecanduan = Kecanduans::create([
@@ -184,6 +207,13 @@ class Kecanduan extends Component
             [
                 'role'      => $solusi['role'],
             ]);
+        }
+
+        foreach ($this->kecanduan_gejala as $key => $gejala) {
+            $kecanduan->gejalaKecanduan()->attach($gejala['gejala_id'],
+        [
+            'keterangan_relasi'     => $gejala['keterangan_relasi']
+        ]);
         }
 
         $kecanduan->save();
@@ -205,11 +235,26 @@ class Kecanduan extends Component
         $this->kecanduan_solusi = array_values($this->kecanduan_solusi);
     }
 
+    public function removeDataGejala($index)
+    {
+        unset($this->kecanduan_gejala[$index]);
+
+        $this->kecanduan_gejala = array_values($this->kecanduan_gejala);
+    }
+
     public function addSolution()
     {
         $this->kecanduan_solusi[] = [
             'solusi_id'     => '',
             'role'          => '',
+        ];
+    }
+
+    public function addDataGejala()
+    {
+        $this->kecanduan_gejala[] = [
+            'gejala_id'             => '',
+            'keterangan_relasi'     => ''
         ];
     }
 }

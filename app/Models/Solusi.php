@@ -22,7 +22,7 @@ class Solusi extends Model
 
     public function kecanduanSolusi()
     {
-        return $this->belongsToMany(Kecanduan::class, 'kecanduan_solusi')->withPivot('role');
+        return $this->belongsToMany(Kecanduan::class, 'kecanduan_solusi', 'solusi_id', 'kecanduan_id')->withPivot('role');
     }
 
 }

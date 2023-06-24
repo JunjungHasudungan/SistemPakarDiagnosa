@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class RuleDataPakar
 {
-    const Rules = [
+    const DescriptionRules = [
         'aturan pertama'    => 'aturan pertama',
         'aturan kedua'      => 'aturan kedua',
         'aturan ketiga'     => 'aturan ketiga',

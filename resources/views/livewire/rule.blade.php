@@ -53,7 +53,7 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Keterangan Aturan
+                    No
                 </th>
                 <th scope="col" class="px-6 py-3">
                    JK
@@ -65,32 +65,57 @@
                     Keterangan Gejala
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    Keterangan Solusi
+                </th>
+                <th scope="col" class="px-6 py-3">
 
                 </th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($rules as $rule)
+            @forelse ($kecanduans as $kecanduan)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $loop->iteration }}
                         </th>
 
                         <td class="px-6 py-4">
-                            {{ $rule->kecanduans->kode_kecanduan ?? '' }}
+                            {{ $kecanduan->kode_kecanduan ?? '' }}
                         </td>
 
                         <td class="px-6 py-4">
-                            {{ $rule->kecanduans->deskripsi ?? '' }}
+                            {{ $kecanduan->level->keterangan ?? '' }} | {{ $kecanduan->deskripsi ?? '' }}
                         </td>
 
                         <td class="px-6 py-4">
-                            @forelse ($rule->kecanduan as $item)
-                                {{ $item }}
+                            @forelse ($kecanduan->gejalaKecanduan as $gejala)
+                                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                                    <li>
+                                        {{ $gejala->keterangan ?? '' }}
+                                    </li>
+                                </ul>
                             @empty
-
+                                <p class="text-yellow-900 font-bold">
+                                    {{ __('Data relasi Gejala tersedia..') }}
+                                </p>
                             @endforelse
                         </td>
+
+                        <td class="px-6 py-4">
+                            @forelse ($solusis as $key => $solusi)
+                            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white"> {{ $solusi->role }} </h2>
+                                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                                    <li>
+                                        {{ $solusi->keterangan ?? '' }}
+                                    </li>
+                                </ul>
+                            @empty
+                                <p class="text-yellow-900 font-bold">
+                                    {{ __('Data relasi solusi tersedia..') }}
+                                </p>
+                            @endforelse
+                        </td>
+
                         <td class="px-6 py-4">
                             {{-- <button  wire:click="editDataPakar( {{ $kecanduan->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Edit

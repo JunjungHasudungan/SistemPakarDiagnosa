@@ -25,12 +25,24 @@ class Kecanduan extends Model
 
     public function solusiKecanduan()
     {
-        return $this->belongsToMany(Solusi::class, 'kecanduan_solusi', 'kecanduan_id', 'solusi_id')->withPivot('role');
+        return $this->belongsToMany(Solusi::class, 'kecanduan_solusi', 'solusi_id' , 'kecanduan_id')->withPivot('role');
     }
 
     public function gejalaKecanduan()
     {
-        return $this->belongsToMany(Gejala::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id');
+        return $this->belongsToMany(Gejala::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id')->withPivot('keterangan_relasi');
+    }
+
+    public function attachGejala($id_gejala)
+    {
+        $gejala = Gejala::find($id_gejala);
+
+        return $this->gejalaKecanduan()->attach($gejala);
+    }
+
+    public function rule()
+    {
+        return $this->hasOne(Rule::class);
     }
 
 }

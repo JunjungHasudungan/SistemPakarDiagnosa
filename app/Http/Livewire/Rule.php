@@ -8,13 +8,16 @@ use App\Models\{
     Kecanduan,
     Gejala,
     Rule as Rules,
+    Solusi,
 };
 
 class Rule extends Component
 {
     public  $open_modal = false,
+            $solusis,
             $kecanduans,
             $kecanduan_id,
+            $id_kecanduan,
             $rule_data_pakar,
             $gejalas,
             $keterangan,
@@ -39,6 +42,7 @@ class Rule extends Component
         $this->gejala_kecanduan = [
             [
                 'gejala_id'                         => '',
+                'kecanduan_id'                      => '',
                 'keterangan_relasi'                 => ''
             ]
         ];
@@ -47,13 +51,22 @@ class Rule extends Component
     public function render()
     {
 
-        $this->rules = Rules::with(['kecanduan', 'kecanduans'])->get();
+        $this->rules = Rules::with('kecanduan')->get();
 
-        // dd($this->rules);
+        foreach ($this->rules as $key => $item) {
+           $this->id_kecanduan = $item->kecanduan_id;
+        }
+
+        $kecanduans = Kecanduan::with(['gejalaKecanduan', 'solusiKecanduan', 'rule'])->get();
+
+        $solusis = Solusi::with(['kecanduanSolusi'], function($query){
+            $query->where('kecanduan_id', $this->id_kecanduan)->groupBy('role')->get();
+        })->get();
         return view('livewire.rule',[
-            $this->kecanduans = Kecanduan::all(),
 
-            $this->rules = Rules::with(['kecanduan', 'kecanduans'])->get(),
+            $this->kecanduans = $kecanduans,
+
+            $this->solusis = $solusis,
 
             $this->rule_data_pakar = RuleDataPakar::Rules,
         ]);
@@ -95,21 +108,22 @@ class Rule extends Component
             // 'keterangan_relasi.required'        => 'Keterangan Relasi Wajib dipilih..'
         ]);
 
-        $rule = new Rules();
+        $kecanduan = new Kecanduan();
 
         $rule = Rules::create([
             'kecanduan_id'          => $this->kecanduan_id,
             'keterangan'            => $this->keterangan,
         ]);
 
-        foreach ($this->gejala_kecanduan as $key => $kecanduan) {
-            $rule->kecanduan()->attach($kecanduan['gejala_id'],
-            [
-                'keterangan_relasi'     => $kecanduan['keterangan_relasi']
+        foreach ($this->gejala_kecanduan as $gejala) {
+            $rule->kecanduan()->attach($gejala['gejala_id'], [
+                'keterangan_relasi'     => $gejala['keterangan_relasi'],
             ]);
+            $gejala_id = $gejala['gejala_id'];
+
+            dd($gejala_id);
         }
 
-        dd('data berhasil disimpan');
         $rule->save();
 
         $this->resetField();
@@ -136,7 +150,8 @@ class Rule extends Component
     {
         $this->gejala_kecanduan[] = [
             'gejala_id'             => '',
-            'keterangan_relasi'     => ''
+            'keterangan_relasi'     => '',
+            'kecanduan_id'          => ''
         ];
     }
 }

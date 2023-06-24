@@ -19,7 +19,7 @@ class Rule extends Model
 
     public function kecanduan()
     {
-        return $this->belongsToMany(Kecanduan::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id')->withPivot('keterangan_relasi');
+        return $this->belongsToMany(Kecanduan::class, 'gejala_kecanduan', 'kecanduan_id', 'gejala_id')->withPivot('keterangan_relasi');
     }
 
 }
