@@ -15,7 +15,7 @@
 
         <div class=" inline-flex col-span-7 p-3 w-full">
             {{-- button --}}
-            <button wire:click.prevent="createDataPakar()"
+            <button wire:click.prevent="createRule()"
                 class="bg-blue-500 hover:bg-blue-700 w-40
                 text-white font-bold rounded-md my-3 inline-flex py-2 px-5">
                 <svg class="w-5 h-6 -ml-1 inline-flex"
@@ -32,11 +32,10 @@
             </button>
             {{-- end button --}}
                 @if ($open_modal)
-                    {{-- @include('livewire.rule') --}}
-                    <livewire:rule />
+                    @include('livewire.rules.create')
                 @endif
 
-                @if ($detail_modal)
+                {{-- @if ($detail_modal)
                     @include('livewire.data_pakar.detail')
                 @endif
                 @if (!$cari_data_pakar)
@@ -45,7 +44,7 @@
 
                 @if ($edit_modal)
                     @include('livewire.data_pakar.edit')
-                @endif
+                @endif --}}
         </div>
     </div>
 
@@ -54,7 +53,7 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    No
+                    Keterangan Aturan
                 </th>
                 <th scope="col" class="px-6 py-3">
                    JK
@@ -71,47 +70,24 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($data_pakar as $kecanduan)
+            @forelse ($rules as $rule)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$loop->iteration}}
+                            {{ $rule->no_aturan }}
                         </th>
 
                         <td class="px-6 py-4">
-                            @forelse ($kecanduan->gejalaKecanduan as $item)
-                                {{ $item->kode_kecanduan ?? '' }}
-                            @empty
-
-                            @endforelse
+                            {{ $rule->kecanduan->kode_kecanduan ?? '' }}
                         </td>
 
                         <td class="px-6 py-4">
-                            @forelse ($kecanduan->gejalaKecanduan as $item)
-                               {{ $item->deskripsi ?? '' }}
-                            @empty
-
-                            @endforelse
+                            {{ $rule->kecanduan->level->keterangan }}  | {{ $rule->kecanduan->deskripsi ?? '' }}
                         </td>
 
                         <td class="px-6 py-4">
-                            @forelse ($kecanduan->gejalaKecanduan as $gejala)
-                                <ul class="w-full px-2 py-2 hover:text-white list-none max-w-md tracking-tight text-gray-500 list-inside dark:text-gray-400">
-                                    <li class="">
-                                        <li>
-                                             <a href="{{ route('gejala.index') }}">
-                                                {{ $gejala->keterangan ?? ''  }}
-                                            </a>
-                                        </li>
-                                    </li>
-                                </ul>
-                            @empty
-                                <p class="text-yellow-900 font-bold">
-                                    {{ __('Data Gejala Belum tersedia..') }}
-                                </p>
-                            @endforelse
                         </td>
                         <td class="px-6 py-4">
-                            <button  wire:click="editDataPakar( {{ $kecanduan->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            {{-- <button  wire:click="editDataPakar( {{ $kecanduan->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
                             </button>
 
@@ -121,7 +97,7 @@
 
                             <button wire:click.prevent="deleteConfirmation( {{ $kecanduan->id }} )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                 Delete
-                            </button>
+                            </button> --}}
                         </td>
                     </tr>
                     @empty

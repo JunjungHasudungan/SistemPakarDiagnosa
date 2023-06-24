@@ -30,8 +30,7 @@ class Kecanduan extends Model
 
     public function gejalaKecanduan()
     {
-        return $this->belongsToMany(Gejala::class, 'gejala_kecanduan', 'kecanduan_id', 'gejala_id');
+        return $this->belongsToMany(Gejala::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id');
     }
-
 
 }

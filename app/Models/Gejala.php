@@ -13,6 +13,11 @@ class Gejala extends Model
 
     public function KecanduanGejala()
     {
-        return $this->belongsToMany(Kecanduan::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id');
+        return $this->belongsToMany(Kecanduan::class, 'gejala_kecanduan', 'kecanduan_id', 'gejala_id');
+    }
+
+    public function gejalaKecanduan()
+    {
+        return $this->belongsToMany(GejalaKecanduan::class, 'gejala_kecanduan', 'kecanduan_id', 'gejala_id');
     }
 }

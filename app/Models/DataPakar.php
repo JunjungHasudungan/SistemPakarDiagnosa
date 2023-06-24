@@ -9,7 +9,7 @@ class DataPakar extends Model
 {
     use HasFactory;
 
-    protected $table = 'gejala_kecanduan';
+    protected $table = 'data_pakar';
 
     protected $fillable = [
         'gejala_id', 'kecanduan_id'
@@ -17,6 +17,6 @@ class DataPakar extends Model
 
     public function gejalaKecanduan()
     {
-        $this->belongsToMany(GejalaKecanduan::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id');
+        return $this->belongsToMany(Kecanduan::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id')->withTimestamps();
     }
 }

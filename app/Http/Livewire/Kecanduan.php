@@ -73,6 +73,9 @@ class Kecanduan extends Component
 
     public function closeCreateModal()
     {
+
+        $this->resetValidation();
+
         $this->create_modal = false;
     }
 
