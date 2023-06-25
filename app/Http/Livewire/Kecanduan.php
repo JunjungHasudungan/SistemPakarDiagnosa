@@ -21,7 +21,7 @@ class Kecanduan extends Component
             $show_modal = false,
             $cari_kecanduan = false,
             $kecanduans,
-            $solutions,
+            $solusis,
             $solusi_id,
             $all_kecanduan,
             $keterangan_rule,
@@ -35,6 +35,8 @@ class Kecanduan extends Component
             $deskripsi_kecanduan,
             $level_id,
             $keterangan,
+            $gejalas,
+            $gejala,
             $deskripsi;
 
     // sebagai penampung nilai array
@@ -151,12 +153,15 @@ class Kecanduan extends Component
     {
         $this->openShowModal();
 
-        $kecanduan = Kecanduans::with(['gejalaKecanduan', 'solusiKecanduan'])->find($id_kecanduan);
+        $kecanduan = Kecanduans::with(['gejalaKecanduan', 'solusiKecanduan'], function($query) use($id_kecanduan){
+            $query->where('kecanduan_id', $id_kecanduan)->get();
+        })->find($id_kecanduan);
 
+        $this->gejalas = $kecanduan->gejalaKecanduan;
+        $this->solusis = $kecanduan->solusiKecanduan;
         $this->kode_kecanduan = $kecanduan->kode_kecanduan;
         $this->level_kecanduan = $kecanduan->level->keterangan;
         $this->deskripsi_kecanduan = $kecanduan->deskripsi;
-        // dd($level);
     }
 
     public function closeDetailKecanduan()
