@@ -8,7 +8,7 @@
           <!-- This element is to trick the browser into centering the modal contents. -->
           <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
 
-          <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  w-8/12" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+          <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  w-10/12" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
             <form>
             <div class="bg-white px-4 pt-5 pb-2 sm:p-6">
                 <div class="border border-sky-500 mb-2 py-2 px-2">
@@ -25,7 +25,7 @@
                                 name="kode_kecanduan"
                                 class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="kode_kecanduan"
-                                placeholder="Kode Kecanduan..">
+                                placeholder="Masukkan Kode Kecanduan disini..">
                                   @error('kode_kecanduan') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                               {{-- end kode kecanduan --}}
@@ -57,7 +57,7 @@
                                wire:model="deskripsi"
                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                id="deskripsi"
-                               placeholder="Masukkan Keterangan Kecanduan..">
+                               placeholder="Masukkan Keterangan Kecanduan disini..">
                                @error('deskripsi') <span class="text-red-500">{{ $message }}</span>@enderror
                            </div>
                            {{-- end input keterangan kecanduan --}}
@@ -85,9 +85,9 @@
                                     </thead> --}}
                                     <tbody>
                                         @foreach ($kecanduan_solusi as $index => $item)
-                                        <tr class="bg-white w-auto">
+                                        <tr class="w-auto">
                                          {{-- select to_role --}}
-                                            <td class="px-1 py-6">
+                                            <td class="px-1 py-6 ">
                                                 <select
                                                     wire:model="kecanduan_solusi.{{$index}}.role"
                                                     name="kecanduan_solusi[ {{ $index }} ]['role']"
@@ -160,7 +160,7 @@
                                             class="w-auto text-white bg-blue-700 hover:bg-blue-800
                                             m-4
                                             focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium
-                                            rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600
+                                            rounded-lg text-sm px-4 py-2 text-center bg-blue-600
                                             hover:bg-blue-700 focus:ring-blue-800">
                                             + Solusi
                                     </button>
@@ -170,7 +170,7 @@
                     {{-- end solusi --}}
 
                     {{-- data gejala --}}
-                    <div class="border border-sky-500 px-4 sm:p-2">
+                    <div class="border border-sky-500 px-4 p-2">
                         <div class="w-full inline">
                             <div class="bg-white">
                                 <h2 class="text-gray-700 text-center font-semibold">Data Gejala</h2>
@@ -260,12 +260,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div>
+                            <div class="">
                                 <button wire:click.prevent="addDataGejala()"
                                         class="w-auto text-white bg-blue-700 hover:bg-blue-800
                                         m-4
                                         focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium
-                                        rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600
+                                        rounded-lg text-sm px-4 py-2 text-center bg-blue-600
                                         hover:bg-blue-700 focus:ring-blue-800">
                                         + Gejala
                                 </button>

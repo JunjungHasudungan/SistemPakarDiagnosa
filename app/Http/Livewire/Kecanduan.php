@@ -31,6 +31,8 @@ class Kecanduan extends Component
             $roles,
             $role,
             $kode_kecanduan,
+            $level_kecanduan,
+            $deskripsi_kecanduan,
             $level_id,
             $keterangan,
             $deskripsi;
@@ -75,7 +77,7 @@ class Kecanduan extends Component
     {
 
         return view('livewire.kecanduan', [
-            $this->kecanduans = Kecanduans::with(['level'])->get(),
+            $this->kecanduans = Kecanduans::with(['level', 'gejalaKecanduan', 'solusiKecanduan'])->get(),
 
             $this->keterangan_rule = RuleDataPakar::DescriptionRules,
 
@@ -98,7 +100,7 @@ class Kecanduan extends Component
 
     public function openShowModal()
     {
-        $this->show_modal = false;
+        $this->show_modal = true;
     }
 
     public function openEditModal()
@@ -145,10 +147,21 @@ class Kecanduan extends Component
         $this->edit_modal = false;
     }
 
-    public function detailKecanduan()
+    public function detailKecanduan($id_kecanduan)
     {
-        // $this->openShowModal();
-        dd('Halaman Detail Kecanduan');
+        $this->openShowModal();
+
+        $kecanduan = Kecanduans::with(['gejalaKecanduan', 'solusiKecanduan'])->find($id_kecanduan);
+
+        $this->kode_kecanduan = $kecanduan->kode_kecanduan;
+        $this->level_kecanduan = $kecanduan->level->keterangan;
+        $this->deskripsi_kecanduan = $kecanduan->deskripsi;
+        // dd($level);
+    }
+
+    public function closeDetailKecanduan()
+    {
+        $this->show_modal = false;
     }
 
     public function deleteConfirmation($id_kecanduan)
@@ -218,6 +231,7 @@ class Kecanduan extends Component
 
         $kecanduan->save();
 
+        // dd('Data Berhasil ditambahkan..');
         $this->closeCreateModal();
 
         $this->resetField();

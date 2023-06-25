@@ -53,18 +53,19 @@
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-2">
                     No
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Kode Kecanduan
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Level
+                    Level | Keterangan
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Keterangan
+                    Gejala
                 </th>
+
                 <th scope="col" class="px-6 py-3">
 
                 </th>
@@ -76,22 +77,36 @@
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{$loop->iteration}}
                         </th>
-                        <td class="px-6 py-4">
-                            {{ $item['kode_kecanduan'] }}
+
+                        <td class="px-6 py-2">
+                            {{ $item['kode_kecanduan'] }} | {{ $item->level->keterangan ?? '' }}
                         </td>
-                        <td class="px-6 py-4">
-                            {{ $item->level->keterangan ?? '' }}
-                        </td>
+
                         <td class="px-6 py-4">
                             {{ $item->deskripsi }}
                         </td>
+
+                        <td class="px-6 py-4">
+                            @forelse ($item->gejalaKecanduan as $gejala)
+                                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                                    <li>
+                                        {{ $gejala->keterangan ?? '' }}
+                                    </li>
+                                </ul>
+                            @empty
+                                <p class="text-amber-500 text-semibold">
+                                    {{ __('Data Relasi Gejala belum tersedia..') }}
+                                </p>
+                            @endforelse
+                        </td>
+
                         <td class="px-6 py-4">
                             {{-- add button for edit and delete data classroom --}}
                             <button  wire:click="editKecanduan( {{ $item->id }} )" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Edit
                             </button>
 
-                            <button  wire:click="detailKecanduan()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            <button  wire:click="detailKecanduan( {{ $item->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                                 Detail
                             </button>
 
