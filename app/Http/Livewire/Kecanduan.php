@@ -37,6 +37,7 @@ class Kecanduan extends Component
             $keterangan,
             $gejalas,
             $gejala,
+            $gejala_id,
             $deskripsi;
 
     // sebagai penampung nilai array
@@ -127,7 +128,15 @@ class Kecanduan extends Component
         $this->deskripsi = $kecanduan->deskripsi;
 
         if($koleksi_kecanduan->isNotEmpty()){
-            $this->resetValidation(['kode_kecanduan', 'level_id', 'deskripsi']);
+            $this->resetValidation([
+                'kode_kecanduan',
+                'level_id',
+                'deskripsi',
+                'solusi_id',
+                'role',
+                'gejala_id',
+                'keterangan_relasi'
+        ]);
         }
     }
 
@@ -137,13 +146,21 @@ class Kecanduan extends Component
 
         // dd($id_kecanduan);
         $this->validate([
-            'kode_kecanduan'        => 'required',
-            'level_id'              => 'required',
-            'deskripsi'             => 'required'
+            'kode_kecanduan'                => 'required',
+            'level_id'                      => 'required',
+            'deskripsi'                     => 'required',
+            'role'                          => 'required',
+            'solusi_id'                     => 'required',
+            'gejala_id'                     => 'required',
+            'keterangan_relasi'             => 'required'
         ],[
             'kode_kecanduan.required'       => 'Kode Kecanduan wajib diisi...',
             'level_id'                      => 'Level Kecanduan wajib diisi...',
-            'deskripsi'                     => 'Keterangan kecanduan wajib diisi..'
+            'deskripsi'                     => 'Keterangan kecanduan wajib diisi..',
+            'role.required'                 => 'inputan untuk siapa wajib dipilih..',
+            'solusi_id.required'            => 'Keterangan Solusi Wajib dipilih..',
+            'gejala_id'                     => 'Keterangan Gejala wajib dipilih..',
+            'keterangan_relasi'             => 'Keterangan Relasi wajib dipilih..'
         ]);
 
         $kecanduan->update([
