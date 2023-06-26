@@ -128,15 +128,6 @@ class Kecanduan extends Component
         $this->deskripsi = $kecanduan->deskripsi;
 
         if($koleksi_kecanduan->isNotEmpty()){
-            $this->resetValidation([
-                'kode_kecanduan',
-                'level_id',
-                'deskripsi',
-                // 'solusi_id',
-                // 'role',
-                // 'gejala_id',
-                // 'keterangan_relasi'
-        ]);
         }
     }
 
@@ -160,6 +151,7 @@ class Kecanduan extends Component
             // 'role.required'                 => 'inputan untuk siapa wajib dipilih..',
             // 'solusi_id.required'            => 'Keterangan Solusi Wajib dipilih..',
             // 'gejala_id'                     => 'Keterangan Gejala wajib dipilih..',
+
             // 'keterangan_relasi'             => 'Keterangan Relasi wajib dipilih..'
         ]);
 
@@ -186,7 +178,21 @@ class Kecanduan extends Component
            ]);
         }
 
-        dd('data berhasil diupdate..');
+        foreach ($this->kecanduan_solusi as $solusi) {
+            $kecanduan->solusiKecanduan()->detach($solusi['solusi_id'],
+            [
+                'role'                      => $solusi['role'],
+            ]);
+        }
+
+        foreach ($this->kecanduan_solusi as $solusi) {
+            $kecanduan->solusiKecanduan()->attach($solusi['solusi_id'],
+            [
+                'role'                      => $solusi['role'],
+            ]);
+        }
+
+        // dd('data berhasil diupdate..');
         $this->resetField();
 
         $this->closeEditModal();
@@ -195,6 +201,17 @@ class Kecanduan extends Component
     public function closeEditModal()
     {
         $this->edit_modal = false;
+
+        $this->resetValidation([
+            'kode_kecanduan',
+            'level_id',
+            'deskripsi',
+            'solusi_id',
+            'role',
+            'gejala_id',
+            'keterangan_relasi'
+    ]);
+
     }
 
     public function detailKecanduan($id_kecanduan)

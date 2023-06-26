@@ -28,9 +28,6 @@
                         {{ __('Gejala') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('data-pakar.index')" :active="request()->routeIs('data-pakar.index')">
-                        {{ __('Data Pakar') }}
-                    </x-nav-link>
                 </div>
             </div>
 

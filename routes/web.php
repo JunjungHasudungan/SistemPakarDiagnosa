@@ -39,7 +39,6 @@ Route::middleware('auth')->group(function () {
         'solusi'            => SolutionController::class,
         'gejala'            => GejalaController::class,
         'diagnosa'          => DiagnosaController::class,
-        'data-pakar'        => DataPakarController::class,
     ]);
 });
 
