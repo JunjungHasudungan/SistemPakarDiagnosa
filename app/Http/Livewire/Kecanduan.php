@@ -132,10 +132,10 @@ class Kecanduan extends Component
                 'kode_kecanduan',
                 'level_id',
                 'deskripsi',
-                'solusi_id',
-                'role',
-                'gejala_id',
-                'keterangan_relasi'
+                // 'solusi_id',
+                // 'role',
+                // 'gejala_id',
+                // 'keterangan_relasi'
         ]);
         }
     }
@@ -149,30 +149,44 @@ class Kecanduan extends Component
             'kode_kecanduan'                => 'required',
             'level_id'                      => 'required',
             'deskripsi'                     => 'required',
-            'role'                          => 'required',
-            'solusi_id'                     => 'required',
-            'gejala_id'                     => 'required',
-            'keterangan_relasi'             => 'required'
+            // 'role'                          => 'required',
+            // 'solusi_id'                     => 'required',
+            // 'gejala_id'                     => 'required',
+            // 'keterangan_relasi'             => 'required'
         ],[
             'kode_kecanduan.required'       => 'Kode Kecanduan wajib diisi...',
             'level_id'                      => 'Level Kecanduan wajib diisi...',
             'deskripsi'                     => 'Keterangan kecanduan wajib diisi..',
-            'role.required'                 => 'inputan untuk siapa wajib dipilih..',
-            'solusi_id.required'            => 'Keterangan Solusi Wajib dipilih..',
-            'gejala_id'                     => 'Keterangan Gejala wajib dipilih..',
-            'keterangan_relasi'             => 'Keterangan Relasi wajib dipilih..'
+            // 'role.required'                 => 'inputan untuk siapa wajib dipilih..',
+            // 'solusi_id.required'            => 'Keterangan Solusi Wajib dipilih..',
+            // 'gejala_id'                     => 'Keterangan Gejala wajib dipilih..',
+            // 'keterangan_relasi'             => 'Keterangan Relasi wajib dipilih..'
         ]);
 
         $kecanduan->update([
 
-            'kode_kecanduan'    => $this->kode_kecanduan,
+            'kode_kecanduan'        => $this->kode_kecanduan,
 
-            'level_id'             => $this->level_id,
+            'level_id'              => $this->level_id,
 
-            'deskripsi'         => $this->deskripsi,
+            'deskripsi'             => $this->deskripsi,
         ]);
 
+        foreach ($this->kecanduan_gejala as $gejala) {
+            $kecanduan->gejalaKecanduan()->detach($gejala['gejala_id'],
+            [
+                'keterangan_relasi'          => $gejala['keterangan_relasi']
+            ]);
+        }
 
+        foreach ($this->kecanduan_gejala as $gejala) {
+           $kecanduan->gejalaKecanduan()->attach($gejala['gejala_id'],
+           [
+            'keterangan_relasi'              => $gejala['keterangan_relasi']
+           ]);
+        }
+
+        dd('data berhasil diupdate..');
         $this->resetField();
 
         $this->closeEditModal();
