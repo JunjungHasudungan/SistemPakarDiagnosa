@@ -278,7 +278,7 @@
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
               <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                 <button
-                        wire:click.prevent="storeKecanduan()"
+                        wire:click.prevent="updateKecanduan( {{ $id_kecanduan }} )"
                         type="button"
                         class="inline-flex justify-center w-full rounded-md border border-transparent
                         px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm

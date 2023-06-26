@@ -114,6 +114,8 @@ class Kecanduan extends Component
     {
         $kecanduan = Kecanduans::find($id_kecanduan);
 
+        $koleksi_kecanduan = collect($kecanduan);
+
         $this->openEditModal();
 
         $this->id_kecanduan = $id_kecanduan;
@@ -123,13 +125,27 @@ class Kecanduan extends Component
         $this->level_id = $kecanduan->level_id;
 
         $this->deskripsi = $kecanduan->deskripsi;
+
+        if($koleksi_kecanduan->isNotEmpty()){
+            $this->resetValidation(['kode_kecanduan', 'level_id', 'deskripsi']);
+        }
     }
 
     public function updateKecanduan($id_kecanduan)
     {
         $kecanduan = Kecanduans::find($id_kecanduan);
 
-        // dd($this->id_kecanduan);
+        // dd($id_kecanduan);
+        $this->validate([
+            'kode_kecanduan'        => 'required',
+            'level_id'              => 'required',
+            'deskripsi'             => 'required'
+        ],[
+            'kode_kecanduan.required'       => 'Kode Kecanduan wajib diisi...',
+            'level_id'                      => 'Level Kecanduan wajib diisi...',
+            'deskripsi'                     => 'Keterangan kecanduan wajib diisi..'
+        ]);
+
         $kecanduan->update([
 
             'kode_kecanduan'    => $this->kode_kecanduan,
@@ -138,6 +154,7 @@ class Kecanduan extends Component
 
             'deskripsi'         => $this->deskripsi,
         ]);
+
 
         $this->resetField();
 
