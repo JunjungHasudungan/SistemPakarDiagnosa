@@ -16,18 +16,24 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('kecanduan.index')" :active="request()->routeIs('kecanduan.index')">
-                        {{ __('Kecanduan') }}
-                    </x-nav-link>
+                    @if (auth()->user()->role_id == 1)
+                        <x-nav-link :href="route('admin.kecanduan.index')" :active="request()->routeIs('kecanduan.index')">
+                            {{ __('Kecanduan') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('solusi.index')" :active="request()->routeIs('solusi.index')">
-                        {{ __('Solusi') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('admin.solusi.index')" :active="request()->routeIs('admin.solusi.index')">
+                            {{ __('Solusi') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('gejala.index')" :active="request()->routeIs('gejala.index')">
-                        {{ __('Gejala') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('admin.gejala.index')" :active="request()->routeIs('admin.gejala.index')">
+                            {{ __('Gejala') }}
+                        </x-nav-link>
 
+                    @else
+                        <x-nav-link :href="route('guest.diagnosa.index')" :active="request()->routeIs('guest.diagnosa.index')">
+                            {{ __('Diagnosa') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\Admin\{
     DataPakarController,
-    DiagnosaController,
     GejalaController,
     KecanduanController,
     SolutionController
+};
+
+use App\Http\Controllers\Guest\{
+    DiagnosaController,
 };
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -34,13 +37,26 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resources([
-        'kecanduan'         => KecanduanController::class,
-        'solusi'            => SolutionController::class,
-        'gejala'            => GejalaController::class,
-        'diagnosa'          => DiagnosaController::class,
-    ]);
+    // ROUTE FOR ADMIN
+    Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function(){
+        Route::resources([
+            'kecanduan'         => KecanduanController::class,
+            'solusi'            => SolutionController::class,
+            'gejala'            => GejalaController::class,
+            // 'diagnosa'          => DiagnosaController::class,
+        ]);
+    });
+
+    // ROUTE FOR GUEST
+    Route::group(['middlewate' => 'role:guest', 'prefix'=> 'guest', 'as' => 'guest.'], function(){
+        Route::resources([
+            'diagnosa'          => DiagnosaController::class,
+        ]);
+    });
+
+
 });
+
 
 
 require __DIR__.'/auth.php';
