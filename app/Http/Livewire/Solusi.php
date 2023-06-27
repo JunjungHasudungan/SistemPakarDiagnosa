@@ -105,6 +105,8 @@ class Solusi extends Component
             'keterangan'        => $this->keterangan
         ]);
 
+        $solusi->save();
+
         $this->resetField();
 
         $this->closeModalEdit();
