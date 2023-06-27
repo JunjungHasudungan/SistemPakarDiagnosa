@@ -30,6 +30,10 @@ class Gejala extends Component
         'keterangan'        => 'required'
     ];
 
+    public $listeners = [
+        'deleteGejala'
+    ];
+
     public function render()
     {
 
@@ -81,16 +85,20 @@ class Gejala extends Component
         'keterangan.required'   => 'Keterangan Wajib diisi..'
        ]);
 
-    $gejala = Gejalas::create([
-        'kode_gejala'       => $this->kode_gejala,
-        'keterangan'        => $this->keterangan,
-    ]);
+        $gejala = Gejalas::create([
+            'kode_gejala'       => $this->kode_gejala,
+            'keterangan'        => $this->keterangan,
+        ]);
 
-    $gejala->save();
+        $gejala->save();
 
-    $this->resetField();
+        $this->closeCreateModal();
 
-    $this->closeCreateModal();
+        $this->resetField();
+
+        $this->dispatchBrowserEvent('toastr:info',[
+            'message'       => 'Data Berhasil disimpan..'
+        ]);
     }
 
     public function openEditModal()
@@ -139,6 +147,10 @@ class Gejala extends Component
         $this->resetField();
 
         $this->closeEditModal();
+
+        $this->dispatchBrowserEvent('toastr:info', [
+            'message'               => 'Data Berhasil diupdate..'
+        ]);
     }
 
     public function openDetailModal()
@@ -163,9 +175,23 @@ class Gejala extends Component
         $this->modalGejala();
     }
 
-    public function deleteDataGejala()
+    public function deleteConfirmation($id)
     {
-        dd('Halama Delete data gejala..');
+        $this->id_gejala = $id;
+
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type'  => 'warning',
+            'title' => 'Yakin untuk menghapus?',
+            'text'  => '',
+            'id'    => $id
+        ]);
+    }
+
+    public function deleteGejala($id)
+    {
+        Gejalas::where('id', $id)->delete();
+
+        $this->dispatchBrowserEvent('gejalaDeleted');
     }
 
 }
