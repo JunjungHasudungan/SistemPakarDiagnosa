@@ -87,7 +87,7 @@
                     </tr>
                     @empty
                     <div class="bg-yellow-500 text-white p-3 rounded shadow-sm mb-3">
-                        Data Belum Tersedia.
+                        Data Solusi Belum Tersedia.
                     </div>
             @endforelse
         </tbody>

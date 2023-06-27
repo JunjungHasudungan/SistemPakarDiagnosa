@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CheckRole
 {
-    public function handle(Closure $next, Request $request, string $role)
+    public function handle(Request $request, Closure $next, string $role)
     {
         if ($role == 'admin' && auth()->user()->role_id != 1) {
             abort(403);
@@ -15,5 +15,7 @@ class CheckRole
         if ($role == 'guest' && auth()->user()->role_id != 2) {
             abort(403);
         }
+
+        return $next($request);
     }
 }

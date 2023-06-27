@@ -1,3 +1,3 @@
 <div>
-    {{ __('Halaman diagnosa Testing') }}
+    {{ __('Halaman diagnosa Guest') }}
 </div>

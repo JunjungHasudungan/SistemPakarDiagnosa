@@ -84,9 +84,9 @@
                                 Edit
                             </button>
 
-                            <button  wire:click="detailGejala( {{ $item->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            {{-- <button  wire:click="detailGejala( {{ $item->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                                 Detail
-                            </button>
+                            </button> --}}
 
                             <button wire:click.prevent="deleteConfirmation( {{ $item->id }} )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                 Delete
@@ -95,7 +95,7 @@
                     </tr>
                     @empty
                     <div class="bg-yellow-500 text-white p-3 rounded shadow-sm mb-3">
-                        Data Belum Tersedia.
+                        Data Gejala Belum Tersedia.
                     </div>
             @endforelse
         </tbody>
