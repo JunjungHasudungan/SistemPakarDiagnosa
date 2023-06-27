@@ -189,6 +189,34 @@
                 )
             });
 
+            // event Listener confirmation delete data kecanduan base on id
+            // window.addEventListener('swal:confirm', event => {
+            //     swal({
+            //         title: event.detail.title,
+            //         text: event.detail.text,
+            //         icon: event.detail.type,
+            //         buttons: true,
+            //         dangerMode: false,
+            //     })
+            //     .then( will_delete => {
+            //         if(will_delete){
+            //             window.livewire.emit('deleteKecanduan', event.detail.id);
+            //         }else{
+            //             swal("Data masih ada..");
+            //         }
+            //     })
+            // });
+
+            // event listener info delete data gejala
+            window.addEventListener('kecanduanDeleted', event => {
+                swal(
+                    'Deleted!',
+                    'Data Berhasil Dihapus..',
+                    'success'
+                )
+            });
+
+
         </script>
     </body>
 </html>

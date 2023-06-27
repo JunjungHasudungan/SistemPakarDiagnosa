@@ -27,7 +27,7 @@ class Solusi extends Component
     ];
 
     public $listeners  = [
-        'deleteSolusi'
+        'deleteGejala'
     ];
 
     public function render()
@@ -163,11 +163,12 @@ class Solusi extends Component
         ]);
     }
 
-    public function deleteSolusi($id)
+    public function deleteGejala($id)
     {
         Solusis::where('id', $id)->delete();
 
-        $this->dispatchBrowserEvent('solusiDeleted');
+        // dd('data berhasil dihapus..');
+        $this->dispatchBrowserEvent('gejalaDeleted');
     }
 
 }

@@ -46,8 +46,9 @@ class Kecanduan extends Component
 
     public $all_solusi = [];
     public $all_gejala = []; // sebagai penampung nilai gejala
+
     protected $listeners = [
-        'deleteKecanduan'
+        'deleteGejala'
     ];
 
     public $rules = [
@@ -235,16 +236,6 @@ class Kecanduan extends Component
         $this->show_modal = false;
     }
 
-    public function deleteConfirmation($id_kecanduan)
-    {
-        dd('id_kecanduan', $id_kecanduan);
-    }
-
-    public function deleteKecanduan($id)
-    {
-        Kecanduans::where('id', $id);
-    }
-
     public function resetField()
     {
         $this->kode_kecanduan = '';
@@ -341,5 +332,24 @@ class Kecanduan extends Component
             'gejala_id'             => '',
             'keterangan_relasi'     => ''
         ];
+    }
+
+    public function deleteConfirmation($id)
+    {
+        $this->id_kecanduan = $id;
+
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type'  => 'warning',
+            'title' => 'Yakin untuk menghapus?',
+            'text'  => '',
+            'id'    => $id
+        ]);
+    }
+
+    public function deleteGejala($id)
+    {
+        Kecanduans::where('id', $id)->delete();
+
+        $this->dispatchBrowserEvent('kecanduanDeleted');
     }
 }
