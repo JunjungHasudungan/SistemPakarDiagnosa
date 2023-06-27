@@ -35,12 +35,12 @@
                     @include('livewire.solusi.create')
                 @endif
 
-                @if ($show_modal)
+                {{-- @if ($show_modal)
                     @include('livewire.solusi.detail')
-                @endif
-                @if (!$cari_solusi)
+                @endif --}}
+                {{-- @if (!$cari_solusi)
                     @include('livewire.solusi.cari-solusi')
-                @endif
+                @endif --}}
 
                 @if ($edit_modal)
                     @include('livewire.solusi.edit')
@@ -76,9 +76,9 @@
                                 Edit
                             </button>
 
-                            <button  wire:click="detailSolution( {{ $solution->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            {{-- <button  wire:click="detailSolution( {{ $solution->id }} )" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                                 Detail
-                            </button>
+                            </button> --}}
 
                             <button wire:click.prevent="deleteConfirmation( {{ $solution->id }} )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                                 Delete

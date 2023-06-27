@@ -171,11 +171,12 @@ class Kecanduan extends Component
             ]);
         }
 
+
         foreach ($this->kecanduan_gejala as $gejala) {
-           $kecanduan->gejalaKecanduan()->attach($gejala['gejala_id'],
-           [
-            'keterangan_relasi'              => $gejala['keterangan_relasi']
-           ]);
+            $kecanduan->gejalaKecanduan()->attach($gejala['gejala_id'],
+            [
+                'keterangan_relasi'              => $gejala['keterangan_relasi']
+            ]);
         }
 
         foreach ($this->kecanduan_solusi as $solusi) {

@@ -26,6 +26,10 @@ class Solusi extends Component
 
     ];
 
+    public $listeners  = [
+        'deleteSolusi'
+    ];
+
     public function render()
     {
         return view('livewire.solusi', [
@@ -70,6 +74,10 @@ class Solusi extends Component
         $this->resetField();
 
         $this->closeModalCreate();
+
+        $this->dispatchBrowserEvent('toastr:info', [
+            'message'       => 'Data Berhasil ditambahkan..'
+        ]);
     }
 
     public function openModalEdit()
@@ -110,6 +118,10 @@ class Solusi extends Component
         $this->resetField();
 
         $this->closeModalEdit();
+
+        $this->dispatchBrowserEvent('toastr:info', [
+            'message'       => 'Data Berhasil diupdate..'
+        ]);
     }
 
     public function closeModalEdit()
@@ -139,9 +151,23 @@ class Solusi extends Component
         $this->keterangan = '';
     }
 
-    public function deleteConfirmation($id_solusi)
+    public function deleteConfirmation($id)
     {
-        $this->id_solusi = $id_solusi;
+        $this->id_solusi = $id;
+
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type'  => 'warning',
+            'title' => 'Yakin untuk menghapus?',
+            'text'  => '',
+            'id'    => $id
+        ]);
+    }
+
+    public function deleteSolusi($id)
+    {
+        Solusis::where('id', $id)->delete();
+
+        $this->dispatchBrowserEvent('solusiDeleted');
     }
 
 }
