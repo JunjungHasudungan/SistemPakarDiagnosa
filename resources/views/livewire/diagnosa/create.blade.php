@@ -25,16 +25,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($all_gejala as $gejala)
+                                        @forelse ($diagnosa_gejala as $index => $item)
                                             <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-300">
                                                 <td class="px-1 py-6 text-semibold text-gray-700">
-                                                    <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
-                                                        <input  id="default-checkbox"
-                                                                type="checkbox"
-                                                                value=""
-                                                                class="w-4 h-4 px-2 py-2 mx-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                    {{ $gejala->keterangan ?? '' }}
-                                                    </label>
+                                                    @foreach ($gejalas as $gejala)
+                                                        <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
+                                                            <input  id="default-checkbox"
+                                                                    type="checkbox"
+                                                                    wire:model="diagnosa_gejala.{{ $index }}"
+                                                                    value="{{ $gejala->id }}"
+                                                                    class="w-4 h-4 px-2 py-2 mx-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                        {{ $gejala->keterangan ?? '' }}
+                                                        </label>
+                                                    @endforeach
                                                 </td>
                                             </tr>
                                         @empty

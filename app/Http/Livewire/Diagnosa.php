@@ -13,14 +13,19 @@ class Diagnosa extends Component
             $answer_diagnosa,
             $user_id;
 
-    public $all_gejala = [];
-    public $all_answer = [];
+    public $gejalas = [];
+    public $diagnosa_gejala = [];
 
     public function mount()
     {
-        $this->all_gejala = Gejala::all();
+        $this->gejalas = Gejala::all();
 
-        $this->all_answer = Gejala::all();
+        $this->diagnosa_gejala = [
+            [
+                'gejala_id'     => ''
+            ]
+        ];
+
     }
     public function render()
     {
@@ -46,7 +51,9 @@ class Diagnosa extends Component
     {
         $this->openCreateModal();
 
-        dd($this->gejala);
+        foreach ($this->diagnosa_gejala as $gejala) {
+          dd($gejala);
+        }
     }
 
     public function closeCreateModal()
