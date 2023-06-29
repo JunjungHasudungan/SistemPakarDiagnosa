@@ -21,10 +21,13 @@ class Diagnosa extends Component
     public $gejalas = [];
     public $diagnosa_gejala = [];
     public $gejala_diagnonsa = [];
+    public $all_gejala = [];
 
     public function mount()
     {
         $this->gejalas = Gejala::all();
+
+        $this->user_id = auth()->user()->id;
 
         $this->diagnosa_gejala = [
             [
@@ -75,13 +78,11 @@ class Diagnosa extends Component
         $kecanduan = Kecanduan::orderBy('id', 'asc')->get();
         $count_gejala_kecanduan = DB::table('gejala_kecanduan')->groupBy('kecanduan_id')->get(['kecanduan_id'])->count();
         $count_permasalahan = $kecanduan->count();
-        if($count_gejala_kecanduan != $count_permasalahan){
-            dd('sistem sedang bermasalah..');
-        }else{
-            dd($count_permasalahan);
-        }
-        // dd('testing store gejala diagnosa..');
+        // dd($this->user_id);
 
+        foreach ($this->diagnosa_gejala as $item) {
+            dd($item);
+        }
     }
 
     public function closeCreateModal()

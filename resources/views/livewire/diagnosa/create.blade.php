@@ -29,16 +29,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <input
+                                                type="hidden"
+                                                name="user_id"
+                                                wire:model="user_id"
+                                                value="{{ $user_id }}"
+                                                >
                                         @forelse ($diagnosa_gejala as $index => $item)
                                             @forelse ($gejalas as $gejala)
                                             <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-300">
                                                 <td class="px-1 py-6 text-semibold text-gray-700">
-                                                    <label for="" class="block text-gray-700 text-sm font-bold mb-2">
+                                                    <label
+                                                            for=""
+                                                            {{-- wire:model="diagnosa_gejala" --}}
+                                                            name="diagnosa_gejala[{{ $index }}]['gejala_id']"
+                                                            class="block text-gray-700 text-sm font-bold mb-2">
                                                         <input  id="default-checkbox"
                                                                 type="checkbox"
-                                                                {{-- wire:model=diagnosa_gejala --}}
-                                                                name="diagnosa_gejala[]"
-                                                                name="gejala"
+                                                                {{-- name="gejala" --}}
                                                                 wire:model="gejala"
                                                                 value=" {{  $gejala->id }} "
                                                                 class="w-4 h-4 mx-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">

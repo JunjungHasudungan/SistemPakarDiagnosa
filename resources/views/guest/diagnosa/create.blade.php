@@ -44,6 +44,8 @@
                                                 <tbody>
                                                     <form action="{{ route('guest.diagnosa.store') }}" method="post">
                                                         @csrf
+
+                                                        <input type="hidden" name="bimbingan_id" value="{{ $bimbingan_id }}">
                                                         @forelse ($gejalas as $gejala)
                                                                 <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-300">
                                                                     <td class="px-1 py-6 text-semibold text-gray-700">
