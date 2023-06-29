@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use App\Models\Diagnosa;
+use App\Models\Gejala;
 use Illuminate\Http\Request;
 
 class DiagnosaController extends Controller
@@ -11,9 +12,13 @@ class DiagnosaController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public $open_modal = false;
+
     public function index()
     {
-        return view('guest.diagnosa.index');
+        return view('guest.diagnosa.index', [
+            'open_modal' => $this->open_modal
+        ]);
     }
 
     /**
@@ -21,7 +26,9 @@ class DiagnosaController extends Controller
      */
     public function create()
     {
-        //
+        return view('guest.diagnosa.create', [
+            'gejalas'       => Gejala::all(),
+        ]);
     }
 
     /**
@@ -29,7 +36,7 @@ class DiagnosaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       dd('halamaan store..');
     }
 
     /**

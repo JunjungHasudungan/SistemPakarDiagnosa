@@ -11,10 +11,12 @@ class Diagnosa extends Component
     public  $create_modal = false,
             $gejala,
             $answer_diagnosa,
+            $say_no = 0,
             $user_id;
 
     public $gejalas = [];
     public $diagnosa_gejala = [];
+    public $gejala_diagnonsa = [];
 
     public function mount()
     {
@@ -24,6 +26,10 @@ class Diagnosa extends Component
             [
                 'gejala_id'     => ''
             ]
+        ];
+
+        $this->gejala_diagnonsa = [
+
         ];
 
     }
@@ -47,13 +53,18 @@ class Diagnosa extends Component
 
     }
 
+    public function addGejalaDiagnosa()
+    {
+        $this->diagnosa_gejala = [
+            'gejala_id'     => ''
+        ];
+    }
+
     public function storeDiagnosa()
     {
         $this->openCreateModal();
 
-        foreach ($this->diagnosa_gejala as $gejala) {
-          dd($gejala);
-        }
+        dd($this->diagnosa_gejala);
     }
 
     public function closeCreateModal()

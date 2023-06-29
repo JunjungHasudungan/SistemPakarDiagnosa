@@ -8,7 +8,7 @@
           <!-- This element is to trick the browser into centering the modal contents. -->
           <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
 
-          <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  w-8/12" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+          <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  w-6/12" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
             <form>
             <div class="bg-white px-4 pt-5 pb-2 sm:p-6">
                         <div class="border mb-2 border-sky-500 px-4 sm:p-2">
@@ -26,20 +26,31 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($diagnosa_gejala as $index => $item)
+                                            @forelse ($gejalas as $gejala)
                                             <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-300">
                                                 <td class="px-1 py-6 text-semibold text-gray-700">
-                                                    @foreach ($gejalas as $gejala)
-                                                        <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
-                                                            <input  id="default-checkbox"
-                                                                    type="checkbox"
-                                                                    wire:model="diagnosa_gejala.{{ $index }}"
-                                                                    value="{{ $gejala->id }}"
-                                                                    class="w-4 h-4 px-2 py-2 mx-8 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                                        {{ $gejala->keterangan ?? '' }}
-                                                        </label>
-                                                    @endforeach
-                                                </td>
-                                            </tr>
+                                                    <label for="" class="block text-gray-700 text-sm font-bold mb-2">
+                                                        <input  id="default-checkbox"
+                                                                type="checkbox"
+                                                                wire:model=diagnosa_gejala.{{$index}}
+                                                                {{-- name="diagnosa_gejala[{{$index}}]" --}}
+                                                                value=" {{  $gejala->id }} "
+                                                                class="w-4 h-4 mx-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
+                                                            {{ $gejala->keterangan ?? '' }}
+                                                    </label>
+                                                        {{-- <button  wire:model="diagnosa_gejala.[ {{ $index }} ]" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                                                            Ya
+                                                        </button>
+                                                        <button  wire:model="diagnosa_gejala.[ {{ $index }} ]" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                            Tidak
+                                                        </button> --}}
+                                                    </td>
+                                                </tr>
+                                                @empty
+                                                    <p class="text-bold text-yellow-900">
+                                                        {{ __('Data gejala belum tersedia..') }}
+                                                    </p>
+                                                @endforelse
                                         @empty
                                             <p class="text-yellow-500 font-bold">
                                                 {{ __('Data Gejala Belum Tersedia..') }}
