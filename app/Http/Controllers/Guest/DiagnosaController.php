@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Diagnosa;
 use App\Models\Gejala;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DiagnosaController extends Controller
 {
@@ -31,12 +32,22 @@ class DiagnosaController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-       dd('halamaan store..');
+       $this->validate($request, [
+            'gejala'    => 'required|min:2'
+       ],
+       [
+        'gejala.required'   => 'gejala wajib diisi..',
+        'gejala.min'        => 'Gejala yang dipilih min 2'
+       ]);
+
+    //    $gejala = DB::table('gejalas')->where('id', $request->input('gejala'))->get();
+
+    //    dd($gejala);
+       foreach ($request->gejala as  $gejala) {
+        dd($gejala);
+       }
     }
 
     /**
