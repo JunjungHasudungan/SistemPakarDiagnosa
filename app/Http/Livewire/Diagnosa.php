@@ -2,8 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Gejala;
+use App\Models\{
+    Gejala,
+    Kecanduan
+};
 use App\Helpers\AnswerDiagnosa;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Diagnosa extends Component
@@ -27,16 +31,9 @@ class Diagnosa extends Component
                 'gejala_id'     => ''
             ]
         ];
-
-        $this->gejala_diagnonsa = [
-
-        ];
-
     }
     public function render()
     {
-        // dd($this->all_gejala);
-
         return view('livewire.diagnosa', [
             $this->answer_diagnosa = AnswerDiagnosa::AnswerDiagnosa,
         ]);
@@ -50,6 +47,9 @@ class Diagnosa extends Component
     public function createDiagnosa()
     {
         $this->openCreateModal();
+        $this->user_id = DB::table('temp_gejala')->get();
+
+        // dd($this->user_id);
 
     }
 
@@ -64,11 +64,30 @@ class Diagnosa extends Component
     {
         $this->openCreateModal();
 
-        dd($this->diagnosa_gejala);
+        $this->validate([
+            'gejala'        => 'required|min:2'
+        ], [
+            'gejala.required'   => 'Gejala wajib dipilih..',
+            'gejala.min'        => 'Gejala yang dipilih min 2..'
+        ]);
+
+
+        $kecanduan = Kecanduan::orderBy('id', 'asc')->get();
+        $count_gejala_kecanduan = DB::table('gejala_kecanduan')->groupBy('kecanduan_id')->get(['kecanduan_id'])->count();
+        $count_permasalahan = $kecanduan->count();
+        if($count_gejala_kecanduan != $count_permasalahan){
+            dd('sistem sedang bermasalah..');
+        }else{
+            dd($count_permasalahan);
+        }
+        // dd('testing store gejala diagnosa..');
+
     }
 
     public function closeCreateModal()
     {
         $this->create_modal = false;
+
+        $this->resetValidation(['gejala']);
     }
 }

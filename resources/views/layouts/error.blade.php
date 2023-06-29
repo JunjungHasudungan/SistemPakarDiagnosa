@@ -1,7 +1,9 @@
 <div class="flex form-group">
-	<ul class="font-extrabold text-yellow-900 ">
+	<ul>
 		@foreach($errors->all() as $error)
-			<li>{{ $error }}</li>
+            <span class="text-red-500">
+                {{ $error }}
+            </span>
 		@endforeach
 	</ul>
 </div>
