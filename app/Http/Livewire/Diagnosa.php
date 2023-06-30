@@ -108,7 +108,6 @@ class Diagnosa extends Component
         $this->dispatchBrowserEvent( 'toastr:info', [
             'message'   => 'Berhasil Melakukan diagnosa..'
         ]);
-
     }
 
 

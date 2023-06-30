@@ -12,11 +12,16 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{-- <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
 
                     @if (auth()->user()->role_id == 1)
+
+                        <x-nav-link :href="route('admin.dashboard.index')" :active="request()->routeIs('dashboard.index')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+
                         <x-nav-link :href="route('admin.kecanduan.index')" :active="request()->routeIs('kecanduan.index')">
                             {{ __('Kecanduan') }}
                         </x-nav-link>
@@ -30,9 +35,14 @@
                         </x-nav-link>
 
                     @else
+                        <x-nav-link :href="route('guest.dashboard.index')" :active="request()->routeIs('guest.dashboard.index')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+
                         <x-nav-link :href="route('guest.diagnosa.index')" :active="request()->routeIs('guest.diagnosa.index')">
                             {{ __('Diagnosa') }}
                         </x-nav-link>
+
                     @endif
                 </div>
             </div>
