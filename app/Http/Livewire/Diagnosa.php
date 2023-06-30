@@ -7,6 +7,7 @@ use App\Models\{
     Kecanduan
 };
 use App\Helpers\AnswerDiagnosa;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -14,14 +15,10 @@ class Diagnosa extends Component
 {
     public  $create_modal = false,
             $gejala,
-            $answer_diagnosa,
-            $say_no = 0,
             $user_id;
 
     public $gejalas = [];
-    public $diagnosa_gejala = [];
-    public $gejala_diagnonsa = [];
-    public $all_gejala = [];
+    public $select_gejala = [];
 
     public function mount()
     {
@@ -29,17 +26,11 @@ class Diagnosa extends Component
 
         $this->user_id = auth()->user()->id;
 
-        $this->diagnosa_gejala = [
-            [
-                'gejala_id'     => ''
-            ]
-        ];
+        $this->select_gejala = collect();
     }
     public function render()
     {
-        return view('livewire.diagnosa', [
-            $this->answer_diagnosa = AnswerDiagnosa::AnswerDiagnosa,
-        ]);
+        return view('livewire.diagnosa');
     }
 
     public function openCreateModal()
@@ -56,39 +47,40 @@ class Diagnosa extends Component
 
     }
 
-    public function addGejalaDiagnosa()
-    {
-        $this->diagnosa_gejala = [
-            'gejala_id'     => ''
-        ];
-    }
-
-    public function storeDiagnosa()
+    public function storeDiagnosa(Request $request)
     {
         $this->openCreateModal();
 
         $this->validate([
-            'gejala'        => 'required|min:2'
+            'select_gejala'             => 'required|min:2'
         ], [
-            'gejala.required'   => 'Gejala wajib dipilih..',
-            'gejala.min'        => 'Gejala yang dipilih min 2..'
+            'select_gejala.required'   => 'Gejala wajib dipilih..',
+            'select_gejala.min'        => 'Gejala yang dipilih min 2..'
         ]);
+
 
 
         $kecanduan = Kecanduan::orderBy('id', 'asc')->get();
         $count_gejala_kecanduan = DB::table('gejala_kecanduan')->groupBy('kecanduan_id')->get(['kecanduan_id'])->count();
-        $count_permasalahan = $kecanduan->count();
-        // dd($this->user_id);
+        $count_kecanduan = $kecanduan->count();
 
-        foreach ($this->diagnosa_gejala as $item) {
-            dd($item);
+        $jumlah_select = count($this->select_gejala);
+
+        if($jumlah_select > 2){
+            $this->resetValidation(['select_gejala']);
         }
+
+        if($count_kecanduan != $count_gejala_kecanduan){
+            dd('data relasi tidak sama');
+        }
+        dd($jumlah_select);
     }
 
     public function closeCreateModal()
     {
         $this->create_modal = false;
 
-        $this->resetValidation(['gejala']);
+        $this->resetValidation(['select_gejala']);
+        $this->select_gejala = [];
     }
 }
