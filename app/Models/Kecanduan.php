@@ -30,7 +30,7 @@ class Kecanduan extends Model
 
     public function gejalaKecanduan()
     {
-        return $this->belongsToMany(Gejala::class, 'gejala_kecanduan', 'gejala_id', 'kecanduan_id')->withPivot('keterangan_relasi')->withTimestamps();
+        return $this->belongsToMany(Gejala::class, 'gejala_kecanduan', 'kecanduan_id', 'gejala_id')->withPivot('keterangan_relasi')->withTimestamps();
     }
 
     public function attachGejala($id_gejala)

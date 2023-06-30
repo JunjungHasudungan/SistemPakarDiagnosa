@@ -298,7 +298,7 @@ class Kecanduan extends Component
 
         $this->resetField();
 
-        $this->dispatchBrowserEvent( 'toas:info', [
+        $this->dispatchBrowserEvent( 'toastr:info', [
             'message'   => 'Data Berhasil Ditambahkan..'
         ]);
     }

@@ -62,34 +62,46 @@ class Diagnosa extends Component
         $this->user_id = auth()->user()->id;
 
         $kecanduan = Kecanduan::orderBy('id', 'asc')->get();
+
+        $gejalas = Gejala::with('KecanduanGejala')->get();
+
+
         $count_gejala_kecanduan = DB::table('gejala_kecanduan')->groupBy('kecanduan_id')->get(['kecanduan_id'])->count();
+
         $count_kecanduan = $kecanduan->count();
 
         $jumlah_select = count($this->select_gejala);
 
+        // dd($count_kecanduan);
         if($count_kecanduan != $count_gejala_kecanduan){
             dd('data relasi tidak sama');
         }
         foreach ($this->select_gejala as $gejala_id) {
-                $gejala = Gejala::with('KecanduanGejala')->find($gejala_id);
+                $gejala = Gejala::find($gejala_id);
+
+                // dd($gejala);
 
             foreach ($gejala->KecanduanGejala as $kecanduan) {
-                $temp_diagnosa = TempDiagnosa::where('user_id', $this->user_id)->where('kecanduan_id', $kecanduan->id);
-                $temp_diag = $temp_diagnosa->first();
-                if (!$temp_diag) {
-                    $temp_diag = new TempDiagnosa();
-                    $temp_diag->user_id = $this->user_id;
-                    $temp_diag->kecanduan_id = $kecanduan->id;
-                    $temp_diag->gejala = $gejala->id;
-                    $temp_diag->gejala_terpenuhi = 1;
-                    $temp_diag->save();
-                }else{
-                    $temp_diag = $temp_diagnosa->update(['gejala_terpenuhi' => $temp_diag->gejala_terpenuhi + 1 ]);
-                }
+
+                dd($kecanduan);
+                // $temp_diagnosa = TempDiagnosa::where('user_id', $this->user_id)->where('kecanduan_id', $kecanduan->id);
+                // $temp_diag = $temp_diagnosa->first();
+                // if (!$temp_diag) {
+                //     $temp_diag = new TempDiagnosa();
+                //     $temp_diag->user_id = $this->user_id;
+                //     $temp_diag->kecanduan_id = $kecanduan->id;
+                //     $temp_diag->gejala = $gejala->id;
+                //     $temp_diag->gejala_terpenuhi = 1;
+                //     $temp_diag->save();
+                // }else{
+                //     $temp_diag = $temp_diagnosa->update(['gejala_terpenuhi' => $temp_diag->gejala_terpenuhi + 1 ]);
+                // }
             }
         }
-        // dd('data berhasil disimpan');
-        //
+
+        // dd('data diagnosa berhasil disimpan..');
+
+        $this->closeCreateModal();
     }
 
     public function showResultDiagnosa()
