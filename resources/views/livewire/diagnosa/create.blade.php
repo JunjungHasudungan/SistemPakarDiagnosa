@@ -33,8 +33,8 @@
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
                                                 <input  id="default-checkbox"
                                                         type="checkbox"
-                                                        wire:model="select_gejala.{{$gejala->id}}"
-                                                        value=" {{  $gejala->id }} "
+                                                        wire:model="select_gejala"
+                                                        value="{{ $gejala->id }}"
                                                         class="w-4 h-4 mx-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
                                                         <label for="" class="text-gray-700 text-sm font-bold mb-2">
                                                         {{ $gejala->keterangan ?? '' }}

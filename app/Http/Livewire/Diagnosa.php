@@ -16,6 +16,7 @@ class Diagnosa extends Component
 {
     public  $create_modal = false,
             $gejala,
+            $id_gejala,
             $kecanduan_id,
             $user_id;
 
@@ -72,31 +73,39 @@ class Diagnosa extends Component
 
         $count_kecanduan = $kecanduan->count();
 
-        $jumlah_select = count($this->select_gejala);
-
         // dd($count_kecanduan);
         if($count_kecanduan != $count_gejala_kecanduan){
             dd('data relasi tidak sama');
         }
-        // mengambil data dari select_gejala dan melakukan foreach
-        foreach ($this->select_gejala as $gejala) {
 
-           $gejala = Gejala::with(['kecanduanGejala'], function($query){
+        // mengambil data dari select_gejala dan melakukan foreach
+        foreach ($this->select_gejala as $gejala_id) {
+
+            $this->id_gejala = $gejala_id;
+
+           $this->gejalas = Gejala::with(['kecanduanGejala'], function($query){
 
                 $query->where('kecanduan_id', $this->kecanduan_id)->get();
 
-           })->find($gejala);
+           })->find($this->id_gejala);
 
-          foreach ($gejala->kecanduanGejala as $kecanduan) {
-           dd($kecanduan->id);
+            $temp_diagnosa = new TempDiagnosa();
+
+        foreach ($this->gejalas->kecanduanGejala as $kecanduan) {
+
+            $temp_diagnosa = TempDiagnosa::create([
+                    'kecanduan_id'      => $kecanduan->id,
+                    'user_id'           => $this->user_id,
+                    'gejala'            => $this->id_gejala,
+                    'gejala_terpenuhi'  => 1,
+            ]);
           }
-
         }
+        $temp_diagnosa->save();
 
-        // dd('data diagnosa berhasil disimpan..');
-
-        // $this->closeCreateModal();
+        $this->closeCreateModal();
     }
+
 
     public function showResultDiagnosa()
     {
