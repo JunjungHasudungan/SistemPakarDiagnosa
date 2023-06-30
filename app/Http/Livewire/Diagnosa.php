@@ -16,6 +16,7 @@ class Diagnosa extends Component
 {
     public  $create_modal = false,
             $gejala,
+            $kecanduan_id,
             $user_id;
 
     public $gejalas = [];
@@ -63,8 +64,9 @@ class Diagnosa extends Component
 
         $kecanduan = Kecanduan::orderBy('id', 'asc')->get();
 
-        $gejalas = Gejala::with('KecanduanGejala')->get();
-
+        foreach ($kecanduan as $item) {
+            $this->kecanduan_id = $item->id;
+        }
 
         $count_gejala_kecanduan = DB::table('gejala_kecanduan')->groupBy('kecanduan_id')->get(['kecanduan_id'])->count();
 
@@ -76,32 +78,24 @@ class Diagnosa extends Component
         if($count_kecanduan != $count_gejala_kecanduan){
             dd('data relasi tidak sama');
         }
-        foreach ($this->select_gejala as $gejala_id) {
-                $gejala = Gejala::find($gejala_id);
+        // mengambil data dari select_gejala dan melakukan foreach
+        foreach ($this->select_gejala as $gejala) {
 
-                // dd($gejala);
+           $gejala = Gejala::with(['kecanduanGejala'], function($query){
 
-            foreach ($gejala->KecanduanGejala as $kecanduan) {
+                $query->where('kecanduan_id', $this->kecanduan_id)->get();
 
-                dd($kecanduan);
-                // $temp_diagnosa = TempDiagnosa::where('user_id', $this->user_id)->where('kecanduan_id', $kecanduan->id);
-                // $temp_diag = $temp_diagnosa->first();
-                // if (!$temp_diag) {
-                //     $temp_diag = new TempDiagnosa();
-                //     $temp_diag->user_id = $this->user_id;
-                //     $temp_diag->kecanduan_id = $kecanduan->id;
-                //     $temp_diag->gejala = $gejala->id;
-                //     $temp_diag->gejala_terpenuhi = 1;
-                //     $temp_diag->save();
-                // }else{
-                //     $temp_diag = $temp_diagnosa->update(['gejala_terpenuhi' => $temp_diag->gejala_terpenuhi + 1 ]);
-                // }
-            }
+           })->find($gejala);
+
+          foreach ($gejala->kecanduanGejala as $kecanduan) {
+           dd($kecanduan->id);
+          }
+
         }
 
         // dd('data diagnosa berhasil disimpan..');
 
-        $this->closeCreateModal();
+        // $this->closeCreateModal();
     }
 
     public function showResultDiagnosa()

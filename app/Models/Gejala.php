@@ -11,9 +11,9 @@ class Gejala extends Model
 
     protected $guarded = [];
 
-    public function KecanduanGejala()
+    public function kecanduanGejala()
     {
-        return $this->belongsToMany(Kecanduan::class, 'gejala_kecanduan', 'kecanduan_id', 'gejala_id');
+        return $this->belongsToMany(Kecanduan::class, 'gejala_kecanduan');
     }
 
     public function gejalaKecanduan()
