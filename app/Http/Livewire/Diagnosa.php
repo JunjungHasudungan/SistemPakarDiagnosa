@@ -83,7 +83,7 @@ class Diagnosa extends Component
 
             $this->id_gejala = $gejala_id;
 
-           $this->gejalas = Gejala::with(['kecanduanGejala'], function($query){
+            $this->gejalas = Gejala::with(['kecanduanGejala'], function($query){
 
                 $query->where('kecanduan_id', $this->kecanduan_id)->get();
 
@@ -104,6 +104,11 @@ class Diagnosa extends Component
         $temp_diagnosa->save();
 
         $this->closeCreateModal();
+
+        $this->dispatchBrowserEvent( 'toastr:info', [
+            'message'   => 'Berhasil Melakukan diagnosa..'
+        ]);
+
     }
 
 
