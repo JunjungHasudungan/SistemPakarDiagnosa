@@ -4,7 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\{
     Gejala,
-    Kecanduan
+    Kecanduan,
+    TempDiagnosa
 };
 use App\Helpers\AnswerDiagnosa;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class Diagnosa extends Component
             'select_gejala.min'        => 'Gejala yang dipilih min 2..'
         ]);
 
-
+        $this->user_id = auth()->user()->id;
 
         $kecanduan = Kecanduan::orderBy('id', 'asc')->get();
         $count_gejala_kecanduan = DB::table('gejala_kecanduan')->groupBy('kecanduan_id')->get(['kecanduan_id'])->count();
@@ -66,14 +67,34 @@ class Diagnosa extends Component
 
         $jumlah_select = count($this->select_gejala);
 
-        if($jumlah_select > 2){
-            $this->resetValidation(['select_gejala']);
-        }
-
         if($count_kecanduan != $count_gejala_kecanduan){
             dd('data relasi tidak sama');
         }
-        dd($jumlah_select);
+        foreach ($this->select_gejala as $gejala_id) {
+                $gejala = Gejala::with('KecanduanGejala')->find($gejala_id);
+
+            foreach ($gejala->KecanduanGejala as $kecanduan) {
+                $temp_diagnosa = TempDiagnosa::where('user_id', $this->user_id)->where('kecanduan_id', $kecanduan->id);
+                $temp_diag = $temp_diagnosa->first();
+                if (!$temp_diag) {
+                    $temp_diag = new TempDiagnosa();
+                    $temp_diag->user_id = $this->user_id;
+                    $temp_diag->kecanduan_id = $kecanduan->id;
+                    $temp_diag->gejala = $gejala->id;
+                    $temp_diag->gejala_terpenuhi = 1;
+                    $temp_diag->save();
+                }else{
+                    $temp_diag = $temp_diagnosa->update(['gejala_terpenuhi' => $temp_diag->gejala_terpenuhi + 1 ]);
+                }
+            }
+        }
+        // dd('data berhasil disimpan');
+        //
+    }
+
+    public function showResultDiagnosa()
+    {
+
     }
 
     public function closeCreateModal()
