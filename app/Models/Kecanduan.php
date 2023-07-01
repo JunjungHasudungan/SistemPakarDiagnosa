@@ -42,6 +42,6 @@ class Kecanduan extends Model
 
     public function diagnosas()
     {
-        return $this->hasMany(TempDiagnosa::class);
+        return $this->hasMany(TempDiagnosa::class, 'kecanduan_id');
     }
 }

@@ -76,10 +76,10 @@
                             {{$loop->iteration}}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $item->level->keterangan ?? ''}} | {{ $item->deskripsi ?? '' }}
+                             | {{ $item->kecanduan ?? '' }}
                         </td>
                         <td class="px-6 py-4">
-                            @forelse ($item->gejalaKecanduan as $gejala)
+                            {{-- @forelse ($item->gejalaKecanduan as $gejala)
                                 <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
                                     <li>
                                        {{ $gejala->keterangan ?? '' }}
@@ -89,10 +89,10 @@
                                 <p class="font-bold text-yellow-400">
                                     {{ __('Data Gejala Belum Tersedia..') }}
                                 </p>
-                            @endforelse
+                            @endforelse --}}
                         </td>
                         <td class="px-6 py-4">
-                            @forelse ($item->solusiKecanduan as $solusi)
+                            {{-- @forelse ($item->solusiKecanduan as $solusi)
                                 <span class="font-semibold text-green-300">
                                     {{$solusi->keterangan ?? ''}}
                                 </span>
@@ -100,7 +100,7 @@
                                 <p class="font-semibold text-yellow-300">
                                     {{ __('Data Solusi Belum Tersedia..') }}
                                 </p>
-                            @endforelse
+                            @endforelse --}}
                         </td>
                         <td class="px-6 py-4">
                            {{ \Carbon\Carbon::parse($created_at)->translatedFormat('d F Y') }}
