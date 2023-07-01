@@ -22,7 +22,7 @@ class DiagnosaController extends Controller
     public function index()
     {
         return view('guest.diagnosa.index', [
-            'open_modal' => $this->open_modal
+            // 'open_modal' => $this->open_modal
         ]);
     }
 

@@ -18,6 +18,7 @@ class Diagnosa extends Component
             $gejala,
             $id_gejala,
             $kecanduan_id,
+            $created_at,
             $user_id;
 
     public $gejalas = [];
@@ -38,7 +39,30 @@ class Diagnosa extends Component
     }
     public function render()
     {
-        return view('livewire.diagnosa');
+
+        // mengambil data diagnosa berdasarkan waktu pembuatan
+        $temp_diagnosa = TempDiagnosa::with(['kecanduan'], function($query){
+            $query->select('kecanduan_id')->get();
+        })->orderBy('created_at')->where('user_id', auth()->user()->id)->get();
+
+        // menampilkan data kecanduan id
+        foreach ($temp_diagnosa as $item) {
+                $this->kecanduan_id = $item->kecanduan->id;
+                $this->created_at = $item->created_at;
+        }
+        // menampilkan semua data kecanduan
+        $kecanduan = Kecanduan::with(['gejalaKecanduan', 'solusiKecanduan', 'diagnosas'], function($query){
+
+                $query->select('created_at')->groupBy('created_at')->where('created_at', $this->created_at)->get();
+
+            })->where('id', $this->kecanduan_id)->get();
+
+            // dd($this->created_at);
+
+        return view('livewire.diagnosa', [
+            'diagnosa'      =>  $kecanduan,
+            'created_at'    => $this->created_at,
+        ]);
     }
 
     public function openCreateModal()
@@ -99,6 +123,9 @@ class Diagnosa extends Component
             ]);
 
             $this->user_id = auth()->user()->id;
+
+
+            Kecanduan::with('gejalaKecanduan')->get();
 
             // mengambil data dari select_gejala dan melakukan foreach
             foreach ($this->select_gejala as $gejala_id) {

@@ -17,4 +17,9 @@ class TempDiagnosa extends Model
         'gejala',
         'gejala_terpenuhi'
     ];
+
+    public function kecanduan()
+    {
+        return $this->belongsTo(Kecanduan::class, 'kecanduan_id');
+    }
 }

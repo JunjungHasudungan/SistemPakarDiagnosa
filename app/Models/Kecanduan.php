@@ -40,9 +40,8 @@ class Kecanduan extends Model
         return $this->gejalaKecanduan()->attach($gejala);
     }
 
-    public function rule()
+    public function diagnosas()
     {
-        return $this->hasOne(Rule::class);
+        return $this->hasMany(TempDiagnosa::class);
     }
-
 }
