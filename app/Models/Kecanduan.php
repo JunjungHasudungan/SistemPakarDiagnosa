@@ -40,8 +40,8 @@ class Kecanduan extends Model
         return $this->gejalaKecanduan()->attach($gejala);
     }
 
-    public function diagnosas()
+    public function diagnosaKecanduan()
     {
-        return $this->hasMany(TempDiagnosa::class, 'kecanduan_id');
+        return $this->belongsToMany(Diagnosa::class, 'diagnosa_kecanduan', 'diagnosa_id', 'kecanduan_id')->withPivot('gejala_id');
     }
 }

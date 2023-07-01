@@ -24,27 +24,15 @@
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
                     clip-rule="evenodd" />
                 </svg>
-            <span class="m-auto">
-               Diagnosa
-            </span>
+                <span class="m-auto">
+                    Diagnosa
+                </span>
             </button>
-            {{-- button --}}
-            {{-- end button --}}
+
                 @if ($create_modal)
                     @include('livewire.diagnosa.create')
                 @endif
 
-                {{-- @if ($edit_modal)
-                    @include('livewire.gejala.edit')
-                @endif
-
-                @if (!$cari_gejala)
-                    @include('livewire.gejala.cari-gejala')
-                @endif
-
-                @if ($edit_modal)
-                    @include('livewire.gejala.edit')
-                @endif --}}
         </div>
     </div>
 
@@ -70,13 +58,13 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($diagnosa as $item)
+            {{-- @forelse ($diagnosa as $item) --}}
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{$loop->iteration}}
+                            {{-- {{$loop->iteration}} --}}
                         </th>
                         <td class="px-6 py-4">
-                             | {{ $item->kecanduan ?? '' }}
+                             {{-- | {{ $item->kecanduan ?? '' }} --}}
                         </td>
                         <td class="px-6 py-4">
                             {{-- @forelse ($item->gejalaKecanduan as $gejala)
@@ -103,15 +91,15 @@
                             @endforelse --}}
                         </td>
                         <td class="px-6 py-4">
-                           {{ \Carbon\Carbon::parse($created_at)->translatedFormat('d F Y') }}
-                           - {{ \Carbon\Carbon::parse($created_at)->format('H:i') }}
+                           {{-- {{ \Carbon\Carbon::parse($created_at)->translatedFormat('d F Y') }}
+                           - {{ \Carbon\Carbon::parse($created_at)->format('H:i') }} --}}
                         </td>
                     </tr>
-                    @empty
+                    {{-- @empty
                     <div class="bg-yellow-500 text-white p-3 rounded shadow-sm mb-3">
                         Hasil Diagnosa Belum ada..
                     </div>
-            @endforelse
+            @endforelse --}}
         </tbody>
     </table>
     {{-- end table --}}
