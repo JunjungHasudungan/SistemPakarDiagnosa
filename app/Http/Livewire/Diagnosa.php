@@ -18,6 +18,8 @@ class Diagnosa extends Component
             $gejala,
             $id_gejala,
             $kecanduan_id,
+            $kecanduans,
+            $kecanduan,
             $created_at,
             $user_id;
 
@@ -39,29 +41,25 @@ class Diagnosa extends Component
     }
     public function render()
     {
-
         // mengambil data diagnosa berdasarkan waktu pembuatan
-        $temp_diagnosa = TempDiagnosa::with(['kecanduan'], function($query){
-            $query->select('kecanduan_id')->get();
-        })->orderBy('created_at')->where('user_id', auth()->user()->id)->get();
+        $temp_diagnosa = TempDiagnosa::with('kecanduan')->where('user_id', auth()->user()->id)->get();
 
-        // menampilkan data kecanduan id
-        foreach ($temp_diagnosa as $item) {
-                $this->kecanduan_id = $item->kecanduan->id;
-                $this->created_at = $item->created_at;
-        }
-        // menampilkan semua data kecanduan
-        $kecanduan = Kecanduan::with(['gejalaKecanduan', 'solusiKecanduan', 'diagnosas'], function($query){
+       if(count($temp_diagnosa) > 0){
+           foreach ($temp_diagnosa as $key => $item) {
+               $kecanduan_id = $item->kecanduan->id;
+               $this->created_at = $item->created_at;
+           }
+       }
 
-                $query->select('created_at')->groupBy('created_at')->where('created_at', $this->created_at)->get();
+       $this->kecanduan = Kecanduan::with(['diagnosas:kecanduan_id'], function($query) use($kecanduan_id){
+        $query->where('kecanduan_id', $kecanduan_id)->get();
+       })->get();
 
-            })->where('id', $this->kecanduan_id)->get();
-
-            // dd($this->created_at);
+        // dd($this->kecanduans);
 
         return view('livewire.diagnosa', [
-            'diagnosa'      =>  $kecanduan,
-            'created_at'    => $this->created_at,
+            'diagnosa'          => $this->kecanduan,
+            'created_at'        => $this->created_at,
         ]);
     }
 

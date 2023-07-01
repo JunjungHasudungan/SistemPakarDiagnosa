@@ -20,6 +20,11 @@ class TempDiagnosa extends Model
 
     public function kecanduan()
     {
-        return $this->belongsTo(Kecanduan::class, 'kecanduan_id');
+        return $this->belongsTo(Kecanduan::class);
+    }
+
+    public function gejala()
+    {
+        return $this->belongsTo(Gejala::class, 'gejala');
     }
 }

@@ -76,7 +76,7 @@
                             {{$loop->iteration}}
                         </th>
                         <td class="px-6 py-4">
-                                {{ $item->level->keterangan ?? ''}} | {{ $item->deskripsi ?? '' }}
+                            {{ $item->level->keterangan ?? ''}} | {{ $item->deskripsi ?? '' }}
                         </td>
                         <td class="px-6 py-4">
                             @forelse ($item->gejalaKecanduan as $gejala)
@@ -109,7 +109,7 @@
                     </tr>
                     @empty
                     <div class="bg-yellow-500 text-white p-3 rounded shadow-sm mb-3">
-                        Data Gejala Belum Tersedia.
+                        Hasil Diagnosa Belum ada..
                     </div>
             @endforelse
         </tbody>
