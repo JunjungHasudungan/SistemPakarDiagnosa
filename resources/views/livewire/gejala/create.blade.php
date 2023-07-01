@@ -10,7 +10,7 @@
 
           <div
                 class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle
-                sm:my-8 sm:align-middle  w-10/12" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                sm:my-8 sm:align-middle  w-8/12" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
             <form>
                 @csrf
             <div class="px-4 pt-1 pb-1 sm:p-6 sm:pb-4">

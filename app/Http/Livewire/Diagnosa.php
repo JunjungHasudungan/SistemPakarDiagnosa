@@ -50,7 +50,13 @@ class Diagnosa extends Component
     {
         $this->user_id = DB::table('temp_gejala')->get();
 
-        if (count($this->gejalas) > 0) {
+        $this->gejala = Gejala::orderBy('id', 'asc')->get();
+
+        $count_gejala = count($this->gejala);
+
+        // dd($count_gejala);
+
+        if ( $count_gejala > 0 ) {
 
                 $this->openCreateModal();
 
