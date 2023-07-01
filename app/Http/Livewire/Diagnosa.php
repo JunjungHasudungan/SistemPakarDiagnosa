@@ -23,6 +23,10 @@ class Diagnosa extends Component
     public $gejalas = [];
     public $select_gejala = [];
 
+    public $listeners = [
+        'showEmptyGejala'
+    ];
+
     public function mount()
     {
         $this->gejalas = Gejala::all();
@@ -43,10 +47,17 @@ class Diagnosa extends Component
 
     public function createDiagnosa()
     {
-        $this->openCreateModal();
         $this->user_id = DB::table('temp_gejala')->get();
 
-        // dd($this->user_id);
+        if (count($this->gejalas) > 0) {
+
+                $this->openCreateModal();
+
+        } else {
+
+          $this->showEmptyGejala();
+
+        }
 
     }
 
@@ -122,5 +133,13 @@ class Diagnosa extends Component
 
         $this->resetValidation(['select_gejala']);
         $this->select_gejala = [];
+    }
+
+    public function showEmptyGejala()
+    {
+        $this->dispatchBrowserEvent('alert', [
+            'type'      => 'error',
+            'message'   => 'Pertanyaan Diagnosa Belum Tersedia..'
+        ]);
     }
 }

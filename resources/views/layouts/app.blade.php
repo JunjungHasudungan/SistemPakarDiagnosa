@@ -216,6 +216,19 @@
                 )
             });
 
+            // show empty data gejala
+            window.addEventListener('swal:error', event => {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Anda belum memiliki mata pelajaran..',
+                    }).then( empty =>{
+                        if(empty){
+                            window.livewire.emit('showEmptyGejala');
+                        }
+                    })
+            });
 
         </script>
     </body>
