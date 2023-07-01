@@ -53,8 +53,8 @@
 
         <script>
 
-  // sweet alert success
-  window.addEventListener('toastr:info', event => {
+            // sweet alert success
+            window.addEventListener('toastr:info', event => {
                 toastr.info(event.detail.message);
             });
 
@@ -64,7 +64,7 @@
                 "closeButton": true,
                 "progressBar": true,
                 }
-                });
+            });
 
             window.addEventListener('swal:modal', event => {
                 swal({
@@ -181,7 +181,7 @@
             });
 
             // event listener info delete data gejala
-                        window.addEventListener('gejalaDeleted', event => {
+            window.addEventListener('gejalaDeleted', event => {
                 swal(
                     'Deleted!',
                     'Data Berhasil Dihapus..',
@@ -217,17 +217,21 @@
             });
 
             // show empty data gejala
-            window.addEventListener('swal:error', event => {
+            window.addEventListener('swal:modal', event => {
+               swal({
+                   title: event.detail.title,
+                   text: event.detail.text,
+                   icon: event.detail.type
+                });
+            });
 
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Anda belum memiliki mata pelajaran..',
-                    }).then( empty =>{
-                        if(empty){
-                            window.livewire.emit('showEmptyGejala');
-                        }
-                    })
+            // show sistem error
+            window.addEventListener('swal:modal', event => {
+                swal({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.type
+                });
             });
 
         </script>

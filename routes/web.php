@@ -34,13 +34,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // ROUTE FOR ADMIN
-    Route::group(['middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function(){
+    Route::group(['auth', 'verified', 'middleware' => 'role:admin', 'prefix' => 'admin', 'as' => 'admin.'], function(){
         Route::resources([
             'kecanduan'         => KecanduanController::class,
             'solusi'            => SolutionController::class,
@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // ROUTE FOR GUEST
-    Route::group(['middlewate' => 'role:guest', 'prefix'=> 'guest', 'as' => 'guest.'], function(){
+    Route::group(['auth', 'verified', 'middleware' => 'role:guest', 'prefix'=> 'guest', 'as' => 'guest.'], function(){
         Route::resources([
             'diagnosa'          => DiagnosaController::class,
             'dashboard'         => GuestDashboardController::class,

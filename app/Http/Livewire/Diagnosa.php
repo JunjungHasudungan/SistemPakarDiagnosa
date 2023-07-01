@@ -24,7 +24,8 @@ class Diagnosa extends Component
     public $select_gejala = [];
 
     public $listeners = [
-        'showEmptyGejala'
+        'showEmptyGejala',
+        'showErrorSistemGejala'
     ];
 
     public function mount()
@@ -63,17 +64,7 @@ class Diagnosa extends Component
 
     public function storeDiagnosa(Request $request)
     {
-        $this->openCreateModal();
-
-        $this->validate([
-            'select_gejala'             => 'required|min:2'
-        ], [
-            'select_gejala.required'   => 'Gejala wajib dipilih..',
-            'select_gejala.min'        => 'Gejala yang dipilih min 2..'
-        ]);
-
-        $this->user_id = auth()->user()->id;
-
+        // mengambil data kecanduan order id
         $kecanduan = Kecanduan::orderBy('id', 'asc')->get();
 
         foreach ($kecanduan as $item) {
@@ -84,43 +75,57 @@ class Diagnosa extends Component
 
         $count_kecanduan = $kecanduan->count();
 
-        // dd($count_kecanduan);
+
         if($count_kecanduan != $count_gejala_kecanduan){
-            dd('data relasi tidak sama');
-        }
 
-        // mengambil data dari select_gejala dan melakukan foreach
-        foreach ($this->select_gejala as $gejala_id) {
+           $this->showErrorSistemGejala();
 
-            $this->id_gejala = $gejala_id;
+           $this->closeCreateModal();
+        }else {
 
-            $this->gejalas = Gejala::with(['kecanduanGejala'], function($query){
+            $this->openCreateModal();
 
-                $query->where('kecanduan_id', $this->kecanduan_id)->get();
-
-           })->find($this->id_gejala);
-
-            $temp_diagnosa = new TempDiagnosa();
-
-        foreach ($this->gejalas->kecanduanGejala as $kecanduan) {
-
-            $temp_diagnosa = TempDiagnosa::create([
-                    'kecanduan_id'      => $kecanduan->id,
-                    'user_id'           => $this->user_id,
-                    'gejala'            => $this->id_gejala,
-                    'gejala_terpenuhi'  => 1,
+            $this->validate([
+                'select_gejala'             => 'required|min:2'
+            ], [
+                'select_gejala.required'   => 'Gejala wajib dipilih..',
+                'select_gejala.min'        => 'Gejala yang dipilih min 2..'
             ]);
-          }
+
+            $this->user_id = auth()->user()->id;
+
+            // mengambil data dari select_gejala dan melakukan foreach
+            foreach ($this->select_gejala as $gejala_id) {
+
+                $this->id_gejala = $gejala_id;
+
+                $this->gejalas = Gejala::with(['kecanduanGejala'], function($query){
+
+                    $query->where('kecanduan_id', $this->kecanduan_id)->get();
+
+            })->find($this->id_gejala);
+
+                $temp_diagnosa = new TempDiagnosa();
+
+            foreach ($this->gejalas->kecanduanGejala as $kecanduan) {
+
+                $temp_diagnosa = TempDiagnosa::create([
+                        'kecanduan_id'      => $kecanduan->id,
+                        'user_id'           => $this->user_id,
+                        'gejala'            => $this->id_gejala,
+                        'gejala_terpenuhi'  => 1,
+                ]);
+            }
+            }
+            $temp_diagnosa->save();
+
+            $this->closeCreateModal();
+
+            $this->dispatchBrowserEvent( 'toastr:info', [
+                'message'   => 'Berhasil Melakukan diagnosa..'
+            ]);
         }
-        $temp_diagnosa->save();
-
-        $this->closeCreateModal();
-
-        $this->dispatchBrowserEvent( 'toastr:info', [
-            'message'   => 'Berhasil Melakukan diagnosa..'
-        ]);
     }
-
 
     public function showResultDiagnosa()
     {
@@ -137,9 +142,19 @@ class Diagnosa extends Component
 
     public function showEmptyGejala()
     {
-        $this->dispatchBrowserEvent('alert', [
+        $this->dispatchBrowserEvent('swal:modal', [
             'type'      => 'error',
-            'message'   => 'Pertanyaan Diagnosa Belum Tersedia..'
+            'title'     => 'Maaf, Diagnosa Belum Tersedia..',
+            'text'      => ''
+        ]);
+    }
+
+    public function showErrorSistemGejala()
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type'      => 'error',
+            'title'     => 'Maaf, Terjadi Kesalahan. Coba Beberapa saat lagi..',
+            'text'      => ''
         ]);
     }
 }
