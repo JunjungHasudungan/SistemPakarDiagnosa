@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('diagnosa_id');
             $table->foreignId('kecanduan_id');
-            $table->foreignId('gejala_id');
             $table->timestamps();
         });
     }

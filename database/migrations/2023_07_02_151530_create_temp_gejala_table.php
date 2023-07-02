@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('diagnosas', function (Blueprint $table) {
+        Schema::create('temp_gejala', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
-            $table->foreignId('kecanduan_id');
+            $table->foreignId('user_id');
+            $table->foreignId('gejala_id');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('diagnosas');
+        Schema::dropIfExists('temp_gejala');
     }
 };

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\{
     Diagnosa as Diagnosas,
+    DiagnosaKecanduan,
     Gejala,
     Kecanduan,
     TempDiagnosa
@@ -19,9 +20,12 @@ class Diagnosa extends Component
             $gejala,
             $id_gejala,
             $kecanduan_id,
+            $id_diagnosa,
+            $id_kecanduan,
             $kecanduans,
             $kecanduan,
             $created_at,
+            $index,
             $user_id;
 
     public $gejalas = [];
@@ -34,7 +38,7 @@ class Diagnosa extends Component
 
     public function mount()
     {
-        $this->gejalas = Gejala::all();
+        // $this->gejalas = Gejala::all();
 
         $this->user_id = auth()->user()->id;
 
@@ -45,6 +49,7 @@ class Diagnosa extends Component
         // mengambil data diagnosa berdasarkan waktu pembuatan
 
         return view('livewire.diagnosa', [
+            $this->gejalas   = Gejala::with('kecanduanGejala')->get()
         ]);
     }
 
@@ -58,6 +63,8 @@ class Diagnosa extends Component
         // $this->user_id = DB::table('temp_gejala')->get();
 
         $this->gejala = Gejala::orderBy('id', 'asc')->get();
+
+            $this->id_diagnosa = DB::table('diagnosas')->get();
 
         $count_gejala = count($this->gejala);
 
@@ -110,43 +117,18 @@ class Diagnosa extends Component
 
             Kecanduan::with('gejalaKecanduan')->get();
 
+
             // mengambil data dari select_gejala dan melakukan foreach
             foreach ($this->select_gejala as $gejala_id) {
 
                 $this->id_gejala = $gejala_id;
-
-                $this->gejalas = Gejala::with(['kecanduanGejala'], function($query){
-
-                    $query->where('kecanduan_id', $this->kecanduan_id)->get();
-
-            })->find($this->id_gejala);
-
-                $temp_diagnosa = new TempDiagnosa();
-                $diagnosa = new Diagnosas();
-
-                foreach ($this->gejalas->kecanduanGejala as $kecanduan) {
-                        // $this->kecanduan_id = $kecanduan->id;
-                        $diagnosa->kecanduanDiagnosa()->attach($kecanduan['diagnosa_id'],[
-                            'gejala_id'     => $this->id_gejala,
-                            'kecanduan_id'  => $kecanduan->id,
-                        ]);
-                //    $diagnosa->kecanduanSolusi()->attach($kecanduan['kecanduan_id'], [
-                //         'user_id'       => auth()->user()->id,
-                //         'gejala_id'     => $kecanduan['gejala_id'],
-                //    ]);
-                    // $temp_diagnosa = TempDiagnosa::create([
-                    //         'kecanduan_id'      => $kecanduan->id,
-                    //         'user_id'           => $this->user_id,
-                    //         'gejala'            => $this->id_gejala,
-                    //         'gejala_terpenuhi'  => 1,
-                    // ]);
-                }
-                    $diagnosa = Diagnosas::create([
-                        'user_id'       => auth()->user()->id,
-                        'kecanduan_id'  => $this->kecanduan_id,
-                    ]);
             }
-            $diagnosa->save();
+
+            dd($this->id_gejala);
+
+
+
+
 
             // dd('diagnosa berhasil dilakukan..');
 

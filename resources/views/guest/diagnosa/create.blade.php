@@ -31,7 +31,7 @@
                                             <table class=" border border-sky-500 w-full text-sm rounded text-left text-gray-400">
                                                 <thead class="text-gray-700 text-left font-semibold">
                                                     <tr>
-                                                        <th scope="col" class="px-6 py-3 font-extrabold text-blue-900 text-lg text-left">
+                                                        <th scope="col" class="px-6 py-3 bg-gray-400  font-extrabold text-blue-900 text-lg text-left">
                                                             Pilih Gejala Yang dirasakan..
                                                             @if($errors->all())
                                                                 @include('layouts.error')
@@ -45,7 +45,7 @@
                                                     <form action="{{ route('guest.diagnosa.store') }}" method="post">
                                                         @csrf
 
-                                                        <input type="hidden" name="bimbingan_id" value="{{ $bimbingan_id }}">
+                                                        <input type="hidden" name="user_id" value="{{ $user_id }}">
                                                         @forelse ($gejalas as $gejala)
                                                                 <tr class="bg-white border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-300">
                                                                     <td class="px-1 py-6 text-semibold text-gray-700">

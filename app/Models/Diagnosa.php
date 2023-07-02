@@ -13,6 +13,6 @@ class Diagnosa extends Model
 
     public function kecanduanDiagnosa()
     {
-        return $this->belongsToMany(Kecanduan::class, 'diagnosa_kecanduan', 'diagnosa_id', 'kecanduan_id')->withPivot('gejala_id');
+        return $this->belongsToMany(Kecanduan::class, 'diagnosa_kecanduan', 'diagnosa_id', 'kecanduan_id');
     }
 }

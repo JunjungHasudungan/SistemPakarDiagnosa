@@ -14,15 +14,26 @@ use Illuminate\Support\Facades\DB;
 
 class DiagnosaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public $open_modal = false;
 
     public function index()
     {
+        $temp_diagnosa = TempDiagnosa::where('user_id', auth()->user()->id)->get();
+
+        if (count($temp_diagnosa) > 0) {
+            foreach ($temp_diagnosa as $item) {
+               $id_kecanduan = $item->kecanduan_id;
+               $created_at = $item->created_at;
+            }
+
+            $kecanduan = Kecanduan::with(['solusiKecanduan', 'gejalaKecanduan'])->where('id', $id_kecanduan)->get();
+
+        } else {
+            $kecanduan = [];
+        }
+
         return view('guest.diagnosa.index', [
-            // 'open_modal' => $this->open_modal
+            'hasil_diagnosa'        => $kecanduan,
+            'waktu_diagnosa'        => $created_at,
         ]);
     }
 
@@ -33,7 +44,7 @@ class DiagnosaController extends Controller
     {
         return view('guest.diagnosa.create', [
             'gejalas'       => Gejala::all(),
-            'bimbingan_id'  => DB::table('temp_gejala')->get()
+            'user_id'  => DB::table('temp_gejala')->get()
         ]);
     }
 
@@ -59,7 +70,10 @@ class DiagnosaController extends Controller
         dd('data tidak sesuai dengan sistem');
       }
 
-      $bimbingan_id = $request->bimbingan_id;
+      $bimbingan_id = $request->user_id;
+
+    //   dd($bimbingan_id);
+
       foreach ($request->gejala as $id_gejala) {
        $gejala = Gejala::find($id_gejala);
             foreach ($gejala->KecanduanGejala as $kecanduan) {
@@ -72,11 +86,10 @@ class DiagnosaController extends Controller
                     $temp_diag->gejala = 1;
                     $temp_diag->gejala_terpenuhi = 1;
                     $temp_diag->save();
-                    // dd('data berhasil disimpan..');
-                    return view('guest.diagnosa.index');
-               }
+                }
             }
-      }
+        }
+        return redirect('guest/diagnosa');
     }
 
     /**
