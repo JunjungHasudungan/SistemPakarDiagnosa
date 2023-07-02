@@ -33,7 +33,7 @@ class DiagnosaController extends Controller
 
         return view('guest.diagnosa.index', [
             'hasil_diagnosa'        => $kecanduan,
-            'waktu_diagnosa'        => $created_at,
+            'waktu_diagnosa'        => $created_at ?? null,
         ]);
     }
 

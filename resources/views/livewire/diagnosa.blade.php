@@ -47,9 +47,6 @@
                     Keterangan Kecanduan
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Keterangan Gejala
-                </th>
-                <th scope="col" class="px-6 py-3">
                     Keterangan Solusi
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -58,48 +55,44 @@
             </tr>
         </thead>
         <tbody>
-            {{-- @forelse ($diagnosa as $item) --}}
+            @forelse ($hasil_diagnosa as $diagnosa)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{-- {{$loop->iteration}} --}}
+                            {{$loop->iteration}}
                         </th>
                         <td class="px-6 py-4">
-                             {{-- | {{ $item->kecanduan ?? '' }} --}}
+                             {{ $diagnosa->kecanduan->deskripsi ?? '' }}
                         </td>
+
+                            @php
+                               $solusi = $diagnosa->kecanduan->solusiKecanduan;
+
+                            @endphp
+
                         <td class="px-6 py-4">
-                            {{-- @forelse ($item->gejalaKecanduan as $gejala)
+
+                            @forelse ($solusi as $item)
                                 <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
                                     <li>
-                                       {{ $gejala->keterangan ?? '' }}
+                                       {{ $item->keterangan ?? '' }}
                                     </li>
                                 </ul>
                             @empty
                                 <p class="font-bold text-yellow-400">
                                     {{ __('Data Gejala Belum Tersedia..') }}
                                 </p>
-                            @endforelse --}}
+                            @endforelse
                         </td>
                         <td class="px-6 py-4">
-                            {{-- @forelse ($item->solusiKecanduan as $solusi)
-                                <span class="font-semibold text-green-300">
-                                    {{$solusi->keterangan ?? ''}}
-                                </span>
-                            @empty
-                                <p class="font-semibold text-yellow-300">
-                                    {{ __('Data Solusi Belum Tersedia..') }}
-                                </p>
-                            @endforelse --}}
-                        </td>
-                        <td class="px-6 py-4">
-                           {{-- {{ \Carbon\Carbon::parse($created_at)->translatedFormat('d F Y') }}
-                           - {{ \Carbon\Carbon::parse($created_at)->format('H:i') }} --}}
+                           {{ \Carbon\Carbon::parse($diagnosa->created_at)->translatedFormat('d F Y') }}
+                           - {{ \Carbon\Carbon::parse($diagnosa->created_at)->format('H:i') }}
                         </td>
                     </tr>
-                    {{-- @empty
+                    @empty
                     <div class="bg-yellow-500 text-white p-3 rounded shadow-sm mb-3">
                         Hasil Diagnosa Belum ada..
                     </div>
-            @endforelse --}}
+            @endforelse
         </tbody>
     </table>
     {{-- end table --}}

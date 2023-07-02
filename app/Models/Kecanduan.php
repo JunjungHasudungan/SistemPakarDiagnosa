@@ -44,4 +44,9 @@ class Kecanduan extends Model
     {
         return $this->belongsToMany(Diagnosa::class, 'diagnosa_kecanduan', 'diagnosa_id', 'kecanduan_id')->withPivot('gejala_id');
     }
+
+    public function diagnosas()
+    {
+        return $this->hasMany(TempDiagnosa::class, 'kecanduan_id');
+    }
 }

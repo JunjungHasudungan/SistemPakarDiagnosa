@@ -23,6 +23,7 @@ class Diagnosa extends Component
             $id_diagnosa,
             $id_kecanduan,
             $kecanduans,
+            $solusi_kecanduan,
             $kecanduan,
             $created_at,
             $index,
@@ -30,6 +31,7 @@ class Diagnosa extends Component
 
     public $gejalas = [];
     public $select_gejala = [];
+    public $hasil_diagnosa = [];
 
     public $listeners = [
         'showEmptyGejala',
@@ -38,18 +40,30 @@ class Diagnosa extends Component
 
     public function mount()
     {
-        // $this->gejalas = Gejala::all();
-
         $this->user_id = auth()->user()->id;
+
+        $this->gejalas   = Gejala::with('kecanduanGejala')->get();
 
         $this->select_gejala = collect();
     }
+
     public function render()
     {
-        // mengambil data diagnosa berdasarkan waktu pembuatan
+
+        $this->hasil_diagnosa = TempDiagnosa::with('kecanduan')->where('user_id', $this->user_id)->get();
+
+        if(count($this->hasil_diagnosa) > 0){
+            foreach ($this->hasil_diagnosa as $diagnosa) {
+                $diagnosa->kecanduan_id;
+                $created_at = $diagnosa->created_at;
+                $diagnosa_kecanduan = $diagnosa->kecanduan->solusiKecanduan;
+                }
+        }else{
+            $this->hasil_diagnosa = [];
+        }
 
         return view('livewire.diagnosa', [
-            $this->gejalas   = Gejala::with('kecanduanGejala')->get()
+            'hasil_diagnosa'    => $this->hasil_diagnosa,
         ]);
     }
 
@@ -60,24 +74,14 @@ class Diagnosa extends Component
 
     public function createDiagnosa()
     {
-        // $this->user_id = DB::table('temp_gejala')->get();
-
         $this->gejala = Gejala::orderBy('id', 'asc')->get();
 
-            $this->id_diagnosa = DB::table('diagnosas')->get();
-
-        $count_gejala = count($this->gejala);
-
-        // dd($count_gejala);
-
-        if ( $count_gejala > 0 ) {
+        if ( count($this->gejala) > 0 ) {
 
                 $this->openCreateModal();
-
         } else {
 
           $this->showEmptyGejala();
-
         }
 
     }
@@ -112,25 +116,26 @@ class Diagnosa extends Component
                 'select_gejala.min'        => 'Gejala yang dipilih min 2..'
             ]);
 
-            $this->user_id = auth()->user()->id;
-
-
             Kecanduan::with('gejalaKecanduan')->get();
 
-
             // mengambil data dari select_gejala dan melakukan foreach
-            foreach ($this->select_gejala as $gejala_id) {
+            foreach ($this->select_gejala as $id_gejala) {
 
-                $this->id_gejala = $gejala_id;
+                    $gejala = Gejala::find($id_gejala);
+
+                foreach ($gejala->kecanduanGejala as $kecanduan) {
+                   $temp_diagnosa = TempDiagnosa::where('user_id', auth()->user()->id)->where('kecanduan_id', $kecanduan->id);
+                    $temp_diag = $temp_diagnosa->first();
+                    if(!$temp_diag){
+                         TempDiagnosa::create([
+                            'user_id'           => auth()->user()->id,
+                            'kecanduan_id'      => $kecanduan->id,
+                            'gejala'            => $id_gejala,
+                            'gejala_terpenuhi'  => 1,
+                        ]);
+                    }
+                }
             }
-
-            dd($this->id_gejala);
-
-
-
-
-
-            // dd('diagnosa berhasil dilakukan..');
 
             $this->closeCreateModal();
 
@@ -138,11 +143,6 @@ class Diagnosa extends Component
                 'message'   => 'Berhasil Melakukan diagnosa..'
             ]);
         }
-    }
-
-    public function showResultDiagnosa()
-    {
-
     }
 
     public function closeCreateModal()
