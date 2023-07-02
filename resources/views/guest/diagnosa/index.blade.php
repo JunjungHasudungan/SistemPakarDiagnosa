@@ -9,9 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div>
+
+                    {{-- melakukan diagnosa melalui Livewire Component --}}
+                        <livewire:diagnosa />
+
+                    {{-- melakukan diagnosa melalui DiagnosaController --}}
+                    {{-- <div>
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                            {{-- validation for natification --}}
                             @if (session()->has('success'))
                                 <div class="bg-green-500 text-white p-3 rounded shadow-sm mb-3">
                                     {{ session()->get('success') }}
@@ -43,8 +47,6 @@
                                 </button>
                             </div>
                         </div>
-
-                        {{-- table --}}
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
@@ -63,42 +65,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @forelse ($hasil_diagnosa as $item)
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{$loop->iteration}}
-                                </th>
-                                <td class="px-6 py-4">
-                                    {{ $item->deskripsi ?? '' }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    @forelse ($item->solusiKecanduan as $solusi)
-                                        <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-                                            <li>
-                                            {{ $solusi->keterangan ?? '' }}
-                                            </li>
-                                        </ul>
-                                    @empty
-                                        <p class="font-bold text-yellow-400">
-                                            {{ __('Data Gejala Belum Tersedia..') }}
-                                        </p>
-                                    @endforelse
-                                </td>
+                                @forelse ($hasil_diagnosa as $item)
+                                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{$loop->iteration}}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ $item->deskripsi ?? '' }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            @forelse ($item->solusiKecanduan as $solusi)
+                                                <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                                                    <li>
+                                                    {{ $solusi->keterangan ?? '' }}
+                                                    </li>
+                                                </ul>
+                                            @empty
+                                                <p class="font-bold text-yellow-400">
+                                                    {{ __('Data Gejala Belum Tersedia..') }}
+                                                </p>
+                                            @endforelse
+                                        </td>
 
-                                <td class="px-6 py-4">
-                                   {{ \Carbon\Carbon::parse($waktu_diagnosa)->translatedFormat('d F Y') }}
-                           - {{ \Carbon\Carbon::parse($waktu_diagnosa)->format('H:i') }}
-                                </td>
-                            </tr>
-                        @empty
-                        <div class="bg-yellow-500 text-white p-3 rounded shadow-sm mb-3">
-                            Hasil Diagnosa Belum ada..
-                        </div>
-                @endforelse
+                                        <td class="px-6 py-4">
+                                        {{ \Carbon\Carbon::parse($waktu_diagnosa)->translatedFormat('d F Y') }}
+                                        - {{ \Carbon\Carbon::parse($waktu_diagnosa)->format('H:i') }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <div class="bg-yellow-500 text-white p-3 rounded shadow-sm mb-3">
+                                        Hasil Diagnosa Belum ada..
+                                    </div>
+                                @endforelse
                             </tbody>
                         </table>
-
-                    </div>
+                    </div> --}}
 
                 </div>
             </div>

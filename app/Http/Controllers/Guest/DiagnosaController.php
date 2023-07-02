@@ -72,8 +72,6 @@ class DiagnosaController extends Controller
 
       $bimbingan_id = $request->user_id;
 
-    //   dd($bimbingan_id);
-
       foreach ($request->gejala as $id_gejala) {
        $gejala = Gejala::find($id_gejala);
             foreach ($gejala->KecanduanGejala as $kecanduan) {
