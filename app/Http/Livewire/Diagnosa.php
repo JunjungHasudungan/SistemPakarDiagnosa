@@ -25,8 +25,6 @@ class Diagnosa extends Component
             $kecanduans,
             $solusi_kecanduan,
             $kecanduan,
-            $created_at,
-            $index,
             $user_id;
 
     public $gejalas = [];
@@ -52,14 +50,14 @@ class Diagnosa extends Component
 
         $this->hasil_diagnosa = TempDiagnosa::with('kecanduan')->where('user_id', $this->user_id)->get();
 
-        if(count($this->hasil_diagnosa) > 0){
-            foreach ($this->hasil_diagnosa as $diagnosa) {
-                $diagnosa->kecanduan_id;
-                $created_at = $diagnosa->created_at;
-                $diagnosa_kecanduan = $diagnosa->kecanduan->solusiKecanduan;
-                }
-        }else{
-            $this->hasil_diagnosa = [];
+        if (!$this->hasil_diagnosa) {
+           return;
+        }
+
+        foreach ($this->hasil_diagnosa as $diagnosa) {
+            $diagnosa->kecanduan_id;
+            $created_at = $diagnosa->created_at;
+            $diagnosa_kecanduan = $diagnosa->kecanduan->solusiKecanduan;
         }
 
         return view('livewire.diagnosa', [
@@ -115,8 +113,6 @@ class Diagnosa extends Component
                 'select_gejala.required'   => 'Gejala wajib dipilih..',
                 'select_gejala.min'        => 'Gejala yang dipilih min 2..'
             ]);
-
-            Kecanduan::with('gejalaKecanduan')->get();
 
             // mengambil data dari select_gejala dan melakukan foreach
             foreach ($this->select_gejala as $id_gejala) {

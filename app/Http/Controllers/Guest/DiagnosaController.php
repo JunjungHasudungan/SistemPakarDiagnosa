@@ -89,36 +89,4 @@ class DiagnosaController extends Controller
         }
         return redirect('guest/diagnosa');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Diagnosa $diagnosa)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Diagnosa $diagnosa)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Diagnosa $diagnosa)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Diagnosa $diagnosa)
-    {
-        //
-    }
 }

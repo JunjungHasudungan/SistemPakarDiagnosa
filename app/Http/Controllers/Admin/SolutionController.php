@@ -10,9 +10,6 @@ class SolutionController extends Controller
 {
     public function index()
     {
-        // $solutions = Solution::with('kecanduan')->get();
-
-        // dd($solutions);
 
         return view('admin.solusi.index');
     }

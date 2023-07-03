@@ -20,9 +20,6 @@
                     </div>
                     <div class="grid md:grid-cols-2 md:gap-4">
                         <div class="mb-6">
-                            {{-- <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
-                              Kode Kecanduan
-                            </label> --}}
                                 <input type="text"
                                 wire:model="kode_gejala"
                                 name="kode_gejala"
@@ -35,9 +32,6 @@
 
                               {{-- select level_kecanduan --}}
                         <div class="mb-6">
-                            {{-- <label for="keterangan" class="block mb-2 text-sm font-bold text-gray-700">
-                                Keterangan Kegala
-                            </label> --}}
                             <input type="text"
                                 wire:model="keterangan"
                                 name="keterangan"

@@ -17,9 +17,6 @@
                     </div>
                     <div class="grid md:grid-cols-2 md:gap-4">
                         <div class="mb-2">
-                            {{-- <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
-                              Kode Kecanduan
-                            </label> --}}
                                 <input type="text"
                                 wire:model="kode_kecanduan"
                                 name="kode_kecanduan"
@@ -32,9 +29,6 @@
 
                               {{-- select level_kecanduan --}}
                         <div class="mb-2">
-                            {{-- <label for="completeness" class="block mb-2 text-sm font-bold text-gray-700">
-                                Level Kecanduan
-                            </label> --}}
                             <select wire:model="level_id"
                                           id="level_id"
                                           class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400 font-semibold dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -70,19 +64,6 @@
                                     <h2 class="text-gray-700 text-center font-semibold">Data Solusi</h2>
                                 </div>
                                 <table class="w-full text-sm rounded text-left text-gray-400">
-                                    {{-- <thead class="text-xs text-gray-700 camelcase bg-gray-50 text-gray-400">
-                                        <tr>
-                                            <th scope="col" class="px-1 px-1 text-sm font-bold text-gray-700">
-                                                Untuk siapa
-                                             </th>
-                                             <th scope="col" class="px-1 px-1 text-sm font-bold text-gray-700">
-                                               Solusi
-                                             </th>
-                                             <th scope="col" class="px-1 px-1 text-sm font-bold text-gray-700">
-
-                                              </th>
-                                        </tr>
-                                    </thead> --}}
                                     <tbody>
                                         @foreach ($kecanduan_solusi as $index => $item)
                                         <tr class="w-auto">
@@ -176,19 +157,6 @@
                                 <h2 class="text-gray-700 text-center font-semibold">Data Gejala</h2>
                             </div>
                             <table class="w-full text-sm rounded text-left text-gray-400">
-                                {{-- <thead class="text-xs text-gray-700 camelcase bg-gray-50 text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-1 px-1 text-sm font-bold text-gray-700">
-                                            Untuk siapa
-                                         </th>
-                                         <th scope="col" class="px-1 px-1 text-sm font-bold text-gray-700">
-                                           Solusi
-                                         </th>
-                                         <th scope="col" class="px-1 px-1 text-sm font-bold text-gray-700">
-
-                                          </th>
-                                    </tr>
-                                </thead> --}}
                                 <tbody>
                                     @foreach ($kecanduan_gejala as $index => $item)
                                     <tr class="bg-white w-auto">
@@ -217,7 +185,7 @@
                                                 @error('gejala_id') <span class="text-red-500">{{ $message }}</span>@enderror
                                         </td>
 
-                                                                             {{-- select to_role --}}
+                                        {{-- select to_role --}}
                                         <td class="px-1 py-6">
                                             <select
                                                 wire:model="kecanduan_gejala.{{$index}}.keterangan_relasi"

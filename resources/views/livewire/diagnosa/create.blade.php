@@ -9,7 +9,6 @@
           <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
 
           <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle  w-6/12" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-            {{-- <form> --}}
             <div class="bg-white px-4 pt-5 pb-2 sm:p-6">
                 <div class="border mb-2 border-sky-500 px-4 sm:p-2">
                     <div class="w-full inline">
@@ -76,7 +75,6 @@
                             Cancel
                             </button>
                         </span>
-                        {{-- </form> --}}
                     </div>
             </div>
         </div>

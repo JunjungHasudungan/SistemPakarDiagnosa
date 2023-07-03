@@ -37,8 +37,6 @@
                                                                 @include('layouts.error')
                                                             @endif
                                                         </th>
-                                                        {{-- <th>
-                                                        </th> --}}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -57,7 +55,6 @@
                                                                                     class="w-4 h-4 mx-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:border-gray-600">
                                                                                 {{ $gejala->keterangan ?? '' }}
                                                                         </label>
-                                                                        {{-- @error('gejala') <span class="text-red-500">{{ $message }}</span>@enderror --}}
                                                                     </td>
                                                                 </tr>
                                                             @empty
@@ -65,8 +62,6 @@
                                                                     {{ __('Data gejala belum tersedia..') }}
                                                                 </p>
                                                         @endforelse
-
-
                                                     </tbody>
                                                 </table>
                                                 <div class="w-full mt-2 justify-left item-left">
