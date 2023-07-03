@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\{
-    DashboardController as AdminDashboardController,
     DataPakarController,
     GejalaController,
     KecanduanController,
@@ -9,7 +8,6 @@ use App\Http\Controllers\Admin\{
 };
 
 use App\Http\Controllers\Guest\{
-    DashboardController as GuestDashboardController,
     DiagnosaController,
 };
 use App\Http\Controllers\ProfileController;
@@ -45,7 +43,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'kecanduan'         => KecanduanController::class,
             'solusi'            => SolutionController::class,
             'gejala'            => GejalaController::class,
-            'dashboard'         => AdminDashboardController::class,
         ]);
     });
 
@@ -53,7 +50,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::group(['auth', 'verified', 'middleware' => 'role:guest', 'prefix'=> 'guest', 'as' => 'guest.'], function(){
         Route::resources([
             'diagnosa'          => DiagnosaController::class,
-            'dashboard'         => GuestDashboardController::class,
         ]);
     });
 
