@@ -32,20 +32,17 @@ class AdminDashboard extends Component
         $this->all_gejala = Gejala::with('kecanduanGejala')->get();
         $this->all_solusi = Solusi::all();
 
-        $temp_diag = TempDiagnosa::with(['userDiagnosa'])->get();
-
-       foreach ($temp_diag as $user) {
-        $this->id_user = $user->user_id;
-        $this->id_kecanduan = $user->kecanduan_id;
-        // $this->count_id_kecanduan = count($user->kecanduan_id);
-
+        $this->hasil_diagnosa = TempDiagnosa::with(['userDiagnosa'])->get();
+        if (count($this->hasil_diagnosa) > 0) {
+                foreach ($this->hasil_diagnosa as $user) {
+                $this->id_user = $user->user_id;
+                $this->id_kecanduan = $user->kecanduan_id;
+            }
+       }else {
+        $this->hasil_diagnosa = [];
        }
 
-       $this->users = User::with(['hasilDiagnosa'], function($query){
-        $query->where('user_id', $this->id_user)->where('kecanduan_id', $this->id_kecanduan)->get();
-       })->where('role_id', 2)->get();
 
-    //    dd($this->users->)
     }
     public function render()
     {

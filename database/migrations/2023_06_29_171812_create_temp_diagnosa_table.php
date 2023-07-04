@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(Kecanduan::class)->nullable();
-            $table->unsignedBigInteger('gejala')->nullable();
+            $table->unsignedBigInteger('jumlah_kecanduan')->nullable();
             $table->unsignedBigInteger('gejala_terpenuhi')->nullable();
             $table->timestamps();
         });

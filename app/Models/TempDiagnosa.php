@@ -14,7 +14,7 @@ class TempDiagnosa extends Model
     protected $fillable = [
         'user_id',
         'kecanduan_id',
-        'gejala',
+        'jumlah_kecanduan',
         'gejala_terpenuhi'
     ];
 

@@ -102,18 +102,17 @@
                                 </tr>
                             </thead> --}}
                             <tbody>
-                                @forelse ($users as $user)
+                                @forelse ($hasil_diagnosa as $diagnosa)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                           {{ $user->name }} |
-                                                @foreach ($user->hasilDiagnosa as $item)
-                                                    <span class="text-gray-500">{{ $item->hasilDiagnosa }}  </span>
-                                                @endforeach
+                                           {{ $diagnosa->userDiagnosa->name }} ( {{ $diagnosa->jumlah_kecanduan }} )
                                         </th>
                                     </tr>
 
                                 @empty
-
+                                    <p class="px-2 py-2 text-yellow-400 font-bold">
+                                        {{ __('Hasil Diagnosa Belum Ada..')  }}
+                                    </p>
                                 @endforelse
                             </tbody>
                         </table>
