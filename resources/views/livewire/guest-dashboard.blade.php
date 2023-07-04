@@ -1,3 +1,3 @@
 <div>
-    {{ __('Halaman Guest Dashboard') }}
+    {{ __('Test Halaman Guest Dashboard') }}
 </div>

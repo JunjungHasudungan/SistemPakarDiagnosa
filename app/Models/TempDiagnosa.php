@@ -27,4 +27,9 @@ class TempDiagnosa extends Model
     {
         return $this->belongsTo(Gejala::class, 'gejala');
     }
+
+    public function userDiagnosa()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
