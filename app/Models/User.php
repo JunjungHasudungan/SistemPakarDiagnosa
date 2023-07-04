@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function hasilDiagnosa()
     {
-        return $this->hasMany(TempDiagnosa::class);
+        return $this->hasMany(TempDiagnosa::class, 'user_id');
     }
 }

@@ -10,7 +10,7 @@
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
                         {{ $user_name }}
                         <span class="font-bold">
-                            {{ __(' [0] ') }}
+                            {{ $id_kecanduan }}
                         </span>
                     </h2>
                     <div>
