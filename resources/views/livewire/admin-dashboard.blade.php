@@ -80,42 +80,29 @@
             </div>
 
                 <div class="relative overflow-x-auto">
-                    @forelse ($hasil_diagnosa as $item)
                     <div class="divide-y mb-1 flow-root w-full px-2 py-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                            @forelse ($user_diagnosa as $item)
                             <li class="px-2 py-2">
                                 <div class="flex items-center space-x-4">
-                                        <div class="flex-1 min-w-0">
-                                            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                                                {{ $item->userDiagnosa->name ?? '' }}
-                                            </h2>
-                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                               @forelse ($diagnosa_user as $item)
-                                               <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-                                                   <li>
-                                                      {{ $item->diagnosaKecanduan->deskripsi ?? '' }}
-                                                   </li>
-                                               </ul>
-                                               @empty
-                                                    <p class="font-bold text-yellow-400">
-                                                        {{ __('Data Hasil diagnosa belum ada..') }}
-                                                    </p>
-                                               @endforelse
-                                            </p>
-                                        </div>
+                                    <div class="flex-1 min-w-0">
+                                       <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                                           {{ $item->name }}
+                                        </h2>
                                     </div>
-                                </li>
+                                </div>
+                            </li>
+                                @empty
+                                    <div class="px-2 py-2 border-b bg-gray-900 rounded-lg">
+                                        <p class=" px-2 text-yellow-400 font-bold">
+                                            {{ __('Hasil Diagnosa Belum ada..') }}
+                                        </p>
+                                    </div>
+                                @endforelse
 
-                            </ul>
-                        </div>
+                        </ul>
                     </div>
-                    @empty
-                        <div class="px-2 py-2 border-b bg-gray-900 rounded-lg">
-                            <p class=" px-2 text-yellow-400 font-bold">
-                                {{ __('Hasil Diagnosa Belum ada..') }}
-                            </p>
-                        </div>
-                    @endforelse
+                </div>
         </div>
     </div>
     {{-- end hasil diagnosa --}}
