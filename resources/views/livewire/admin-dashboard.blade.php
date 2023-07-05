@@ -18,7 +18,7 @@
                         <h2 class="mt-6 text-lg font-semibold text-gray-900 dark:text-white">Relasi Data Kecanduan ({{count($this->all_kecanduan)}})</h2>
 
                         <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                            Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
+                            Data kecanduan merupakan data basis pengetahuan yang merelasikan antara data kecanduan, data gejala dan beberapa solusi yang disediakan..
                         </p>
                     </div>
 
@@ -39,7 +39,7 @@
                         <h2 class="mt-6 text-lg font-semibold text-gray-900 dark:text-white">Data Gejala ( {{ count( $this->all_gejala ) }} )</h2>
 
                         <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                            Laracasts offers thousands of video tutorials on Laravel, PHP, and JavaScript development. Check them out, see for yourself, and massively level up your development skills in the process.
+                           Data Gejala merupakan keterangan gejala yang terjadi pada pecandu serta berelasi antara data gejala dan data kecanduan yang telah tersedia..
                         </p>
                     </div>
 
@@ -59,7 +59,7 @@
                         <h2 class="mt-6 text-lg font-semibold text-gray-900 dark:text-white">Data Solusi ( {{ count( $this->all_solusi ) }} )</h2>
 
                         <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                            Laravel News is a community driven portal and newsletter aggregating all of the latest and most important news in the Laravel ecosystem, including new package releases and tutorials.
+                           Data Solusi Merupakan keterangan solusi terhadap keterangan Kecanduan yang dialami oleh pasien..
                         </p>
                     </div>
 
@@ -73,51 +73,49 @@
 </div>
 
 <div>
-    {{-- <livewire:hasil-diagnosa :tempDiagnosa="$tempDiagnosa"/> --}}
-
-    {{-- hasil diagnosa --}}
     <div>
         <div class="border border-gray-800 px-2 py-2 rounded-lg">
-            <div class="text-center text-xl border border-gray-600 rounded-lg bg-gray-100">
+            <div class="text-center text-xl border border-gray-600 rounded-lg bg-gray-100 mb-2">
                 <h2 class="text-gray-600 font-extrabold">Data Hasil Diagnosa</h2>
             </div>
 
-            <div class="mt-2">
-                    <div class="relative overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            {{-- <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        Product name
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Color
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Category
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Price
-                                    </th>
-                                </tr>
-                            </thead> --}}
-                            <tbody>
-                                @forelse ($hasil_diagnosa as $diagnosa)
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                           {{ $diagnosa->userDiagnosa->name }} ( {{ $diagnosa->jumlah_kecanduan }} )
-                                        </th>
-                                    </tr>
+                <div class="relative overflow-x-auto">
+                    @forelse ($hasil_diagnosa as $item)
+                    <div class="divide-y mb-1 flow-root w-full px-2 py-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <li class="px-2 py-2">
+                                <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                                                {{ $item->userDiagnosa->name ?? '' }}
+                                            </h2>
+                                            <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                               @forelse ($diagnosa_user as $item)
+                                               <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+                                                   <li>
+                                                      {{ $item->diagnosaKecanduan->deskripsi ?? '' }}
+                                                   </li>
+                                               </ul>
+                                               @empty
+                                                    <p class="font-bold text-yellow-400">
+                                                        {{ __('Data Hasil diagnosa belum ada..') }}
+                                                    </p>
+                                               @endforelse
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
 
-                                @empty
-                                    <p class="px-2 py-2 text-yellow-400 font-bold">
-                                        {{ __('Hasil Diagnosa Belum Ada..')  }}
-                                    </p>
-                                @endforelse
-                            </tbody>
-                        </table>
+                            </ul>
+                        </div>
                     </div>
-            </div>
+                    @empty
+                        <div class="px-2 py-2 border-b bg-gray-900 rounded-lg">
+                            <p class=" px-2 text-yellow-400 font-bold">
+                                {{ __('Hasil Diagnosa Belum ada..') }}
+                            </p>
+                        </div>
+                    @endforelse
         </div>
     </div>
     {{-- end hasil diagnosa --}}

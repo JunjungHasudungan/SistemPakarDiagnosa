@@ -32,4 +32,9 @@ class TempDiagnosa extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function diagnosaKecanduan()
+    {
+        return $this->belongsTo(Kecanduan::class, 'kecanduan_id');
+    }
 }
