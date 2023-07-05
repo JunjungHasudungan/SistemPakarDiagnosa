@@ -15,7 +15,7 @@
                             </svg>
                         </div>
 
-                        <h2 class="mt-6 text-lg font-semibold text-gray-900 dark:text-white">Relasi Data Kecanduan ({{count($this->all_kecanduan)}})</h2>
+                        <h2 class="mt-6 text-lg font-semibold text-gray-900 dark:text-white">Relasi Data Kecanduan ( {{count($this->all_kecanduan)}} )</h2>
 
                         <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                             Data kecanduan merupakan data basis pengetahuan yang merelasikan antara data kecanduan, data gejala dan beberapa solusi yang disediakan..
@@ -83,15 +83,17 @@
                     <div class="divide-y mb-1 flow-root w-full px-2 py-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
                             @forelse ($user_diagnosa as $item)
-                            <li class="px-2 py-2">
-                                <div class="flex items-center space-x-4">
-                                    <div class="flex-1 min-w-0">
-                                       <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                                           {{ $item->name }}
-                                        </h2>
-                                    </div>
-                                </div>
-                            </li>
+                                @if (count($item->hasilDiagnosa) > 0)
+                                    <li class="px-2 py-2">
+                                        <div class="flex items-center space-x-4">
+                                            <div class="flex-1 min-w-0">
+                                            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                                                {{ $item->name }} ( {{ count($item->hasilDiagnosa) }} )
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endif
                                 @empty
                                     <div class="px-2 py-2 border-b bg-gray-900 rounded-lg">
                                         <p class=" px-2 text-yellow-400 font-bold">

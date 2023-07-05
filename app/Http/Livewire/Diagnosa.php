@@ -122,8 +122,7 @@ class Diagnosa extends Component
                 foreach ($gejala->kecanduanGejala as $kecanduan) {
                    $temp_diagnosa = TempDiagnosa::where('user_id', auth()->user()->id)->where('kecanduan_id', $kecanduan->id);
                     $jumlah_kecanduan = count($kecanduan->gejalaKecanduan);
-                //    $temp_diag = $temp_diagnosa->first();
-                    // if(!$temp_diag){
+
                          $temp_diagnosa = TempDiagnosa::create([
                             'user_id'                       => auth()->user()->id,
                             'kecanduan_id'                  => $kecanduan->id,
@@ -131,8 +130,7 @@ class Diagnosa extends Component
                             'gejala_terpenuhi'              => 1,
                         ]);
                         $temp_diagnosa->save();
-                    // }
-                    // dd(count($kecanduan->gejalaKecanduan));
+
                 }
             }
 
