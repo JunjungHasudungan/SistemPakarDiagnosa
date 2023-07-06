@@ -82,13 +82,13 @@
                 <div class="relative overflow-x-auto">
                     <div class="divide-y mb-1 flow-root w-full px-2 py-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                            @forelse ($user_diagnosa as $item)
-                                @if (count($item->hasilDiagnosa) > 0)
+                            @forelse ($user_diagnosa as $user)
+                                @if (count($user->hasilDiagnosa) > 0)
                                     <li class="px-2 py-2">
                                         <div class="flex items-center space-x-4">
                                             <div class="flex-1 min-w-0">
                                             <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                                                {{ $item->name }} ( {{ count($item->hasilDiagnosa) }} )
+                                                {{ $user->name }} ( {{ count($user->hasilDiagnosa) }} )
                                                 </h2>
                                             </div>
                                         </div>

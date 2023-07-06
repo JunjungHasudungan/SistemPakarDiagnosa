@@ -30,6 +30,7 @@ class Diagnosa extends Component
     public $gejalas = [];
     public $select_gejala = [];
     public $hasil_diagnosa = [];
+    public $all_kecanduan = [];
 
     public $listeners = [
         'showEmptyGejala',
@@ -43,6 +44,7 @@ class Diagnosa extends Component
         $this->gejalas   = Gejala::with('kecanduanGejala')->get();
 
         $this->select_gejala = collect();
+        $this->all_kecanduan = Kecanduan::with(['gejalaKecanduan', 'solusiKecanduan'])->get();
     }
 
     public function render()
@@ -72,10 +74,13 @@ class Diagnosa extends Component
 
     public function createDiagnosa()
     {
-        $this->gejala = Gejala::orderBy('id', 'asc')->get();
+        $all_gejala = Gejala::orderBy('id', 'asc')->get();
+        $all_kecanduan = Kecanduan::orderBy('id', 'asc')->get();
 
-        if ( count($this->gejala) > 0 ) {
+        $jumlah_gejala = count($all_gejala);
+        $jumlah_kecanduan = count($all_kecanduan);
 
+        if ( ( $jumlah_gejala || $jumlah_kecanduan ) > 0 ) {
                 $this->openCreateModal();
         } else {
 

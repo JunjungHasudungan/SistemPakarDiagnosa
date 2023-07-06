@@ -65,7 +65,7 @@
                         </td>
 
                             @php
-                               $solusi = $diagnosa->kecanduan->solusiKecanduan;
+                               $solusi = $diagnosa->kecanduan->solusiKecanduan ?? '';
 
                             @endphp
 

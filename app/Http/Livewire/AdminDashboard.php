@@ -44,14 +44,15 @@ class AdminDashboard extends Component
                     $this->user_diagnosa = [];
         }
 
+        $this->all_kecanduan = Kecanduan::with(['gejalaKecanduan', 'solusiKecanduan'])->get();
     }
 
     public function render()
     {
 
         return view('livewire.admin-dashboard',[
-            $this->all_kecanduan = Kecanduan::with(['gejalaKecanduan', 'solusiKecanduan'])->get(),
-            $this->all_gejala = Gejala::with('kecanduanGejala')->get(),
+            $this->all_kecanduan = $this->all_kecanduan,
+            $this->all_gejala = Gejala::all(),
             $this->all_solusi = Solusi::all(),
             $this->hasil_diagnosa = $this->hasil_diagnosa,
         ]);
