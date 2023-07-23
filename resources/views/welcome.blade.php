@@ -39,9 +39,9 @@
                 </div>
 
 
-                <div class="py-12">
+                <div class="py-12 mt-4">
                     <div class="mx-auto sm:px-6 lg:px-8">
-                        <div class="rounded-lg bg-white dark:bg-gray-400 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class=" space-y-2 rounded-lg bg-white dark:bg-gray-400 overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="p-6 text-gray-900 dark:text-gray-100">
                                 <div>
 

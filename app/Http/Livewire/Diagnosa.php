@@ -173,3 +173,5 @@ class Diagnosa extends Component
         ]);
     }
 }
+
+// password
