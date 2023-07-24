@@ -11,8 +11,8 @@ class Diagnosa extends Model
 
     public $guarded = [];
 
-    public function kecanduanDiagnosa()
+    public function kecanduan()
     {
-        return $this->belongsToMany(Kecanduan::class, 'diagnosa_kecanduan', 'diagnosa_id', 'kecanduan_id');
+        return $this->hasMany(Kecanduan::class);
     }
 }

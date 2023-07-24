@@ -81,7 +81,7 @@ class DiagnosaController extends Controller
                     $temp_diag = new TempDiagnosa();
                     $temp_diag->user_id = auth()->user()->id;
                     $temp_diag->kecanduan_id = $kecanduan->id;
-                    $temp_diag->gejala = 1;
+                    // $temp_diag->gejala = 1;
                     $temp_diag->gejala_terpenuhi = 1;
                     $temp_diag->save();
                 }

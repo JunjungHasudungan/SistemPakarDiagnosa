@@ -25,6 +25,7 @@ class Diagnosa extends Component
             $kecanduans,
             $solusi_kecanduan,
             $kecanduan,
+            $antrian = 1,
             $user_id;
 
     public $gejalas = [];
@@ -100,10 +101,11 @@ class Diagnosa extends Component
 
         $count_gejala_kecanduan = DB::table('gejala_kecanduan')->groupBy('kecanduan_id')->get(['kecanduan_id'])->count();
 
+        // dd($count_gejala_kecanduan);
         $count_kecanduan = $kecanduan->count();
+        // dd($count_kecanduan);
 
-
-        if($count_kecanduan != $count_gejala_kecanduan){
+        if(( $count_kecanduan < 0 ) || ( $count_gejala_kecanduan < 0)){
 
            $this->showErrorSistemGejala();
 
@@ -125,19 +127,61 @@ class Diagnosa extends Component
                     $gejala = Gejala::find($id_gejala);
 
                 foreach ($gejala->kecanduanGejala as $kecanduan) {
-                   $temp_diagnosa = TempDiagnosa::where('user_id', auth()->user()->id)->where('kecanduan_id', $kecanduan->id);
-                    $jumlah_kecanduan = count($kecanduan->gejalaKecanduan);
 
-                         $temp_diagnosa = TempDiagnosa::create([
-                            'user_id'                       => auth()->user()->id,
-                            'kecanduan_id'                  => $kecanduan->id,
-                            'jumlah_kecanduan'              => $jumlah_kecanduan,
-                            'gejala_terpenuhi'              => 1,
-                        ]);
-                        $temp_diagnosa->save();
+                    $this->kecanduan_id = $kecanduan->id;
+                    $this->kecanduan  = Kecanduan::where('id', $kecanduan->id)->get();
 
+                    // $this->kecanduan_id = $kecanduan->id;
+                    // dd($this->kecanduan_id);
+
+                    // $temp_diagnosa = TempDiagnosa::where('user_id', auth()->user()->id)->where('kecanduan_id', $kecanduan->id);
+
+                //    $jumlah_kecanduan = count($kecanduan->gejalaKecanduan);
+
+                        //  $temp_diagnosa = TempDiagnosa::create([
+                        //     'user_id'                       => auth()->user()->id,
+                        //     'kecanduan_id'                  => $kecanduan->id,
+                        //     'jumlah_kecanduan'              => $jumlah_kecanduan,
+                        //     'gejala_terpenuhi'              => 1,
+                        // ]);
+                        // $temp_diagnosa->save();
+
+                        // $diagnosa = Diagnosas::create([
+                        //     'user_id'       => auth()->id(),
+                        //     'kecanduan_id'  => $this->kecanduan_id,
+                        //     'queue'         => $this->antrian + 1,
+                        // ]);
+
+                        // $diagnosa->save();
+
+                        // dd('user berhasil melakukan diagnosa..');
                 }
+
+
+                // $diagnosa = Diagnosas::create([
+                //     'user_id'       => auth()->id(),
+                //     'kecanduan_id'  => $this->kecanduan_id,
+                //     'queue'         => $this->antrian + 1,
+                // ]);
+
+                // $diagnosa->save();
             }
+
+                foreach ($this->kecanduan as $item) {
+                   $this->kecanduan_id = $item->id;
+
+                   $diagnosa = Diagnosas::create([
+                       'user_id'        => auth()->id(),
+                       'kecanduan_id'   => $this->kecanduan_id,
+                       'queue'          => $this->antrian++,
+                       'diag_user'      => auth()->id(),
+                   ]);
+
+                   $diagnosa->save();
+                }
+
+
+            // dd($this->kecanduan_id);
 
             $this->closeCreateModal();
 
