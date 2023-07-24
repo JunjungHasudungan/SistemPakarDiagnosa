@@ -67,7 +67,7 @@ class Diagnosa extends Component
 
             $query->where('role_id', 2)->get();
 
-        })->where('user_id', 2)->get();
+        })->where('user_id', auth()->id())->get();
 
         return view('livewire.diagnosa', [
 

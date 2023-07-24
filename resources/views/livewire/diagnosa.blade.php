@@ -86,8 +86,11 @@
                             @endforelse
                         </td>
                         <td class="px-6 py-4">
-                           {{ \Carbon\Carbon::parse($diagnosa->created_at)->translatedFormat('d F Y') }}
-                           - {{ \Carbon\Carbon::parse($diagnosa->created_at)->format('H:i') }}
+                            {{ \Carbon\Carbon::parse($diagnosa->created_at)->translatedFormat('d F Y') }}
+                            - {{ \Carbon\Carbon::parse($diagnosa->created_at)->format('H:i') }}
+                            <span class="font-extrabold text-gray-400">
+                                ( {{ $diagnosa->created_at->diffForHumans() }} )
+                            </span>
                         </td>
                     </tr>
                     @empty

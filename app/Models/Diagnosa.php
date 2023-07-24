@@ -16,11 +16,6 @@ class Diagnosa extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function kecanduan()
-    // {
-    //     return $this->hasMany(Kecanduan::class);
-    // }
-
     public function kecanduan()
     {
         return $this->belongsTo(Kecanduan::class, 'kecanduan_id');
