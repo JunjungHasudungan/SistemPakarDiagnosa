@@ -11,8 +11,18 @@ class Diagnosa extends Model
 
     public $guarded = [];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // public function kecanduan()
+    // {
+    //     return $this->hasMany(Kecanduan::class);
+    // }
+
     public function kecanduan()
     {
-        return $this->hasMany(Kecanduan::class);
+        return $this->belongsTo(Kecanduan::class, 'kecanduan_id');
     }
 }

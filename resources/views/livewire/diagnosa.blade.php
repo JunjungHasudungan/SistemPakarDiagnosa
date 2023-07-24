@@ -55,7 +55,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse ($hasil_diagnosa as $diagnosa)
+            @forelse ($diagnosas as $diagnosa)
                     <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{$loop->iteration}}
@@ -64,17 +64,19 @@
                              {{ $diagnosa->kecanduan->deskripsi ?? '' }}
                         </td>
 
-                            @php
-                               $solusi = $diagnosa->kecanduan->solusiKecanduan ?? '';
+                        @php
+                        // catch data solusi from relationship of kencanduan
 
-                            @endphp
+                            $solusi = $diagnosa->kecanduan->solusiKecanduan;
+
+                        @endphp
 
                         <td class="px-6 py-4">
 
                             @forelse ($solusi as $item)
                                 <ul class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
                                     <li>
-                                       {{ $item->keterangan ?? '' }}
+                                       {{ $item->keterangan}}
                                     </li>
                                 </ul>
                             @empty

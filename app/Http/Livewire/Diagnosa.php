@@ -32,6 +32,7 @@ class Diagnosa extends Component
     public $select_gejala = [];
     public $hasil_diagnosa = [];
     public $all_kecanduan = [];
+    public $diagnosas = [];
 
     public $listeners = [
         'showEmptyGejala',
@@ -45,27 +46,36 @@ class Diagnosa extends Component
         $this->gejalas   = Gejala::with('kecanduanGejala')->get();
 
         $this->select_gejala = collect();
-        $this->all_kecanduan = Kecanduan::with(['gejalaKecanduan', 'solusiKecanduan'])->get();
+
+        $this->diagnosas = Diagnosas::where('user_id', 2)->get();
     }
 
     public function render()
     {
 
-        $this->hasil_diagnosa = TempDiagnosa::with('kecanduan')->where('user_id', $this->user_id)->get();
+        $this->all_kecanduan = Kecanduan::with(['gejalaKecanduan', 'solusiKecanduan'])->get();
 
-        if (!$this->hasil_diagnosa) {
-           return;
+        $this->diagnosas = [];
+
+        $this->diagnosas = Diagnosas::where('user_id', 2)->get();
+
+        if (!$this->diagnosas) {
+            return;
         }
 
-        foreach ($this->hasil_diagnosa as $diagnosa) {
-            $diagnosa->kecanduan_id;
-            $created_at = $diagnosa->created_at;
-            $diagnosa_kecanduan = $diagnosa->kecanduan->solusiKecanduan;
-        }
+        $this->diagnosas = Diagnosas::with(['user', 'kecanduan'], function($query){
+
+            $query->where('role_id', 2)->get();
+
+        })->where('user_id', 2)->get();
 
         return view('livewire.diagnosa', [
-            'hasil_diagnosa'    => $this->hasil_diagnosa,
+
+            'diagnosas'    => $this->diagnosas,
+
         ]);
+
+        // dd($this->diagnosas);
     }
 
     public function openCreateModal()
@@ -76,16 +86,21 @@ class Diagnosa extends Component
     public function createDiagnosa()
     {
         $all_gejala = Gejala::orderBy('id', 'asc')->get();
+
         $all_kecanduan = Kecanduan::orderBy('id', 'asc')->get();
 
         $jumlah_gejala = count($all_gejala);
+
         $jumlah_kecanduan = count($all_kecanduan);
 
         if ( ( $jumlah_gejala || $jumlah_kecanduan ) > 0 ) {
+
                 $this->openCreateModal();
+
         } else {
 
           $this->showEmptyGejala();
+
         }
 
     }
@@ -129,42 +144,10 @@ class Diagnosa extends Component
                 foreach ($gejala->kecanduanGejala as $kecanduan) {
 
                     $this->kecanduan_id = $kecanduan->id;
+
                     $this->kecanduan  = Kecanduan::where('id', $kecanduan->id)->get();
 
-                    // $this->kecanduan_id = $kecanduan->id;
-                    // dd($this->kecanduan_id);
-
-                    // $temp_diagnosa = TempDiagnosa::where('user_id', auth()->user()->id)->where('kecanduan_id', $kecanduan->id);
-
-                //    $jumlah_kecanduan = count($kecanduan->gejalaKecanduan);
-
-                        //  $temp_diagnosa = TempDiagnosa::create([
-                        //     'user_id'                       => auth()->user()->id,
-                        //     'kecanduan_id'                  => $kecanduan->id,
-                        //     'jumlah_kecanduan'              => $jumlah_kecanduan,
-                        //     'gejala_terpenuhi'              => 1,
-                        // ]);
-                        // $temp_diagnosa->save();
-
-                        // $diagnosa = Diagnosas::create([
-                        //     'user_id'       => auth()->id(),
-                        //     'kecanduan_id'  => $this->kecanduan_id,
-                        //     'queue'         => $this->antrian + 1,
-                        // ]);
-
-                        // $diagnosa->save();
-
-                        // dd('user berhasil melakukan diagnosa..');
                 }
-
-
-                // $diagnosa = Diagnosas::create([
-                //     'user_id'       => auth()->id(),
-                //     'kecanduan_id'  => $this->kecanduan_id,
-                //     'queue'         => $this->antrian + 1,
-                // ]);
-
-                // $diagnosa->save();
             }
 
                 foreach ($this->kecanduan as $item) {
@@ -179,9 +162,6 @@ class Diagnosa extends Component
 
                    $diagnosa->save();
                 }
-
-
-            // dd($this->kecanduan_id);
 
             $this->closeCreateModal();
 
