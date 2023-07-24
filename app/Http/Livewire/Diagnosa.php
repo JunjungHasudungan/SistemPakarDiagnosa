@@ -41,8 +41,6 @@ class Diagnosa extends Component
 
     public function mount()
     {
-        $this->user_id = auth()->user()->id;
-
         $this->gejalas   = Gejala::with('kecanduanGejala')->get();
 
         $this->select_gejala = collect();
@@ -74,8 +72,6 @@ class Diagnosa extends Component
             'diagnosas'    => $this->diagnosas,
 
         ]);
-
-        // dd($this->diagnosas);
     }
 
     public function openCreateModal()
@@ -157,7 +153,7 @@ class Diagnosa extends Component
                        'user_id'        => auth()->id(),
                        'kecanduan_id'   => $this->kecanduan_id,
                        'queue'          => $this->antrian++,
-                       'diag_user'      => auth()->id(),
+                       'status_diag'    => 1,
                    ]);
 
                    $diagnosa->save();
@@ -198,4 +194,3 @@ class Diagnosa extends Component
     }
 }
 
-// password
