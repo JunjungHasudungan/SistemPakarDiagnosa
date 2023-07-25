@@ -7,7 +7,6 @@ use App\Models\{
     DiagnosaKecanduan,
     Gejala,
     Kecanduan,
-    TempDiagnosa
 };
 use App\Helpers\AnswerDiagnosa;
 use Illuminate\Http\Request;
