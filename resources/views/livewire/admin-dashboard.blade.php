@@ -81,27 +81,35 @@
 
                 <div class="relative overflow-x-auto">
                     <div class="divide-y mb-1 flow-root w-full px-2 py-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                            @forelse ($users as $user)
-                                @if (count($user->diagnosa) > 0)
-                                    <li class="px-2 py-2">
-                                        <div class="flex items-center space-x-4">
-                                            <div class="flex-1 min-w-0">
-                                                <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                                                    {{ $user->name }} ( {{ count($user->diagnosa) }} )
-                                                </h2>
+                        @if ( count($this->all_diagnosa ) > 0)
+                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                                @forelse ($users as $user)
+                                    @if ( count($user->diagnosa) > 0 )
+                                        <li class="px-2 py-2">
+                                            <div class="flex items-center space-x-4">
+                                                <div class="flex-1 min-w-0">
+                                                    <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                                                        {{ $user->name }} ( {{ count($user->diagnosa) }} )
+                                                    </h2>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                @endif
-                            @empty
-                                <div class="px-2 py-2 border-b bg-gray-900 rounded-lg">
-                                    <p class=" px-2 text-yellow-400 font-bold">
-                                        {{ __('Hasil Diagnosa Belum ada..') }}
-                                    </p>
-                                </div>
-                            @endforelse
-                        </ul>
+                                        </li>
+                                    @endif
+                                @empty
+                                    <div class="px-2 py-2 border-b bg-gray-900 rounded-lg">
+                                        <p class=" px-2 text-yellow-400 font-bold">
+                                            {{ __('Hasil Diagnosa Belum ada..') }}
+                                        </p>
+                                    </div>
+                                @endforelse
+                            </ul>
+                        @else
+                            <div class="px-2 py-2 border-b bg-gray-900 rounded-lg">
+                                <p class=" px-2 text-yellow-400 font-bold">
+                                    {{ __('Hasil Diagnosa Belum ada..') }}
+                                </p>
+                            </div>
+                        @endif
                     </div>
                 </div>
         </div>

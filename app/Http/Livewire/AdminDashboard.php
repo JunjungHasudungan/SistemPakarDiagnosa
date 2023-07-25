@@ -17,7 +17,14 @@ class AdminDashboard extends Component
     public  $users,
             $all_kecanduan,
             $all_gejala,
+            $all_diagnosa,
             $all_solusi;
+
+
+    public function mount()
+    {
+        $this->all_diagnosa = Diagnosa::with('user')->get();
+    }
 
     public function render()
     {
