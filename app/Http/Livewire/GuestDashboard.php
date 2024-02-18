@@ -6,13 +6,11 @@ use Livewire\Component;
 
 class GuestDashboard extends Component
 {
-    public  $open_modal = false,
-            $pageTitle;
+    public  $open_modal = false;
 
     public function render()
     {
         return view('livewire.guest-dashboard', [
-            $this->pageTitle = 'Dashboard',
         ]);
     }
 
