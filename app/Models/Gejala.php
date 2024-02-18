@@ -20,4 +20,9 @@ class Gejala extends Model
     {
         return $this->belongsToMany(GejalaKecanduan::class, 'gejala_kecanduan', 'kecanduan_id', 'gejala_id');
     }
+
+    public function parameters()
+    {
+        return $this->hasMany(Parameter::class);
+    }
 }
